@@ -54,6 +54,14 @@ export VAULT_ADDR="http://127.0.0.1:8200"
 vault kv put secret/TENANTMANAGEMENT db.password=demouser
 vault kv get secret/TENANTMANAGEMENT
 
+DevOps Hashi Vaukt Setup for windows:
+Once downloaded hashi vault for windows execute the below command on the path downloaded 
+vault.exe
+vault server --dev --dev-root-token-id="00000000-0000-0000-0000-000000000000"
+set VAULT_ADDR=http://127.0.0.1:8200
+set VAULT_TOKEN=00000000-0000-0000-0000-000000000000
+vault kv put secret/TENANTMANAGEMENT db.password=demouser
+
 Remove Vault token from application.properties (to be taken care during deployment)
 Simply remove spring.cloud.vault.token from application.properties and 
 instead provide it via system property -Dspring.cloud.vault.token=00000000-0000-0000-0000-000000000000 (when starting the application) 
