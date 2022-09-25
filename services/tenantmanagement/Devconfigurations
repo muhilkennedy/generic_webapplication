@@ -60,7 +60,8 @@ vault.exe
 vault server --dev --dev-root-token-id="00000000-0000-0000-0000-000000000000"
 set VAULT_ADDR=http://127.0.0.1:8200
 set VAULT_TOKEN=00000000-0000-0000-0000-000000000000
-vault kv put secret/TENANTMANAGEMENT db.password=demouser
+vault kv put secret/TENANTMANAGEMENT db.password=root@123 db.username=root
+vault kv put secret/TENANTMANAGEMENT db.username=root
 
 Remove Vault token from application.properties (to be taken care during deployment)
 Simply remove spring.cloud.vault.token from application.properties and 
