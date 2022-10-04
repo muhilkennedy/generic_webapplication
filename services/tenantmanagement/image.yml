@@ -1,6 +1,7 @@
 ---
 - name: "AWS - Install docker"
   hosts: localhost
+  remote_user: root
   become: yes
   gather_facts: no
   tasks:
