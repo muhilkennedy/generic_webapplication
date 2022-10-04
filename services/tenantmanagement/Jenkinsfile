@@ -15,5 +15,12 @@ pipeline {
                     }
                   }
         }
+        stage('Build Docker Image') {
+            steps {
+                    dir('services/tenantmanagement') {
+                        sh 'docker build -t tenent .'
+                    }
+                  }
+        }
     }
 }
