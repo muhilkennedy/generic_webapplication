@@ -188,6 +188,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -235,4 +240,11 @@
 		<module>tenant</module>
 		<module>core</module>
 	</modules>
+	<distributionManagement>
+    <repository>
+        <id>central</id>
+        <name>a0x38yy3vkfdt-artifactory-primary-0-releases</name>
+        <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release</url>
+    </repository>
+    </distributionManagement>
 </project>
