@@ -21,14 +21,14 @@
             <enabled>false</enabled>
           </snapshots>
           <id>central</id>
-          <name>generic-libs-release</name>
-          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release</url>
+          <name>dpt-libs-release</name>
+          <url>https://artifact1234.jfrog.io/artifactory/dpt-libs-release</url>
         </repository>
         <repository>
           <snapshots />
           <id>snapshots</id>
-          <name>generic-libs-snapshot</name>
-          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release</url>
+          <name>dpt-libs-snapshot</name>
+          <url>https://artifact1234.jfrog.io/artifactory/dpt-libs-snapshot</url>
         </repository>
       </repositories>
       <pluginRepositories>
@@ -37,14 +37,14 @@
             <enabled>false</enabled>
           </snapshots>
           <id>central</id>
-          <name>generic-libs-release</name>
-          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release</url>
+          <name>dpt-libs-release</name>
+          <url>https://artifact1234.jfrog.io/artifactory/dpt-libs-release</url>
         </pluginRepository>
         <pluginRepository>
           <snapshots />
           <id>snapshots</id>
-          <name>generic-libs-snapshot</name>
-          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release</url>
+          <name>dpt-libs-snapshot</name>
+          <url>https://artifact1234.jfrog.io/artifactory/dpt-libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories>
       <id>artifactory</id>
