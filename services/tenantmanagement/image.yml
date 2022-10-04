@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+        
+    - name: remove docker image
+      community.docker.docker_image:
+        state: absent
+        name: manivannan11/tenent
+        tag: latest
