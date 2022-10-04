@@ -193,11 +193,6 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>core-core-v1.0.0</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -245,11 +240,4 @@
 		<module>tenant</module>
 		<module>core</module>
 	</modules>
-	<distributionManagement>
-    <repository>
-        <id>central</id>
-        <name>a0x38yy3vkfdt-artifactory-primary-0-releases</name>
-        <url>https://artifact1234.jfrog.io/artifactory/dpt-libs-release-local</url>
-    </repository>
-    </distributionManagement>
 </project>
