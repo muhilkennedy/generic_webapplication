@@ -241,10 +241,10 @@
 		<module>core</module>
 	</modules>
 	<distributionManagement>
-    <snapshotRepository>
-        <id>snapshots</id>
-        <name>a0x38yy3vkfdt-artifactory-primary-0-snapshots</name>
-        <url>https://artifact1234.jfrog.io/artifactory/generic-libs-snapshot-local</url>
-    </snapshotRepository>
+    <repository>
+        <id>central</id>
+        <name>a0x38yy3vkfdt-artifactory-primary-0-releases</name>
+        <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release-local</url>
+    </repository>
     </distributionManagement>
 </project>
