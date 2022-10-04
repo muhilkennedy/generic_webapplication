@@ -28,7 +28,7 @@
           <snapshots />
           <id>snapshots</id>
           <name>generic-libs-snapshot</name>
-          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release</url>
+          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-snapshot</url>
         </repository>
       </repositories>
       <pluginRepositories>
@@ -44,7 +44,7 @@
           <snapshots />
           <id>snapshots</id>
           <name>generic-libs-snapshot</name>
-          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-release</url>
+          <url>https://artifact1234.jfrog.io/artifactory/generic-libs-snapshot</url>
         </pluginRepository>
       </pluginRepositories>
       <id>artifactory</id>
