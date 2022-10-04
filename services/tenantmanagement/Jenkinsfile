@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                     dir('services/tenantmanagement') {
-                        sh 'mvn clean install'
+                        sh 'mvn clean install deploy'
                     }
                   }
         }
