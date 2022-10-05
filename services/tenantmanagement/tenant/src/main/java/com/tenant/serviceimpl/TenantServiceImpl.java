@@ -61,6 +61,7 @@ public class TenantServiceImpl implements TenantService {
 		tenantRepo.delete((Tenant)obj);
 	}
 	
+	@Override
 	@Cacheable(value = RedisCacheUtil.TENANT_CACHE, keyGenerator = RedisCacheUtil.REDIS_KEY_GENERATOR)
 	public Tenant findTenantByUniqueName(String uniqueName) {
 		return tenantRepo.findTenantByUniqueName(uniqueName);

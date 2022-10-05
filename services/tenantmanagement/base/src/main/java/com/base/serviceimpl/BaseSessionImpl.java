@@ -37,8 +37,9 @@ public class BaseSessionImpl implements BaseSession {
 	
 	@Override
 	public void clear() {
-		setTenantInfo(null);
-		setUserInfo(null);
+		tenantInfo.remove();
+		userInfo.remove();
+		tenantId.remove();
 	}
 
 	@Override
