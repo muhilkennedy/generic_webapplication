@@ -32,14 +32,14 @@ public class TenantController {
 	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<Tenant> pingTenant(HttpServletRequest request) {
 		GenericResponse<Tenant> response = new GenericResponse<>();
-		response.setData((Tenant)baseSession.getTenantInfo());
+		response.setStatus(Response.Status.OK).setData((Tenant)baseSession.getTenantInfo());
 		return response;
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<Tenant> createTenant(HttpServletRequest request, @RequestBody TenantModel tenant) {
 		GenericResponse<Tenant> response = new GenericResponse<>();
-		Tenant newTenant = (Tenant)tenantService.saveAndFlush(tenant.getTenant());
+		Tenant newTenant = (Tenant)tenantService.createTenant(tenant);
 		return response.setStatus(Response.Status.OK).setData(newTenant).build();
 	}
 	

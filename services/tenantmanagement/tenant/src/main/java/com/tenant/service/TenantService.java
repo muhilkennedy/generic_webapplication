@@ -14,4 +14,6 @@ public interface TenantService extends BaseService{
 
 	TenantOrigin addTenantOrigin(TenantOrigin tenantOrigin);
 
+	Tenant findTenantByUniqueName(String uniqueName);
+
 }
