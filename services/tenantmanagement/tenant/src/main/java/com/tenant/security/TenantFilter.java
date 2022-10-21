@@ -1,6 +1,9 @@
 package com.tenant.security;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,33 +36,39 @@ public class TenantFilter extends OncePerRequestFilter{
 	
 	@Autowired
 	private TenantServiceImpl tenantService;
+	
+	//move to config file
+	private static List<String> Whitelisted_URI = Arrays.asList("/actuator/health","/favicon.ico");
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		Log.tenant.info("Request URI - " + request.getRequestURI());
-		//check for null tenant header
-		String tenantUniqueName = request.getHeader(Constants.TENANT_HEADER);
-		if(StringUtils.isBlank(tenantUniqueName)) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-					"Tenant Header is Empty");
-			return;
+		String requestUri = request.getRequestURI();
+		Log.tenant.info("Request URI - " + requestUri);
+		if(!Whitelisted_URI.contains(requestUri)) {
+			//check for null tenant header
+			String tenantUniqueName = request.getHeader(Constants.TENANT_HEADER);
+			if(StringUtils.isBlank(tenantUniqueName)) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+						"Tenant Header is Empty");
+				return;
+			}
+			baseSession.setTenantId(tenantUniqueName);
+			Tenant tenant = tenantService.findTenantByUniqueName(tenantUniqueName);
+			if(tenant == null) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND,
+						"Tenant Not Found");
+				return;
+			}
+			if(!tenant.isActive()) {
+				response.sendError(HttpServletResponse.SC_FORBIDDEN,
+						"Tenant is Deactivated");
+				return;
+			}
+			baseSession.setTenantInfo(tenant);
+			baseSession.setTenantId(tenant.getRootId());
+			//check valid tenant origins
 		}
-		baseSession.setTenantId(tenantUniqueName);
-		Tenant tenant = tenantService.findTenantByUniqueName(tenantUniqueName);
-		if(tenant == null) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND,
-					"Tenant Not Found");
-			return;
-		}
-		if(!tenant.isActive()) {
-			response.sendError(HttpServletResponse.SC_FORBIDDEN,
-					"Tenant is Deactivated");
-			return;
-		}
-		baseSession.setTenantInfo(tenant);
-		baseSession.setTenantId(tenant.getRootId());
-		//check valid tenant origins
 		filterChain.doFilter(request, response);
 	}
 

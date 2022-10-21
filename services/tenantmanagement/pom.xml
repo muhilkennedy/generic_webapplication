@@ -18,6 +18,16 @@
 		<spring-cloud.version>2021.0.4</spring-cloud.version>
 		<jsonorg.version>20220320</jsonorg.version>
 		<jwt.version>0.9.1</jwt.version>
+		<httpclient.version>4.5.11</httpclient.version>
+		<embedded.redis.version>0.7.3</embedded.redis.version>
+		<javax.rs.version>2.0</javax.rs.version>
+		<javax.mail.version>1.6.2</javax.mail.version>
+		<commons.lang3.version>3.12.0</commons.lang3.version>
+		<commons.collections4.version>4.1</commons.collections4.version>
+		<guava.version>30.0-jre</guava.version>
+		<sonar.maven.plugin.version>3.4.0.905</sonar.maven.plugin.version>
+		<jacoco.maven.plugin.version>0.8.1</jacoco.maven.plugin.version>
+		<commons.beanutils.version>1.9.4</commons.beanutils.version>
 	</properties>
 	<dependencies>
 		<!-- default spring-boot web dependencies -->
@@ -33,12 +43,21 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
+			<!-- <exclusions>
 				<exclusion>
 					<groupId>org.junit.vintage</groupId>
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
-			</exclusions>
+			</exclusions> -->
+		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.platform</groupId>
+		    <artifactId>junit-platform-suite-engine</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -88,7 +107,7 @@
 		<dependency>
 		  <groupId>it.ozimov</groupId>
 		  <artifactId>embedded-redis</artifactId>
-		  <version>0.7.3</version>
+		  <version>${embedded.redis.version}</version>
 		  <exclusions>
 		  	<exclusion>
 		  		<groupId>org.slf4j</groupId>
@@ -114,6 +133,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		<!-- Consul -->
+		<!-- <dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
+		</dependency> -->
 		<!-- Spring Security --> 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -128,7 +152,7 @@
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
-			<version>2.0</version>
+			<version>${javax.rs.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
@@ -149,27 +173,24 @@
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
-			<version>1.6.2</version>
+			<version>${javax.mail.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.5.11</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
-		</dependency>
+			</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-collections4</artifactId>
-			<version>4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>30.0-jre</version>
+			<version>${guava.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -178,7 +199,7 @@
 		<dependency>
 		    <groupId>commons-beanutils</groupId>
 		    <artifactId>commons-beanutils</artifactId>
-		    <version>1.9.4</version>
+		    <version>${commons.beanutils.version}</version>
 		</dependency>
 		<dependency>
             <groupId>org.springframework.boot</groupId>
@@ -206,6 +227,17 @@
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${sonar.maven.plugin.version}</version>
+				</plugin>
+				<!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco.maven.plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>

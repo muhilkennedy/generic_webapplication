@@ -25,7 +25,7 @@ public class RealmIdGenerator implements IdentifierGenerator {
 		try (Statement stmt = connection.createStatement()) {
 			ResultSet rs = stmt.executeQuery("select count(*) from tenant");
 			if (rs.next()) {
-				Integer nextVal = rs.getInt(1) + 1;
+				Integer nextVal = rs.getInt(1) + 10;
 				String classCode = AnnotationUtil.getClassMetaCode(object);
 				return classCode + Constants.COLON_SEPERATOR + nextVal;
 			} else {

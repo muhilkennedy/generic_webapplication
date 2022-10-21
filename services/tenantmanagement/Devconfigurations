@@ -41,6 +41,7 @@ Jenkins setup:
 Docker setup:
 -------------
 https://www.docker.com/
+docker ps
 
 
 Hashi vault setup:(optional)
@@ -51,8 +52,8 @@ start vault server -> vault server --dev --dev-root-token-id="00000000-0000-0000
 open new terminal:
 export export VAULT_TOKEN="00000000-0000-0000-0000-000000000000"
 export VAULT_ADDR="http://127.0.0.1:8200"
-vault kv put secret/TENANTMANAGEMENT db.password=demouser
-vault kv get secret/TENANTMANAGEMENT
+vault kv put secret/TENANTMANAGER db.password=demouser
+vault kv get secret/TENANTMANAGER
 
 DevOps Hashi Vaukt Setup for windows:
 Once downloaded hashi vault for windows execute the below command on the path downloaded 
@@ -71,13 +72,32 @@ or environment variable SPRING_CLOUD_VAULT_TOKEN. Environment variable is especi
 
 hashi consul setup:(optional)
 -------------------
-
+https://www.consul.io/downloads
+for mac:
+brew tap hashicorp/tap
+brew install hashicorp/tap/consul
+sart consul:
+consul agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=<Local_IP_addr>
+http://localhost:8500/ui
 
 splunk setup:(optional)
 -------------
 
 
+Sonar Qube server:(to check code quality in local)
+------------------
+sonar docker image https://hub.docker.com/_/sonarqube/
+docker run -d --name sonarqube -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true -p 9000:9000 sonarqube:latest
+localhost:9000 -> uname:admin,pwd:admin
+Run maven build on local project:
+build jacoco -> mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install
+publish report to sonar -> mvn sonar:sonar
+(NOTE: incase of auth issue -> go to administration -> security and disable "Force User Authentication")
 
-fail2ban setup:(optional) (prevent DOD attack incase of local server)
+
+fail2ban setup:(optional) (prevent DOS attack incase of local server)
 --------------
 -------------
+
+
+
