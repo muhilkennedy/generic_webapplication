@@ -34,6 +34,9 @@ public class MultiTenantEntity {
 
 	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
+	
+	@Column(name = "CREATEDBY")
+	private String createdBy;
 
 	@Column(name = "ACTIVE", columnDefinition = "boolean default true")
 	private boolean active = true;
@@ -76,6 +79,14 @@ public class MultiTenantEntity {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
 	
 	/*@PrePersist

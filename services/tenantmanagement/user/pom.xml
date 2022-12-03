@@ -5,11 +5,15 @@
     <artifactId>tenantmanagement</artifactId>
     <version>tenantmanagement-v1.0.0</version>
   </parent>
-  <artifactId>test</artifactId>
-  <name>core</name>
-  <description>Tenant Management Test module</description>
-  <version>test-v1.0.0</version>
-  	<dependencies>
+  <groupId>com.user</groupId>
+  <artifactId>user</artifactId>
+  <version>user-v1.0.0</version>
+  <dependencies>
+  		<dependency>
+			<groupId>com.i18n</groupId>
+			<artifactId>i18n</artifactId>
+			<version>i18n-v1.0.0</version>
+		</dependency>
 		<dependency>
 			<groupId>com.tenantmanagement</groupId>
 			<artifactId>base</artifactId>
@@ -20,26 +24,5 @@
 			<artifactId>tenant</artifactId>
 			<version>tenant-v1.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.tenantmanagement</groupId>
-			<artifactId>core</artifactId>
-			<version>core-v1.0.0</version>
-		</dependency>
 	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<executable>true</executable>
-					<mainClass>com.core.application.CoreApplication</mainClass>
-					<jvmArguments>
-						-Xms2048m
-						-Xmx4096m
-					</jvmArguments>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>

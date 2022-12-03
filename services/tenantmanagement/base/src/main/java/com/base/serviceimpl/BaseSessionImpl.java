@@ -1,7 +1,10 @@
 package com.base.serviceimpl;
 
+import java.util.Locale;
+
 import org.springframework.stereotype.Service;
 
+import com.base.entity.BaseObject;
 import com.base.service.BaseSession;
 
 /**
@@ -11,18 +14,20 @@ import com.base.service.BaseSession;
 @Service
 public class BaseSessionImpl implements BaseSession {
 
-	private ThreadLocal<Object> tenantInfo = new ThreadLocal<Object>();
+	private ThreadLocal<BaseObject> tenantInfo = new ThreadLocal<BaseObject>();
 	private ThreadLocal<Object> userInfo = new ThreadLocal<Object>();
 	private ThreadLocal<String> tenantId = new ThreadLocal<String>();
+	private ThreadLocal<Locale> locale = new ThreadLocal<Locale>();
 
 	@Override
-	public Object getTenantInfo() {
+	public BaseObject getTenantInfo() {
 		return tenantInfo.get();
 	}
 
 	@Override
-	public void setTenantInfo(Object tenantInfo) {
+	public void setTenantInfo(BaseObject tenantInfo) {
 		this.tenantInfo.set(tenantInfo);
+		this.tenantId.set(tenantInfo.getObjectId());
 	}
 
 	@Override
@@ -34,13 +39,6 @@ public class BaseSessionImpl implements BaseSession {
 	public void setUserInfo(Object userInfo) {
 		this.userInfo.set(userInfo);
 	}
-	
-	@Override
-	public void clear() {
-		tenantInfo.remove();
-		userInfo.remove();
-		tenantId.remove();
-	}
 
 	@Override
 	public void setTenantId(String tenantId) {
@@ -50,6 +48,24 @@ public class BaseSessionImpl implements BaseSession {
 	@Override
 	public String getTenantId() {
 		return tenantId.get();
+	}
+
+	@Override
+	public Locale getLocale() {
+		return locale.get();
+	}
+
+	@Override
+	public void setLocale(String locale) {
+		this.locale.set(com.i18n.util.Locale.getValidLocale(locale));
+	}
+	
+	@Override
+	public void clear() {
+		tenantInfo.remove();
+		userInfo.remove();
+		tenantId.remove();
+		locale.remove();
 	}
 	
 }

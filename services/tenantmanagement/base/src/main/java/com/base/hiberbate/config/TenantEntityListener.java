@@ -32,6 +32,7 @@ public class TenantEntityListener {
             entity.setTimeUpdated(System.currentTimeMillis());
     		if(entity.getModifiedBy() == null) {
     			entity.setModifiedBy(getModifiedUser());
+    			entity.setCreatedBy(getModifiedUser());
     		}
         }
     }

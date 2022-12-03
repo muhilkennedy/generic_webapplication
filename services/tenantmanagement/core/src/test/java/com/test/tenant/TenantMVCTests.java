@@ -26,13 +26,13 @@ import com.base.service.BaseSession;
 import com.base.util.GenericResponse;
 import com.core.application.CoreApplication;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tenant.api.model.TenantModel;
+import com.tenant.api.model.TenantRequestBody;
 import com.tenant.dao.TenantRepository;
 import com.tenant.entity.Tenant;
 import com.tenant.entity.TenantDetails;
 import com.tenant.entity.TenantOrigin;
 
-@ActiveProfiles("testing")
+@ActiveProfiles("dev")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes={CoreApplication.class})
 public class TenantMVCTests {
@@ -90,10 +90,7 @@ public class TenantMVCTests {
 		tDetails.setTenantContact("90090");
 		TenantOrigin origin = new TenantOrigin();
 		origin.setOrigin("http://");
-		TenantModel model = new TenantModel();
-		model.setTenant(tenant);
-		model.setTenantDetails(tDetails);
-		model.setTenantOrigin(origin);
+		TenantRequestBody model = new TenantRequestBody();
 		String jsonRequest = om.writeValueAsString(model);
 		MvcResult result = mockMvc.perform(post("/tenant/create").headers(headers).content(jsonRequest)
 				.contentType(MediaType.APPLICATION_JSON_VALUE)).andExpect(status().isOk()).andReturn();
