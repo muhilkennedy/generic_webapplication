@@ -36,6 +36,7 @@ public class Tenant implements Serializable, BaseObject {
 	@GenericGenerator(name="realm_Id", strategy = "com.base.generator.RealmIdGenerator")
 	@GeneratedValue(generator = "realm_Id")
 	@Column(name = "ROOTID", updatable = false, nullable = false)
+	@JsonIgnore
 	private String rootId;
 	
 	@Column(name = "TENANTUNIQUENAME")
@@ -52,6 +53,12 @@ public class Tenant implements Serializable, BaseObject {
 
 	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
+	
+	@Column(name = "CREATEDBY")
+	private String createdBy;
+	
+	@Column(name = "LOCALE")
+	private String locale;
 
 	@Column(name = "ACTIVE", columnDefinition = "boolean default true")
 	private boolean active;
@@ -59,7 +66,7 @@ public class Tenant implements Serializable, BaseObject {
 	@Column(name = "PURGETENANT", columnDefinition = "boolean default false")
 	private boolean purgeTenant;
 	
-	@OneToOne(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private TenantDetails tenantDetail;
 	
 	@JsonIgnore
@@ -146,14 +153,36 @@ public class Tenant implements Serializable, BaseObject {
 		this.tenantOrigin = tenantOrigin;
 	}
 
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	@PrePersist
 	protected void prePersist() {
-		if (timeCreated == null) {
+		if (this.timeCreated == null) {
 			this.setTimeCreated(System.currentTimeMillis());
 		}
 		this.setTimeUpdated(System.currentTimeMillis());
-		if(modifiedBy == null) {
+		if(this.modifiedBy == null) {
 			this.modifiedBy = "SYSTEM";
+		}
+		if(this.createdBy == null) {
+			this.createdBy = "SYSTEM";
+		}
+		if(this.locale == null) {
+			this.locale = "en_US";
 		}
 	}
 
@@ -163,8 +192,9 @@ public class Tenant implements Serializable, BaseObject {
 	}
 	
 	@Override
+	@JsonIgnore
 	public String getObjectId() {
-		return tenantUniqueName;
+		return rootId;
 	}
 
 }

@@ -1,13 +1,17 @@
 package com.base.security;
 
 import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.AttributeConverter;
 
 import org.springframework.stereotype.Component;
+
+import com.base.util.PropertiesUtil;
 
 /**
  * @author 
@@ -18,24 +22,25 @@ import org.springframework.stereotype.Component;
 @Component
 public class AttributeEncryptor implements AttributeConverter<String, String> {
 
-	private static final String AES = "AES";
-	/// move to properties file / vault
-	private static final String SECRET = "secret-key-12345";
+	private static final String ALGORITHM_AES = "AES";
 
 	private final Key key;
 	private final Cipher cipher;
 
 	public AttributeEncryptor() throws Exception {
-		key = new SecretKeySpec(SECRET.getBytes(), AES);
-		cipher = Cipher.getInstance(AES);
+		key = new SecretKeySpec(PropertiesUtil.getDBEncryptionSecret().getBytes(), ALGORITHM_AES);
+		try {
+			cipher = Cipher.getInstance(ALGORITHM_AES);
+		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+			throw new IllegalStateException(e);
+		}
 	}
 
 	@Override
-	public String convertToDatabaseColumn(String attribute) {
-		//property check can be done for encryption
+	public String convertToDatabaseColumn(String rawData) {
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
-			return Base64.getEncoder().encodeToString(cipher.doFinal(attribute.getBytes()));
+			return Base64.getEncoder().encodeToString(cipher.doFinal(rawData.getBytes()));
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}

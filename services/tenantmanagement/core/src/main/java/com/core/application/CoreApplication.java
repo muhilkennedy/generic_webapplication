@@ -18,11 +18,11 @@ import com.base.security.DatabaseFieldProperties;
 import com.base.util.Log;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.core", "com.base", "com.tenant" })
+@ComponentScan(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
 @EnableConfigurationProperties(DatabaseFieldProperties.class)
-@ConfigurationPropertiesScan(basePackages = { "com.core", "com.base", "com.tenant" })
-@EntityScan(basePackages = { "com.core", "com.base", "com.tenant" })
-@EnableJpaRepositories(basePackages = { "com.core", "com.base", "com.tenant" })
+@ConfigurationPropertiesScan(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
+@EntityScan(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
+@EnableJpaRepositories(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
 @EnableAsync
 @EnableScheduling
 @Configuration

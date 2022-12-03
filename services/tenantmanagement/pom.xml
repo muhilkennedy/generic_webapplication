@@ -120,10 +120,10 @@
 		    <artifactId>jedis</artifactId>
 		</dependency> -->
 		<!-- Spring Vault config -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-vault-config</artifactId>
-		</dependency>
+		</dependency> -->
 		<!-- Spring dev and devOps tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -134,10 +134,10 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<!-- Consul -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
-		</dependency> -->
+		</dependency>
 		<!-- Spring Security --> 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -255,8 +255,10 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<modules>
+		<module>i18n</module>
 		<module>base</module>
 		<module>tenant</module>
+		<module>user</module>
 		<module>core</module>
 	</modules>
 </project>

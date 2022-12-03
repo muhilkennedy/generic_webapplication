@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Response {
 	public static enum Status {
-		OK, NO_CONTENT, ERROR, BAD_REQUEST, UNAUTHORIZED, FORBIDDEN, NOT_FOUND, INTERNAL_SERVER_ERROR
+		OK, CREATED, NO_CONTENT, ERROR, BAD_REQUEST, UNAUTHORIZED, FORBIDDEN, NOT_FOUND, NOT_IMPLEMENTED, INTERNAL_SERVER_ERROR
 	}
 
 	private Status status;
@@ -26,6 +26,9 @@ public class Response {
 			switch (status) {
 			case OK:
 				setStatusCode(200);
+				break;
+			case CREATED:
+				setStatusCode(201);
 				break;
 			case NO_CONTENT:
 				setStatusCode(204);
@@ -49,9 +52,11 @@ public class Response {
 			case NOT_FOUND:
 				setStatusCode(404);
 				break;
-			default:
-				// Not Implemented
+			case NOT_IMPLEMENTED:
 				setStatusCode(501);
+				break;
+			default:
+				setStatusCode(500);
 				break;
 			}
 		}

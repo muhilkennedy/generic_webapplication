@@ -71,6 +71,22 @@ sart consul:
 consul agent -server -bootstrap-expect=1 -data-dir=consul-data -ui -bind=<Local_IP_addr>
 http://localhost:8500/ui
 
+setup consul auth:
+create temp dir for consul config files
+mkdir consul.d
+vi agent.hcl
+acl = {
+  enabled = true
+  default_policy = "deny"
+  enable_token_persistence = true
+}
+
+consul acl bootstrap
+consul agent -server -bootstrap-expect=1 -data-dir=consul-data -config-dir=consul.d -ui -bind=127.0.0.1
+moreinfo below:
+https://developer.hashicorp.com/consul/tutorials/security/access-control-setup-production#consul-ui-token
+
+
 splunk setup:(optional)
 -------------
 

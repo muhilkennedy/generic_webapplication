@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,7 @@ import com.base.util.Constants;
 import com.base.util.Log;
 import com.tenant.entity.Tenant;
 import com.tenant.serviceimpl.TenantServiceImpl;
+import com.tenant.util.TenantMessageKeys;
 
 /**
  * @author Muhil Kennedy
@@ -35,17 +37,27 @@ public class TenantFilter extends OncePerRequestFilter{
 	private BaseSession baseSession;
 	
 	@Autowired
+	private MessageSource messageSource;
+	
+	@Autowired
 	private TenantServiceImpl tenantService;
 	
 	//move to config file
 	private static List<String> Whitelisted_URI = Arrays.asList("/actuator/health","/favicon.ico");
+	
+    @Override
+    protected boolean shouldNotFilter (HttpServletRequest request)
+    {
+        return Whitelisted_URI.parallelStream().filter(uri -> request.getRequestURI().contains(
+            uri)).findAny().isPresent();
+    }
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String requestUri = request.getRequestURI();
 		Log.tenant.info("Request URI - " + requestUri);
-		if(!Whitelisted_URI.contains(requestUri)) {
+		if(true) {
 			//check for null tenant header
 			String tenantUniqueName = request.getHeader(Constants.TENANT_HEADER);
 			if(StringUtils.isBlank(tenantUniqueName)) {
@@ -60,15 +72,17 @@ public class TenantFilter extends OncePerRequestFilter{
 						"Tenant Not Found");
 				return;
 			}
-			if(!tenant.isActive()) {
+			baseSession.setLocale(tenant.getLocale());
+			if (!tenant.isActive()) {
 				response.sendError(HttpServletResponse.SC_FORBIDDEN,
-						"Tenant is Deactivated");
+						messageSource.getMessage(TenantMessageKeys.INACTVE.getKey(),
+								new String[] { tenant.getTenantName() }, baseSession.getLocale()));
 				return;
 			}
 			baseSession.setTenantInfo(tenant);
-			baseSession.setTenantId(tenant.getRootId());
 			//check valid tenant origins
 		}
+		Log.tenant.debug("Tenant filter validation successful");
 		filterChain.doFilter(request, response);
 	}
 
