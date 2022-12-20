@@ -17,7 +17,8 @@ import com.base.util.Log;
 
 /**
  * @author Muhil kennedy
- * Aspect to add tenantFilter based on current session
+ * Aspect to add tenantFilter based on current session.
+ * Adds tenantId to all hibernate jpa queries under dao packages only.
  */
 @Aspect
 @Component
@@ -29,17 +30,17 @@ public class TenantAspect {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@Pointcut("execution(public * com.base.dao..*(..))")
-	protected void baseTenantAwareDao() {
-
-	}
+//	@Pointcut("execution(public * com.*.serviceimpl.*.*(..))")
+//	protected void baseTenantAwareDao() {
+//
+//	}
 	
-	@Pointcut("execution(public * com.tenant.dao..*(..))")
+	@Pointcut("execution(public * com.*.api.*.*(..))")
 	protected void tenantAwareDao() {
 
 	}
 
-	@Around(value = "baseTenantAwareDao() || tenantAwareDao()")
+	@Around(value = "tenantAwareDao()")
 	public Object enableTenantFilter(ProceedingJoinPoint joinPoint) throws Throwable {
 		Session session = null;
 		try {

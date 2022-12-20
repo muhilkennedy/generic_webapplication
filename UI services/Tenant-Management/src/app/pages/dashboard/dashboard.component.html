@@ -1,0 +1,48 @@
+
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title">Tenants Detail</h4>
+        </div>
+        <div class=" card-body">
+          <div class=" table-responsive">
+            <table class=" table tablesorter" id="">
+              <thead class=" text-primary">
+                <tr>
+                  <th>Tenant Name</th>
+                  <th>Tenant UniqueName</th>
+                  <th class=" text-center">Tenant IsActive</th>
+                  <th>Time Zone</th>
+                  <th>Valid Till</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tenantResponse of tenantsResponse">
+                  <td>{{tenantResponse.tenant.tenantName}}</td>
+                  <td>{{tenantResponse.tenant.tenantUniqueName}}</td>
+                  <td class=" text-center">
+                    <mat-slide-toggle
+                      [color]="accent"
+                      [checked]="tenantResponse.tenant.active"
+                      (change)="toggleActive($event, tenantResponse.tenant.tenantUniqueName)"
+                      [disabled]="shouldDisable(tenantResponse.tenant)">
+                    </mat-slide-toggle>
+                  </td>
+                  <td>
+                    {{tenantResponse.tenant.timeZone}}
+                  </td>
+                  <td>
+                    {{getValidTenantExpiry(tenantResponse.subscriptions)}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

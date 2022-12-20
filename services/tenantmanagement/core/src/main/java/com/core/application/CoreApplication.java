@@ -17,17 +17,22 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import com.base.security.DatabaseFieldProperties;
 import com.base.util.Log;
 
+/**
+ * @author Muhil Kennedy
+ * @implNote: make sure to add entity scan packages in base module hibernate config.
+ *
+ */
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
+@ComponentScan(basePackages = { "com.i18n", "com.base", "com.tenant", "com.user", "com.core" })
 @EnableConfigurationProperties(DatabaseFieldProperties.class)
-@ConfigurationPropertiesScan(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
-@EntityScan(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
-@EnableJpaRepositories(basePackages = { "com.i18n", "com.core", "com.base", "com.tenant", "com.user" })
+@ConfigurationPropertiesScan(basePackages = { "com.i18n", "com.base", "com.tenant", "com.user", "com.core" })
+@EntityScan(basePackages = { "com.i18n", "com.base", "com.tenant", "com.user", "com.core" })
+@EnableJpaRepositories(basePackages = { "com.i18n", "com.base", "com.tenant", "com.user", "com.core" })
 @EnableAsync
 @EnableScheduling
 @Configuration
 @EnableAutoConfiguration
-@EnableAspectJAutoProxy // (exposeProxy=true)
+@EnableAspectJAutoProxy//(exposeProxy=true)
 @EnableDiscoveryClient
 public class CoreApplication {
 

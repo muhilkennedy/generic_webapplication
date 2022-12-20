@@ -20,13 +20,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="TENANTDETAILS")
 @ClassMetaProperty(code = "TD")
-public class TenantDetails extends BaseEntity{
+public class TenantDetails extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "TENANTCONTACT")
 	private String tenantContact;
-	
+
 	@Column(name = "TENANTEMAIL")
 	private String tenantEmail;
 
@@ -36,19 +36,22 @@ public class TenantDetails extends BaseEntity{
 	@Convert(converter = AttributeEncryptor.class)
 	@Column(name = "BUSINESSEMAILPASSWORD")
 	private String businessEmailPassword;
-	
+
 	@Column(name = "TENANTSTREET")
 	private String tenantStreet;
-	
+
 	@Column(name = "TENANTCITY")
 	private String tenantCity;
-	
+
 	@Column(name = "TENANTPIN")
 	private String tenantPin;
 	
+	@Column(name = "TAGLINE")
+	private String tagLine;
+
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TENANTID", insertable=false, updatable=false)
+	@JoinColumn(name = "TENANTID", insertable = false, updatable = false)
 	private Tenant tenant;
 
 	public String getTenantContact() {
@@ -75,7 +78,7 @@ public class TenantDetails extends BaseEntity{
 		this.businessEmail = businessEmail;
 	}
 
-	public String getBusinessEmailPassword() {
+	public String fetchBusinessEmailPassword() {
 		return businessEmailPassword;
 	}
 
@@ -107,5 +110,12 @@ public class TenantDetails extends BaseEntity{
 		this.tenantPin = tenantPin;
 	}
 
-	
+	public String getTagLine() {
+		return tagLine;
+	}
+
+	public void setTagLine(String tagLine) {
+		this.tagLine = tagLine;
+	}
+
 }

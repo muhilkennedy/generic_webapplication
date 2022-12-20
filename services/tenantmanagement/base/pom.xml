@@ -10,10 +10,6 @@
   <description>Base Service Abstract Functionalities</description>
   <version>base-v1.0.0</version>
   <dependencies>
-  		<dependency>
-			<groupId>com.i18n</groupId>
-			<artifactId>i18n</artifactId>
-			<version>i18n-v1.0.0</version>
-		</dependency>
+  		
   </dependencies>
 </project>
