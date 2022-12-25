@@ -19,10 +19,12 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
       this.route.navigate(['/login']);
     }
     else{
-      this.http.get('/user/auth/ping')
+      this.http.get('/user/ping')
       .subscribe(
         (resp:any) => {
-          //update user info
+          this.userService.userEmail = resp.data.emailId;
+          this.userService.userId = resp.data.rootId;
+          this.userService.userName = resp.data.fName + resp.data.lname;
         },
         (error:any) => {
           this.cookieService.deleteAll();

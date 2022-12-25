@@ -1,5 +1,7 @@
 package com.base.util;
 
+import java.util.Arrays;
+
 /**
  * @author Muhil
  *
@@ -44,6 +46,10 @@ public class BaseUtil {
 			builder.append(NUMERIC_STRING.charAt(character));
 		}
 		return builder.toString();
+	}
+
+	public static String[] getEnumAsString(Class<? extends Enum<?>> e) {
+		return Arrays.toString(e.getEnumConstants()).replaceAll("^.|.$", "").split(", ");
 	}
 
 }

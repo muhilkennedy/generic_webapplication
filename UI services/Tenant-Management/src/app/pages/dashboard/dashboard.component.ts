@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.http.get(environment.backendBaseUrl + '/tenant/auth/tenants', {
+    this.http.get(environment.backendBaseUrl + '/tenant/alltenants', {
       headers: {
         'X-Tenant': environment.tenantId,
         'Accept-Language': 'en_US',
@@ -500,7 +500,7 @@ export class DashboardComponent implements OnInit {
 
   public toggleActive(event: MatSlideToggleChange, tenantUniqueName: string) {
     this.tenantsResponse.filter(tenantResponse => tenantResponse.tenant.tenantUniqueName == tenantUniqueName).map(tenantResponse => tenantResponse.tenant.active = event.checked);
-    this.http.patch<any>(environment.backendBaseUrl + '/tenant/auth/toggleTenantStatus?tenantUniqueName='+tenantUniqueName, {}, {
+    this.http.patch<any>(environment.backendBaseUrl + '/tenant/toggleTenantStatus?tenantUniqueName='+tenantUniqueName, {}, {
       headers: {
         'X-Tenant': environment.tenantId,
         'Accept-Language': 'en_US',

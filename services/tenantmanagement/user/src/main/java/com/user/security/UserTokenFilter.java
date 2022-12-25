@@ -32,7 +32,7 @@ import io.jsonwebtoken.ExpiredJwtException;
  */
 @Component
 @Order(2)
-public class UserFilter implements Filter {
+public class UserTokenFilter implements Filter {
 
 	@Autowired
 	private BaseSession baseSession;
@@ -88,7 +88,7 @@ public class UserFilter implements Filter {
 			}
 		} else {
 			//load some default user
-			httpResponse.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, "Impl pending");
+			httpResponse.sendError(HttpServletResponse.SC_NOT_IMPLEMENTED, "Impl pending - user filter");
 			return;
 		}
 	}

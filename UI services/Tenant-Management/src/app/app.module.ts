@@ -1,5 +1,6 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { APP_INITIALIZER, Injectable, NgModule } from "@angular/core";
+import { APP_INITIALIZER, Injectable, LOCALE_ID, NgModule } from "@angular/core";
+import { registerLocaleData } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
@@ -82,6 +83,10 @@ export function init_tenant(initializer: TenantInitializer) {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpInterceptorService,
       multi: true
+    },
+    {
+      provide: LOCALE_ID,
+      useValue: 'de'
     },
     CookieService
   ],

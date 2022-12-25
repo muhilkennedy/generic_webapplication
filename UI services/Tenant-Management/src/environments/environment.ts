@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  backendBaseUrl: "http://localhost:8080/tm",
+  backendBaseUrl: "http://localhost:6060/tm",
   tenantId:"devTenant"
 };
 

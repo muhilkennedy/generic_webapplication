@@ -5,8 +5,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.base.util.FilterUtil;
 import com.base.util.Log;
-import com.user.security.UserFilter;
+import com.user.security.UserTokenFilter;
 
 /**
  * @author Muhil
@@ -16,14 +17,15 @@ import com.user.security.UserFilter;
 public class UserConfiguation {
 
 	@Autowired
-	private UserFilter userFilter;
+	private UserTokenFilter userFilter;
 
 	@Bean
-	public FilterRegistrationBean<UserFilter> UserFilterRegistration() {
+	public FilterRegistrationBean<UserTokenFilter> UserFilterRegistration() {
 		Log.user.info("----- User Filter Registered -----");
-		FilterRegistrationBean<UserFilter> registration = new FilterRegistrationBean<UserFilter>();
+		String[] urlPatterns = FilterUtil.getAuthUrlPatterns();
+		FilterRegistrationBean<UserTokenFilter> registration = new FilterRegistrationBean<UserTokenFilter>();
 		registration.setFilter(userFilter);
-		registration.addUrlPatterns("/tenant/auth/*", "/user/auth/*");
+		registration.addUrlPatterns(urlPatterns);
 		return registration;
 	}
 }

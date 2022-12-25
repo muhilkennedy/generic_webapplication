@@ -15,9 +15,9 @@ import com.base.serviceimpl.CacheServiceImpl;
 @Configuration
 public class CacheConfig {
 
-	@Bean
-	public CacheService<BaseObject> baseObjectCache() {
-		return new CacheServiceImpl<BaseObject>(1000 , 10);
-	}
+//	@Bean
+//	public CacheService<BaseObject> baseObjectCache() {
+//		return new CacheServiceImpl<BaseObject>(1000 , 10);
+//	}
 	  
 }

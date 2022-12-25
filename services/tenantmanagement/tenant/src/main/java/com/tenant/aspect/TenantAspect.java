@@ -10,6 +10,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.base.service.BaseSession;
@@ -22,6 +24,7 @@ import com.base.util.Log;
  */
 @Aspect
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class TenantAspect {
 
 	@Autowired
@@ -35,7 +38,7 @@ public class TenantAspect {
 //
 //	}
 	
-	@Pointcut("execution(public * com.*.api.*.*(..))")
+	@Pointcut("execution(public * com.*.api.*.*(..))") // or we can change to check for within @RestController annotation
 	protected void tenantAwareDao() {
 
 	}

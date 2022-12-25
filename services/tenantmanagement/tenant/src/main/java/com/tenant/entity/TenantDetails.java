@@ -1,7 +1,6 @@
 package com.tenant.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -10,7 +9,6 @@ import javax.persistence.Table;
 
 import com.base.annotation.ClassMetaProperty;
 import com.base.entity.BaseEntity;
-import com.base.security.AttributeEncryptor;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
@@ -29,13 +27,6 @@ public class TenantDetails extends BaseEntity {
 
 	@Column(name = "TENANTEMAIL")
 	private String tenantEmail;
-
-	@Column(name = "TENANTBUSINESSEMAIL")
-	private String businessEmail;
-
-	@Convert(converter = AttributeEncryptor.class)
-	@Column(name = "BUSINESSEMAILPASSWORD")
-	private String businessEmailPassword;
 
 	@Column(name = "TENANTSTREET")
 	private String tenantStreet;
@@ -68,22 +59,6 @@ public class TenantDetails extends BaseEntity {
 
 	public void setTenantEmail(String tenantEmail) {
 		this.tenantEmail = tenantEmail;
-	}
-
-	public String getBusinessEmail() {
-		return businessEmail;
-	}
-
-	public void setBusinessEmail(String businessEmail) {
-		this.businessEmail = businessEmail;
-	}
-
-	public String fetchBusinessEmailPassword() {
-		return businessEmailPassword;
-	}
-
-	public void setBusinessEmailPassword(String businessEmailPassword) {
-		this.businessEmailPassword = businessEmailPassword;
 	}
 
 	public String getTenantStreet() {

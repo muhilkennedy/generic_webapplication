@@ -58,7 +58,7 @@ export class OnboardComponent implements OnInit {
         expiryDate: this.datePipe.transform(this.range.value.end, 'yyyy-MM-dd')
       }
    };
-    this.http.post<any>(environment.backendBaseUrl+'/tenant/auth/create', body,
+    this.http.post<any>(environment.backendBaseUrl+'/tenant/create', body,
       {
       headers: {
         'X-Tenant': environment.tenantId,

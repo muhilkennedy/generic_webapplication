@@ -1,6 +1,48 @@
-
 <div class=" content">
-    <div class=" row">
-
-    </div>
+  <div class=" row">
+      <div class=" card">
+        <div class=" card-header"><h5 class=" title">Edit Tenant</h5></div>
+        <div class=" card-body">
+          <form>
+            <div class="row">
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <label>Select Realm</label>
+                  <mat-select [(ngModel)]="selectedRealm" name="realm" (selectionChange)="getRealmData($event.value)">
+                    <mat-option *ngFor="let realm of realms" [value]="realm.tenant.tenantUniqueName">
+                      {{realm.tenant.tenantUniqueName}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class=" card-footer" *ngIf="isRealmSelected">
+          <button class=" btn btn-fill btn-danger" type="submit" (click)="onSave()">Save</button>
+        </div>
+      </div>
+      <div class=" card" *ngIf="isRealmSelected">
+        <div class=" card-header"><h5 class=" title">Renew Tenant</h5></div>
+        <div class=" card-body">
+          <form>
+            <div class="row">
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <label>Select Realm</label>
+                  <mat-select [(ngModel)]="selectedRealm" name="realm" (selectionChange)="getRealmData($event.value)">
+                    <mat-option *ngFor="let realm of realms" [value]="realm.tenant.tenantUniqueName">
+                      {{realm.tenant.tenantUniqueName}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class=" card-footer">
+          <button class=" btn btn-fill btn-danger" type="submit" (click)="onSave()">Save</button>
+        </div>
+      </div>
   </div>
+</div>

@@ -79,9 +79,6 @@ public class Tenant implements Serializable, BaseObject {
 	@JsonIgnore
 	@OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<TenantOrigin> tenantOrigin;
-	
-	@OneToMany(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<SubscriptionHistory> tenantHistory;
 
 	public String getTenantUniqueName() {
 		return tenantUniqueName;

@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.hibernate.Filter;
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
@@ -21,7 +25,7 @@ import com.base.annotation.Loggable;
 import com.base.entity.BaseObject;
 import com.base.service.BaseSession;
 import com.base.util.DatabaseUtil;
-import com.base.util.RedisCacheUtil;
+import com.base.util.CacheUtil;
 import com.base.util.ResultSetMapper;
 import com.tenant.api.model.TenantDetailsBody;
 import com.tenant.api.model.TenantRequestBody;
@@ -66,41 +70,55 @@ public class TenantServiceImpl implements TenantService {
 
 	@Autowired
 	private CacheManager cacheManager;
+	
+	@Autowired
+	private TenantEmailService emailService;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
+	
+	@Override
+	public void reEvaluateTenantSession() {
+		Session session = entityManager.unwrap(Session.class);
+		Filter filter = session.enableFilter("tenantFilter");
+		filter.setParameter("tenantId", baseSession.getTenantId());
+	}
 
 	@Override
-	@CachePut(value = RedisCacheUtil.TENANT_CACHE, keyGenerator = RedisCacheUtil.REDIS_KEY_GENERATOR)
+	@CachePut(value = CacheUtil.TENANT_CACHE, keyGenerator = CacheUtil.REDIS_KEY_GENERATOR)
 	public Object save(BaseObject obj) {
 		evictTenantByUniqueName(obj);
 		return tenantRepo.save((Tenant) obj);
 	}
 
 	@Override
-	@CachePut(value = RedisCacheUtil.TENANT_CACHE, keyGenerator = RedisCacheUtil.REDIS_KEY_GENERATOR)
+	@CachePut(value = CacheUtil.TENANT_CACHE, keyGenerator = CacheUtil.REDIS_KEY_GENERATOR)
 	public Object saveAndFlush(BaseObject obj) {
 		evictTenantByUniqueName(obj);
 		return tenantRepo.saveAndFlush((Tenant) obj);
 	}
 
 	@Override
-	@Cacheable(value = RedisCacheUtil.TENANT_CACHE, keyGenerator = RedisCacheUtil.REDIS_KEY_GENERATOR)
+	@Cacheable(value = CacheUtil.TENANT_CACHE, keyGenerator = CacheUtil.REDIS_KEY_GENERATOR)
 	public Object findById(Object rootId) {
 		return tenantRepo.findById((String) rootId).get();
 	}
 
 	@Override
-	@CacheEvict(value = RedisCacheUtil.TENANT_CACHE, keyGenerator = RedisCacheUtil.REDIS_KEY_GENERATOR)
+	@CacheEvict(value = CacheUtil.TENANT_CACHE, keyGenerator = CacheUtil.REDIS_KEY_GENERATOR)
 	public void delete(BaseObject obj) {
 		tenantRepo.delete((Tenant) obj);
 	}
 
 	@Override
-	@Cacheable(value = RedisCacheUtil.TENANT_CACHE, keyGenerator = RedisCacheUtil.REDIS_KEY_GENERATOR, unless = "#result==null")
+	@Cacheable(value = CacheUtil.TENANT_CACHE, keyGenerator = CacheUtil.REDIS_KEY_GENERATOR, unless = "#result==null")
 	public Tenant findTenantByUniqueName(String uniqueName) {
 		return tenantRepo.findTenantByUniqueName(uniqueName);
 	}
 
 	private void evictTenantByUniqueName(BaseObject obj) {
-		cacheManager.getCache(RedisCacheUtil.TENANT_CACHE).evictIfPresent(((Tenant) obj).getTenantUniqueName());
+		cacheManager.getCache(CacheUtil.TENANT_CACHE).evictIfPresent(((Tenant) obj).getTenantUniqueName());
+		cacheManager.getCache(CacheUtil.TENANT_CACHE).evictIfPresent(obj.getObjectId());
 	}
 
 	@Override
@@ -125,8 +143,6 @@ public class TenantServiceImpl implements TenantService {
 		newTenantDetails.setTenantEmail(tenantModel.getTenantEmail());
 		newTenantDetails.setTenantContact(tenantModel.getTenantContact());
 		newTenantDetails.setTagLine(tenantModel.getTagLine());
-		// set dummy password to avoid attribute encryption error
-		newTenantDetails.setBusinessEmailPassword("DummtPassword");
 		tenantDetailsRespo.saveAndFlush(newTenantDetails);
 		newTenant.setTenantDetail(newTenantDetails);
 		SubscriptionHistory newSubscription = new SubscriptionHistory();
@@ -136,6 +152,7 @@ public class TenantServiceImpl implements TenantService {
 			subscriptionService.saveAndFlush(newSubscription);
 		}
 		this.save(newTenant);
+		emailService.sendOnbardingMail(newTenant, newSubscription);
 		return newTenant;
 	}
 
@@ -166,8 +183,6 @@ public class TenantServiceImpl implements TenantService {
 		TenantDetails newTenantDetails = new TenantDetails();
 		newTenantDetails.setTenantEmail(tenantDetails.getTenantEmail());
 		newTenantDetails.setTenantContact(tenantDetails.getTenantContact());
-		newTenantDetails.setBusinessEmail(tenantDetails.getBusinessEmail());
-		newTenantDetails.setBusinessEmailPassword(tenantDetails.getBusinessEmailPassword());
 		newTenantDetails.setTenantCity(tenantDetails.getTenantCity());
 		newTenantDetails.setTenantStreet(tenantDetails.getTenantStreet());
 		newTenantDetails.setTenantPin(tenantDetails.getTenantPin());
@@ -207,15 +222,16 @@ public class TenantServiceImpl implements TenantService {
 			for (Tenant tenant : tenants) {
 				TenantsResponse tenantResponse = new TenantsResponse();
 				tenantResponse.setTenant(tenant);
-				stmt = con.prepareStatement("select * from subscriptionhistory where tenantId=? order by timecreated");
+				stmt = con.prepareStatement("select * from subscriptionhistory where tenantId=? and active=1 order by timecreated");
 				stmt.setString(1, tenant.getRootId());
 				rs = stmt.executeQuery();
-				List<SubscriptionHistory> subsHistory = new ArrayList();
+				List<SubscriptionHistory> subsHistory = new ArrayList<SubscriptionHistory>();
 				while (rs.next()) {
 					SubscriptionHistory history = new SubscriptionHistory();
 					history.setActive(rs.getBoolean("active"));
 					history.setRenewedOn(rs.getDate("renewedOn"));
 					history.setExpiry(rs.getDate("expiry"));
+					history.setTenantId(rs.getString("tenantId"));
 					subsHistory.add(history);
 				}
 				tenantResponse.setSubscriptions(subsHistory);

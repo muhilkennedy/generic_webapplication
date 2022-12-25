@@ -21,6 +21,7 @@ import com.base.service.BaseSession;
 import com.base.util.Constants;
 import com.base.util.Log;
 import com.tenant.entity.Tenant;
+import com.tenant.entity.TenantDetails;
 import com.tenant.serviceimpl.TenantServiceImpl;
 import com.tenant.util.TenantMessageKeys;
 
@@ -80,6 +81,7 @@ public class TenantFilter extends OncePerRequestFilter{
 			return;
 		}
 		baseSession.setTenantInfo(tenant);
+		TenantDetails td = tenant.getTenantDetail();
 			//check valid tenant origins
 		Log.tenant.debug("Tenant filter validation successful");
 		filterChain.doFilter(request, response);

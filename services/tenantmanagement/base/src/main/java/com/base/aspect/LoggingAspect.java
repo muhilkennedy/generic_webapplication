@@ -1,4 +1,4 @@
-package com.tenant.aspect;
+package com.base.aspect;
 
 import java.util.Date;
 
@@ -27,15 +27,20 @@ public class LoggingAspect {
 	@Autowired
 	private BaseSession baseSession;
 
-	@Pointcut("execution(* com.tenant.*.*.*(..))")
-	public void auditLog() {
+//	@Pointcut("execution(* com.*.*.*.*(..))")
+//	public void auditLog() {
+//	}
+	
+	@Pointcut("@within(com.base.annotation.Loggable) || @annotation(com.base.annotation.Loggable)")
+	protected void logPointCut() {
+
 	}
 
-	@Pointcut("execution(* com.tenant.*.*.*(..))")
-	public void tenantPerfLog() {
-	}
+//	@Pointcut("within(com.*)")
+//	public void tenantPerfLog() {
+//	}
 
-	@Around(value = "tenantPerfLog() && target(bean) && @annotation(com.base.annotation.Loggable) && @annotation(log)", argNames = "bean,log")
+	@Around(value = "logPointCut() && target(bean) && @annotation(com.base.annotation.Loggable) && @annotation(log)", argNames = "bean,log")
 	public Object performanceLog(ProceedingJoinPoint joinPoint, Object bean, Loggable log) throws Throwable {
 		StopWatch stopWatch = new StopWatch();
 		if (log.perf())

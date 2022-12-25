@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.base.messages.ErrorResponse;
 import com.base.util.Log;
+import com.user.exceptions.InvalidUserPermission;
 
 /**
  * @author Muhil Kennedy
@@ -43,6 +44,17 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
 		}
 		logger.error("handleGenericException :: Exception :: " + ex.getMessage());
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(InvalidUserPermission.class)
+	public ResponseEntity<ErrorResponse> handerUserPermisionException(InvalidUserPermission ex) {
+		ErrorResponse errorResponse = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+		Log.core.error(errorResponse.toString());
+		if (logger.isDebugEnabled()) {
+			ex.printStackTrace();
+		}
+		logger.error("handerUserPermisionException :: Exception :: " + ex.getMessage());
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.UNAUTHORIZED);
 	}
 
 	@Override

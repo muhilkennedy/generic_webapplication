@@ -16,6 +16,8 @@ import com.tenant.exception.TenantException;
 
 public interface TenantService extends BaseService{
 	
+	public void reEvaluateTenantSession();
+	
 	public Tenant createTenant(TenantRequestBody tenantModel);
 
 	TenantDetails addTenantDetail(TenantDetails tenantDetail);

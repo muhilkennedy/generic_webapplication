@@ -1,6 +1,7 @@
 package com.base.util;
 
 import java.io.File;
+import java.io.IOException;
 
 public class FileUtil {
 	
@@ -28,8 +29,19 @@ public class FileUtil {
 	}
 	
 	public static String getFileExtensionFromName(String fileName) {
-		return fileName != null ? fileName.substring(fileName.lastIndexOf(".")+1) : null;
+		return fileName != null ? fileName.substring(fileName.lastIndexOf(".") + 1) : null;
 	}
 
+	public static File createTempFile(String prefix, String suffix) throws IOException {
+		return File.createTempFile(prefix, suffix);
+	}
 
+	public static File createTempFile(String prefix, String suffix, File directory) throws IOException {
+		return File.createTempFile(prefix, suffix, directory);
+	}
+
+	public static File createTempFile() throws IOException {
+		return File.createTempFile("temp", ".tmp");
+	}
+	
 }
