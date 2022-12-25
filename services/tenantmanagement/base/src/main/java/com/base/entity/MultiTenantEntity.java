@@ -20,23 +20,26 @@ import com.base.hiberbate.config.TenantEntityListener;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @EntityListeners(TenantEntityListener.class)
 @FilterDef(name = "tenantFilter", parameters = {@ParamDef(name = "tenantId", type = "string")})
-@Filter(name = "tenantFilter", condition = "TENANTID = :tenantId")
+@Filter(name = "tenantFilter", condition = "tenantId = :tenantId")
 public class MultiTenantEntity {
 	
 	@Column(name = "TENANTID")
 	private String tenantId;
 
 	@Column(name = "TIMEUPDATED")
-	private Long timeUpdated;
+	private long timeUpdated;
 
 	@Column(name = "TIMECREATED")
-	private Long timeCreated;
+	private long timeCreated;
 
 	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
 	
 	@Column(name = "CREATEDBY")
 	private String createdBy;
+	
+	@Column(name = "VERSION")
+	private long version;
 
 	@Column(name = "ACTIVE", columnDefinition = "boolean default true")
 	private boolean active = true;
@@ -47,22 +50,6 @@ public class MultiTenantEntity {
 
 	public void setTenantId(String tenantId) {
 		this.tenantId = tenantId;
-	}
-
-	public Long getTimeUpdated() {
-		return timeUpdated;
-	}
-
-	public void setTimeUpdated(Long timeUpdated) {
-		this.timeUpdated = timeUpdated;
-	}
-
-	public Long getTimeCreated() {
-		return timeCreated;
-	}
-
-	public void setTimeCreated(Long timeCreated) {
-		this.timeCreated = timeCreated;
 	}
 
 	public String getModifiedBy() {
@@ -87,6 +74,30 @@ public class MultiTenantEntity {
 
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
+	}
+
+	public long getTimeUpdated() {
+		return timeUpdated;
+	}
+
+	public void setTimeUpdated(long timeUpdated) {
+		this.timeUpdated = timeUpdated;
+	}
+
+	public long getTimeCreated() {
+		return timeCreated;
+	}
+
+	public void setTimeCreated(long timeCreated) {
+		this.timeCreated = timeCreated;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
 	}
 	
 	/*@PrePersist

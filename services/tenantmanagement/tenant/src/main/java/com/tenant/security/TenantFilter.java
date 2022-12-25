@@ -21,6 +21,7 @@ import com.base.service.BaseSession;
 import com.base.util.Constants;
 import com.base.util.Log;
 import com.tenant.entity.Tenant;
+import com.tenant.entity.TenantDetails;
 import com.tenant.serviceimpl.TenantServiceImpl;
 import com.tenant.util.TenantMessageKeys;
 
@@ -43,7 +44,7 @@ public class TenantFilter extends OncePerRequestFilter{
 	private TenantServiceImpl tenantService;
 	
 	//move to config file
-	private static List<String> Whitelisted_URI = Arrays.asList("/actuator/health","/favicon.ico");
+	private static List<String> Whitelisted_URI = Arrays.asList("/actuator/health","/actuator/metrics","/favicon.ico");
 	
     @Override
     protected boolean shouldNotFilter (HttpServletRequest request)
@@ -57,31 +58,31 @@ public class TenantFilter extends OncePerRequestFilter{
 			throws ServletException, IOException {
 		String requestUri = request.getRequestURI();
 		Log.tenant.info("Request URI - " + requestUri);
-		if(true) {
-			//check for null tenant header
-			String tenantUniqueName = request.getHeader(Constants.TENANT_HEADER);
-			if(StringUtils.isBlank(tenantUniqueName)) {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-						"Tenant Header is Empty");
-				return;
-			}
-			baseSession.setTenantId(tenantUniqueName);
-			Tenant tenant = tenantService.findTenantByUniqueName(tenantUniqueName);
-			if(tenant == null) {
-				response.sendError(HttpServletResponse.SC_NOT_FOUND,
-						"Tenant Not Found");
-				return;
-			}
-			baseSession.setLocale(tenant.getLocale());
-			if (!tenant.isActive()) {
-				response.sendError(HttpServletResponse.SC_FORBIDDEN,
-						messageSource.getMessage(TenantMessageKeys.INACTVE.getKey(),
-								new String[] { tenant.getTenantName() }, baseSession.getLocale()));
-				return;
-			}
-			baseSession.setTenantInfo(tenant);
-			//check valid tenant origins
+		//check for null tenant header
+		String tenantUniqueName = request.getHeader(Constants.TENANT_HEADER);
+		if(StringUtils.isBlank(tenantUniqueName)) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+					"Tenant Header is Empty");
+			return;
 		}
+		baseSession.setTenantId(tenantUniqueName);
+		Tenant tenant = tenantService.findTenantByUniqueName(tenantUniqueName);
+		if(tenant == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND,
+					"Tenant Not Found");
+			return;
+		}
+		baseSession.setLocale(tenant.getLocale());
+		baseSession.setTimeZone(tenant.getTimeZone());
+		if (!tenant.isActive()) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN,
+					messageSource.getMessage(TenantMessageKeys.INACTVE.getKey(),
+							new String[] { tenant.getTenantName() }, baseSession.getLocale()));
+			return;
+		}
+		baseSession.setTenantInfo(tenant);
+		TenantDetails td = tenant.getTenantDetail();
+			//check valid tenant origins
 		Log.tenant.debug("Tenant filter validation successful");
 		filterChain.doFilter(request, response);
 	}

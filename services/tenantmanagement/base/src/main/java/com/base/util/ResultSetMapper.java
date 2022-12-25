@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import org.apache.commons.beanutils.BeanUtils;
 
 public class ResultSetMapper<T> {
+	
+	private Class<?> outputClass;
 
 	public List<T> mapRersultSetToObject(ResultSet rs, Class outputClass) {
 		List<T> outputList = null;

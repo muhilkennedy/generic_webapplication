@@ -66,7 +66,7 @@ public class HibernateConfig {
 		//jpaPropertiesMap.put(Environment.MULTI_TENANT, MultiTenancyStrategy.DISCRIMINATOR);
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 		em.setDataSource(dataSource);
-		em.setPackagesToScan(Constants.BASE_PACKAGE, Constants.CORE_PACKAGE, Constants.TENANT_PACKAGE);
+		em.setPackagesToScan(Constants.BASE_PACKAGE, Constants.CORE_PACKAGE, Constants.TENANT_PACKAGE, Constants.USER_PACKAGE);
 		em.setJpaVendorAdapter(this.jpaVendorAdapter());
 		em.setJpaPropertyMap(jpaPropertiesMap);
 		return em;

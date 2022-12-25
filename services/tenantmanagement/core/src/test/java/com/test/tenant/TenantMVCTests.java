@@ -22,8 +22,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.base.messages.GenericResponse;
 import com.base.service.BaseSession;
-import com.base.util.GenericResponse;
 import com.core.application.CoreApplication;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenant.api.model.TenantRequestBody;

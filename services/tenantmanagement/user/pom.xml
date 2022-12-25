@@ -5,8 +5,9 @@
     <artifactId>tenantmanagement</artifactId>
     <version>tenantmanagement-v1.0.0</version>
   </parent>
-  <groupId>com.user</groupId>
   <artifactId>user</artifactId>
+  <name>user</name>
+  <description>Platform User Management Module</description>
   <version>user-v1.0.0</version>
   <dependencies>
   		<dependency>

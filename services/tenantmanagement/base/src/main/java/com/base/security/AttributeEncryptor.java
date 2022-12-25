@@ -9,6 +9,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.AttributeConverter;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import com.base.util.PropertiesUtil;
@@ -38,6 +39,9 @@ public class AttributeEncryptor implements AttributeConverter<String, String> {
 
 	@Override
 	public String convertToDatabaseColumn(String rawData) {
+		if (StringUtils.isAllBlank(rawData)) {
+			return rawData;
+		}
 		try {
 			cipher.init(Cipher.ENCRYPT_MODE, key);
 			return Base64.getEncoder().encodeToString(cipher.doFinal(rawData.getBytes()));
@@ -48,6 +52,9 @@ public class AttributeEncryptor implements AttributeConverter<String, String> {
 
 	@Override
 	public String convertToEntityAttribute(String dbData) {
+		if (StringUtils.isAllBlank(dbData)) {
+			return dbData;
+		}
 		try {
 			cipher.init(Cipher.DECRYPT_MODE, key);
 			return new String(cipher.doFinal(Base64.getDecoder().decode(dbData)));

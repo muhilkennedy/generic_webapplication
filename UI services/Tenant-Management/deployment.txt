@@ -1,0 +1,5 @@
+change
+"sourceMap": false to true
+"defaultConfiguration": "development" to "production"
+"aot": "fale" to true
+"buildOptimizer": false to true

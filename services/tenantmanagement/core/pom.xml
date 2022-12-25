@@ -29,7 +29,7 @@
 			<version>tenant-v1.0.0</version>
 		</dependency>
 		<dependency>
-			<groupId>com.user</groupId>
+			<groupId>com.tenantmanagement</groupId>
 			<artifactId>user</artifactId>
 			<version>user-v1.0.0</version>
 		</dependency>

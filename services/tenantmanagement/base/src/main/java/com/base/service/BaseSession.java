@@ -1,6 +1,7 @@
 package com.base.service;
 
 import java.util.Locale;
+import java.util.TimeZone;
 
 import com.base.entity.BaseObject;
 
@@ -10,15 +11,15 @@ import com.base.entity.BaseObject;
  */
 public interface BaseSession {
 	
-	Object getTenantInfo();
+	BaseObject getTenantInfo();
 
 	void setTenantInfo(BaseObject tenantInfo);
 
 	void clear();
 
-	Object getUserInfo();
+	BaseObject getUserInfo();
 
-	void setUserInfo(Object userInfo);
+	void setUserInfo(BaseObject userInfo);
 
 	String getTenantId();
 
@@ -27,5 +28,9 @@ public interface BaseSession {
 	Locale getLocale();
 
 	void setLocale(String locale);
+	
+	void setTimeZone(String zoneId);
+	
+	TimeZone getTimeZone();
 
 }
