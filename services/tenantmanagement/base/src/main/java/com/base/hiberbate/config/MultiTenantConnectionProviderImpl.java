@@ -3,10 +3,7 @@ package com.base.hiberbate.config;
 import javax.sql.DataSource;
 
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
-import org.hibernate.engine.jdbc.connections.spi.AbstractDataSourceBasedMultiTenantConnectionProviderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
 
 import com.base.service.BaseSession;
 
