@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    reactor:
+      netty: INFO
+    org:
+      springframework:
+        cloud:
+          gateway: INFO
+spring:
+  cloud:
+    gateway:
+      httpclient:
+        wiretap: false
+      httpserver:
+        wiretap: false
