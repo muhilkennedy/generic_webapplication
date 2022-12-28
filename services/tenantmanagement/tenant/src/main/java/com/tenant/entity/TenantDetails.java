@@ -18,34 +18,31 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="TENANTDETAILS")
 @ClassMetaProperty(code = "TD")
-public class TenantDetails extends BaseEntity{
+public class TenantDetails extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "TENANTCONTACT")
 	private String tenantContact;
-	
+
 	@Column(name = "TENANTEMAIL")
 	private String tenantEmail;
 
-	@Column(name = "TENANTBUSINESSEMAIL")
-	private String businessEmail;
-
-	@Column(name = "BUSINESSEMAILPASSWORD")
-	private String businessEmailPassword;
-	
 	@Column(name = "TENANTSTREET")
 	private String tenantStreet;
-	
+
 	@Column(name = "TENANTCITY")
 	private String tenantCity;
-	
+
 	@Column(name = "TENANTPIN")
 	private String tenantPin;
 	
+	@Column(name = "TAGLINE")
+	private String tagLine;
+
 	@JsonIgnore
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "TENANTID", insertable=false, updatable=false)
+	@JoinColumn(name = "TENANTID", insertable = false, updatable = false)
 	private Tenant tenant;
 
 	public String getTenantContact() {
@@ -62,22 +59,6 @@ public class TenantDetails extends BaseEntity{
 
 	public void setTenantEmail(String tenantEmail) {
 		this.tenantEmail = tenantEmail;
-	}
-
-	public String getBusinessEmail() {
-		return businessEmail;
-	}
-
-	public void setBusinessEmail(String businessEmail) {
-		this.businessEmail = businessEmail;
-	}
-
-	public String getBusinessEmailPassword() {
-		return businessEmailPassword;
-	}
-
-	public void setBusinessEmailPassword(String businessEmailPassword) {
-		this.businessEmailPassword = businessEmailPassword;
 	}
 
 	public String getTenantStreet() {
@@ -103,5 +84,13 @@ public class TenantDetails extends BaseEntity{
 	public void setTenantPin(String tenantPin) {
 		this.tenantPin = tenantPin;
 	}
-	
+
+	public String getTagLine() {
+		return tagLine;
+	}
+
+	public void setTagLine(String tagLine) {
+		this.tagLine = tagLine;
+	}
+
 }

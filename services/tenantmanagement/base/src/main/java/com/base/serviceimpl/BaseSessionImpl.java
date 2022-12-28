@@ -1,8 +1,14 @@
 package com.base.serviceimpl;
 
+import java.util.Locale;
+import java.util.TimeZone;
+
+import org.apache.commons.lang3.LocaleUtils;
 import org.springframework.stereotype.Service;
 
+import com.base.entity.BaseObject;
 import com.base.service.BaseSession;
+import com.base.util.Log;
 
 /**
  * @author Muhil
@@ -11,35 +17,31 @@ import com.base.service.BaseSession;
 @Service
 public class BaseSessionImpl implements BaseSession {
 
-	private ThreadLocal<Object> tenantInfo = new ThreadLocal<Object>();
-	private ThreadLocal<Object> userInfo = new ThreadLocal<Object>();
+	private ThreadLocal<BaseObject> tenantInfo = new ThreadLocal<BaseObject>();
+	private ThreadLocal<BaseObject> userInfo = new ThreadLocal<BaseObject>();
 	private ThreadLocal<String> tenantId = new ThreadLocal<String>();
+	private ThreadLocal<Locale> locale = new ThreadLocal<Locale>();
+	private ThreadLocal<TimeZone> timeZone = new ThreadLocal<TimeZone>();
 
 	@Override
-	public Object getTenantInfo() {
+	public BaseObject getTenantInfo() {
 		return tenantInfo.get();
 	}
 
 	@Override
-	public void setTenantInfo(Object tenantInfo) {
+	public void setTenantInfo(BaseObject tenantInfo) {
 		this.tenantInfo.set(tenantInfo);
+		this.tenantId.set(tenantInfo.getObjectId());
 	}
 
 	@Override
-	public Object getUserInfo() {
-		return userInfo;
+	public BaseObject getUserInfo() {
+		return userInfo.get();
 	}
 
 	@Override
-	public void setUserInfo(Object userInfo) {
+	public void setUserInfo(BaseObject userInfo) {
 		this.userInfo.set(userInfo);
-	}
-	
-	@Override
-	public void clear() {
-		tenantInfo.remove();
-		userInfo.remove();
-		tenantId.remove();
 	}
 
 	@Override
@@ -50,6 +52,40 @@ public class BaseSessionImpl implements BaseSession {
 	@Override
 	public String getTenantId() {
 		return tenantId.get();
+	}
+
+	@Override
+	public Locale getLocale() {
+		return locale.get();
+	}
+
+	@Override
+	public void setLocale(String localeCode) {
+		this.locale.set(LocaleUtils.toLocale(localeCode));
+	}
+	
+	@Override
+	public void setTimeZone(String zoneId) {
+		TimeZone timeZone = TimeZone.getTimeZone(zoneId);
+		if (timeZone == null) {
+			Log.base.warn("Rolling back to server time zone for tenant : " + tenantId.get());
+			timeZone = TimeZone.getDefault();
+		}
+		this.timeZone.set(timeZone);
+	}
+
+	@Override
+	public TimeZone getTimeZone() {
+		return timeZone.get();
+	}
+	
+	@Override
+	public void clear() {
+		tenantInfo.remove();
+		userInfo.remove();
+		tenantId.remove();
+		locale.remove();
+		timeZone.remove();
 	}
 	
 }

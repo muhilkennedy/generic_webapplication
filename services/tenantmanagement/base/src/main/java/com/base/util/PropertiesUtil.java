@@ -1,5 +1,6 @@
 package com.base.util;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,26 @@ public class PropertiesUtil {
 			return true;
 		}
 		return false;
+	}
+	
+	public static String getDBEncryptionSecret() {
+		String secret = EnvPropertiesUtil.getEnvironmentValue("DB_SECRET");
+		if (StringUtils.isAllBlank(secret)) {
+			Log.base.warn("----- DB_SECRET is missing! consider adding the property -----");
+			Log.base.info("Falling back to default secret");
+			return "0123456789abcdef";
+		}
+		return secret;
+	}
+	
+	public static String getJWTSecret() {
+		String secret = EnvPropertiesUtil.getEnvironmentValue("DB_SECRET");
+		if (StringUtils.isAllBlank(secret)) {
+			Log.base.warn("----- JWT_SECRET is missing! consider adding the property -----");
+			Log.base.info("Falling back to default secret");
+			return "SldUU2VjcmV0QDIwMjI="; //JWTSecret@2022 base64 encoded
+		}
+		return secret;
 	}
 
 }

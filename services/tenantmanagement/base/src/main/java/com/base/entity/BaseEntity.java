@@ -11,6 +11,8 @@ import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Muhil
  * Custom rootId generated for BaseEnttites
@@ -36,6 +38,7 @@ public class BaseEntity extends MultiTenantEntity implements BaseObject,Serializ
 		this.rootId = rootId;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getObjectId() {
 		return rootId;

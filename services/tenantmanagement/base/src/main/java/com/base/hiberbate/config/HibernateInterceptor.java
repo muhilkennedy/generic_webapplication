@@ -1,22 +1,15 @@
 package com.base.hiberbate.config;
 
-import java.io.Serializable;
-
 import org.hibernate.EmptyInterceptor;
-import org.hibernate.type.Type;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
-import com.base.entity.BaseEntity;
-import com.base.service.BaseSession;
 
 @Configuration
 @Component
 public class HibernateInterceptor extends EmptyInterceptor {
 	
 //	@Autowired
-	BaseSession baseService;
+//	BaseSession baseService;
 	
 //	@Override
 //	public boolean onSave(

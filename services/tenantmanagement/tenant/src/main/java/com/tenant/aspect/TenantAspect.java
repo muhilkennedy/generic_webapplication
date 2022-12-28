@@ -10,6 +10,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import com.base.service.BaseSession;
@@ -17,10 +19,12 @@ import com.base.util.Log;
 
 /**
  * @author Muhil kennedy
- * Aspect to add tenantFilter based on current session
+ * Aspect to add tenantFilter based on current session.
+ * Adds tenantId to all hibernate jpa queries under dao packages only.
  */
 @Aspect
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class TenantAspect {
 
 	@Autowired
@@ -29,17 +33,17 @@ public class TenantAspect {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	@Pointcut("execution(public * com.base.dao..*(..))")
-	protected void baseTenantAwareDao() {
-
-	}
+//	@Pointcut("execution(public * com.*.serviceimpl.*.*(..))")
+//	protected void baseTenantAwareDao() {
+//
+//	}
 	
-	@Pointcut("execution(public * com.tenant.dao..*(..))")
+	@Pointcut("execution(public * com.*.api.*.*(..))") // or we can change to check for within @RestController annotation
 	protected void tenantAwareDao() {
 
 	}
 
-	@Around(value = "baseTenantAwareDao() || tenantAwareDao()")
+	@Around(value = "tenantAwareDao()")
 	public Object enableTenantFilter(ProceedingJoinPoint joinPoint) throws Throwable {
 		Session session = null;
 		try {

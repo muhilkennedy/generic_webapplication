@@ -10,5 +10,6 @@
   <description>Base Service Abstract Functionalities</description>
   <version>base-v1.0.0</version>
   <dependencies>
+  		
   </dependencies>
 </project>

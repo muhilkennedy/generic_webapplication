@@ -2,6 +2,7 @@ package com.tenant.entity;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.TimeZone;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -36,6 +37,7 @@ public class Tenant implements Serializable, BaseObject {
 	@GenericGenerator(name="realm_Id", strategy = "com.base.generator.RealmIdGenerator")
 	@GeneratedValue(generator = "realm_Id")
 	@Column(name = "ROOTID", updatable = false, nullable = false)
+	@JsonIgnore
 	private String rootId;
 	
 	@Column(name = "TENANTUNIQUENAME")
@@ -45,21 +47,33 @@ public class Tenant implements Serializable, BaseObject {
 	private String tenantName;
 	
 	@Column(name = "TIMEUPDATED")
-	private Long timeUpdated;
+	private long timeUpdated;
 
 	@Column(name = "TIMECREATED")
-	private Long timeCreated;
+	private long timeCreated;
 
 	@Column(name = "MODIFIEDBY")
 	private String modifiedBy;
+	
+	@Column(name = "CREATEDBY")
+	private String createdBy;
+	
+	@Column(name = "VERSION")
+	private long version;
+	
+	@Column(name = "LOCALE")
+	private String locale;
 
+	@Column(name = "TIMEZONE")
+	private String timeZone;
+	
 	@Column(name = "ACTIVE", columnDefinition = "boolean default true")
 	private boolean active;
 
 	@Column(name = "PURGETENANT", columnDefinition = "boolean default false")
 	private boolean purgeTenant;
 	
-	@OneToOne(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "tenant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private TenantDetails tenantDetail;
 	
 	@JsonIgnore
@@ -98,22 +112,6 @@ public class Tenant implements Serializable, BaseObject {
 		this.rootId = rootId;
 	}
 
-	public Long getTimeUpdated() {
-		return timeUpdated;
-	}
-
-	public void setTimeUpdated(Long timeUpdated) {
-		this.timeUpdated = timeUpdated;
-	}
-
-	public Long getTimeCreated() {
-		return timeCreated;
-	}
-
-	public void setTimeCreated(Long timeCreated) {
-		this.timeCreated = timeCreated;
-	}
-
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
@@ -146,25 +144,84 @@ public class Tenant implements Serializable, BaseObject {
 		this.tenantOrigin = tenantOrigin;
 	}
 
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public long getVersion() {
+		return version;
+	}
+
+	public void setVersion(long version) {
+		this.version = version;
+	}
+
+	public void setTimeUpdated(long timeUpdated) {
+		this.timeUpdated = timeUpdated;
+	}
+
+	public void setTimeCreated(long timeCreated) {
+		this.timeCreated = timeCreated;
+	}
+
+	public String getTimeZone() {
+		return timeZone;
+	}
+
+	public void setTimeZone(String timZone) {
+		this.timeZone = timZone;
+	}
+
+	public long getTimeUpdated() {
+		return timeUpdated;
+	}
+
+	public long getTimeCreated() {
+		return timeCreated;
+	}
+
 	@PrePersist
 	protected void prePersist() {
-		if (timeCreated == null) {
+		if (this.timeCreated == 0L) {
 			this.setTimeCreated(System.currentTimeMillis());
 		}
 		this.setTimeUpdated(System.currentTimeMillis());
-		if(modifiedBy == null) {
+		if (this.modifiedBy == null) {
 			this.modifiedBy = "SYSTEM";
+		}
+		if (this.createdBy == null) {
+			this.createdBy = "SYSTEM";
+		}
+		if (this.locale == null) {
+			this.locale = "en_US";
+		}
+		if (this.timeZone == null) {
+			this.timeZone = TimeZone.getDefault().getID();
 		}
 	}
 
 	@PreUpdate
 	protected void preUpdate() {
+		this.setVersion(++this.version);
 		this.setTimeUpdated(System.currentTimeMillis());
 	}
 	
 	@Override
+	@JsonIgnore
 	public String getObjectId() {
-		return tenantUniqueName;
+		return rootId;
 	}
 
 }

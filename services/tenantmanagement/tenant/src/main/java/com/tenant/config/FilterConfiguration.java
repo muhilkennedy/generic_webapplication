@@ -5,6 +5,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.base.util.Log;
 import com.tenant.security.TenantFilter;
 
 /**
@@ -15,11 +16,11 @@ import com.tenant.security.TenantFilter;
 public class FilterConfiguration {
 	
 	@Autowired
-	TenantFilter tenantFilter;
+	private TenantFilter tenantFilter;
 
 	@Bean
 	public FilterRegistrationBean<TenantFilter> RealmFilterRegistration() {
-		//logger.info("Tenant Filter Registered");
+		Log.tenant.info("----- Tenant Filter Registered -----");
 		FilterRegistrationBean<TenantFilter> registration = new FilterRegistrationBean<TenantFilter>();
 		registration.setFilter(tenantFilter);
 		registration.addUrlPatterns("*");

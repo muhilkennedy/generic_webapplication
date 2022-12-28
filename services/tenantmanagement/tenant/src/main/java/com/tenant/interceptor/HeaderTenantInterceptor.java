@@ -19,7 +19,7 @@ import com.base.service.BaseSession;
 public class HeaderTenantInterceptor implements WebRequestInterceptor {
 	
 	@Autowired
-	BaseSession baseService;
+	private BaseSession baseService;
 
     @Override
     public void preHandle(WebRequest request) throws Exception {

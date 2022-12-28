@@ -26,12 +26,13 @@ public class TenantEntityListener {
         	AutowireHelper.autowire(this, this.baseSession);
         	MultiTenantEntity entity = (MultiTenantEntity)object;
             entity.setTenantId(baseSession.getTenantId());
-            if (entity.getTimeCreated() == null) {
+            if (entity.getTimeCreated() == 0L) {
             	entity.setTimeCreated(System.currentTimeMillis());
     		}
             entity.setTimeUpdated(System.currentTimeMillis());
     		if(entity.getModifiedBy() == null) {
-    			entity.setModifiedBy(getModifiedUser());
+    			entity.setModifiedBy(getCurrentUser());
+    			entity.setCreatedBy(getCurrentUser());
     		}
         }
     }
@@ -44,8 +45,9 @@ public class TenantEntityListener {
             entity.setTenantId(baseSession.getTenantId());
             entity.setTimeUpdated(System.currentTimeMillis());
     		if(entity.getModifiedBy() == null) {
-    			entity.setModifiedBy(getModifiedUser());
+    			entity.setModifiedBy(getCurrentUser());
     		}
+    		entity.setVersion(entity.getVersion()+1);
         }
     }
 	
@@ -58,12 +60,11 @@ public class TenantEntityListener {
         }
     }
 	
-	private String getModifiedUser(){
-		if(baseSession.getUserInfo() == null) {
+	private String getCurrentUser() {
+		if (baseSession.getUserInfo() == null) {
 			return "SYSTEM";
 		}
-		return "SYSTEM";
-		//return baseSession.getUserInfo();
+		return baseSession.getUserInfo().getObjectId();
 	}
 
 }

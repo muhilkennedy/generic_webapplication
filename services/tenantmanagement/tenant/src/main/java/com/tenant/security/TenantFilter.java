@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,9 @@ import com.base.service.BaseSession;
 import com.base.util.Constants;
 import com.base.util.Log;
 import com.tenant.entity.Tenant;
+import com.tenant.entity.TenantDetails;
 import com.tenant.serviceimpl.TenantServiceImpl;
+import com.tenant.util.TenantMessageKeys;
 
 /**
  * @author Muhil Kennedy
@@ -35,40 +38,52 @@ public class TenantFilter extends OncePerRequestFilter{
 	private BaseSession baseSession;
 	
 	@Autowired
+	private MessageSource messageSource;
+	
+	@Autowired
 	private TenantServiceImpl tenantService;
 	
 	//move to config file
-	private static List<String> Whitelisted_URI = Arrays.asList("/actuator/health","/favicon.ico");
+	private static List<String> Whitelisted_URI = Arrays.asList("/actuator/health","/actuator/metrics","/favicon.ico");
+	
+    @Override
+    protected boolean shouldNotFilter (HttpServletRequest request)
+    {
+        return Whitelisted_URI.parallelStream().filter(uri -> request.getRequestURI().contains(
+            uri)).findAny().isPresent();
+    }
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String requestUri = request.getRequestURI();
 		Log.tenant.info("Request URI - " + requestUri);
-		if(!Whitelisted_URI.contains(requestUri)) {
-			//check for null tenant header
-			String tenantUniqueName = request.getHeader(Constants.TENANT_HEADER);
-			if(StringUtils.isBlank(tenantUniqueName)) {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-						"Tenant Header is Empty");
-				return;
-			}
-			baseSession.setTenantId(tenantUniqueName);
-			Tenant tenant = tenantService.findTenantByUniqueName(tenantUniqueName);
-			if(tenant == null) {
-				response.sendError(HttpServletResponse.SC_NOT_FOUND,
-						"Tenant Not Found");
-				return;
-			}
-			if(!tenant.isActive()) {
-				response.sendError(HttpServletResponse.SC_FORBIDDEN,
-						"Tenant is Deactivated");
-				return;
-			}
-			baseSession.setTenantInfo(tenant);
-			baseSession.setTenantId(tenant.getRootId());
-			//check valid tenant origins
+		//check for null tenant header
+		String tenantUniqueName = request.getHeader(Constants.TENANT_HEADER);
+		if(StringUtils.isBlank(tenantUniqueName)) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+					"Tenant Header is Empty");
+			return;
 		}
+		baseSession.setTenantId(tenantUniqueName);
+		Tenant tenant = tenantService.findTenantByUniqueName(tenantUniqueName);
+		if(tenant == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND,
+					"Tenant Not Found");
+			return;
+		}
+		baseSession.setLocale(tenant.getLocale());
+		baseSession.setTimeZone(tenant.getTimeZone());
+		if (!tenant.isActive()) {
+			response.sendError(HttpServletResponse.SC_FORBIDDEN,
+					messageSource.getMessage(TenantMessageKeys.INACTVE.getKey(),
+							new String[] { tenant.getTenantName() }, baseSession.getLocale()));
+			return;
+		}
+		baseSession.setTenantInfo(tenant);
+		TenantDetails td = tenant.getTenantDetail();
+			//check valid tenant origins
+		Log.tenant.debug("Tenant filter validation successful");
 		filterChain.doFilter(request, response);
 	}
 
