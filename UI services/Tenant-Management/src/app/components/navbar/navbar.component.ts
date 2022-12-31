@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from "src/environments/environment";
 import { CookieService } from "ngx-cookie-service";
+import { TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-navbar",
@@ -27,7 +28,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private element: ElementRef,
     private router: Router,
     private modalService: NgbModal,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public translate: TranslateService
   ) {
     this.location = location;
     this.sidebarVisible = false;

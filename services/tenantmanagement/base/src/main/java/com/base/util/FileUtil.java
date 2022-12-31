@@ -2,6 +2,7 @@ package com.base.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLConnection;
 
 public class FileUtil {
 	
@@ -42,6 +43,22 @@ public class FileUtil {
 
 	public static File createTempFile() throws IOException {
 		return File.createTempFile("temp", ".tmp");
+	}
+	
+	public static String sanitizeDirPath(String dir) {
+		StringBuffer buffer = new StringBuffer();
+		if (dir.charAt(0) != File.separator.charAt(0)) {
+			buffer.append(File.separator);
+		}
+		buffer.append(dir);
+		if (dir.charAt(dir.length()-1) != File.separator.charAt(0)) {
+			buffer.append(File.separator);
+		}
+		return buffer.toString();
+	}
+
+	public static String findContentTypeFromFileName(String fileName) {
+		return URLConnection.guessContentTypeFromName(fileName);
 	}
 	
 }

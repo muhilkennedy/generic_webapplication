@@ -10,6 +10,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
@@ -36,6 +37,9 @@ public class EmailService {
 
 	@Autowired
 	private Configuration freeMarkerConfig;
+	
+	@Value("${app.email.enabled}")
+	private boolean isEmailFeatureEnabled;
 
 	public Template getTemplate(String name) throws IOException {
 		return freeMarkerConfig.getTemplate(name);
@@ -57,10 +61,10 @@ public class EmailService {
 	}
 	
 	private void postEmailTask(EmailTask task) {
-		if (EmailUtil.isEmailFeatureEnabled()) {
+		if (isEmailFeatureEnabled) {
 			emailThreadPool.execute(task);
 		} else {
-			Log.base.warn("Email Feature is disabled! communication mails are not queued!");
+			Log.base.warn("Email Feature is disabled! communication mails are not pooled!");
 			if (task.getInlineImages() != null) {
 				for (Map.Entry<String, File> entry : task.getInlineImages().entrySet()) {
 					FileUtil.deleteDirectoryOrFile(entry.getValue());

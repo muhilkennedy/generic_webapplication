@@ -1,7 +1,5 @@
 package com.user.entity;
 
-import java.sql.Blob;
-
 import javax.persistence.Column;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -40,7 +38,7 @@ public class User extends BaseEntity {
 	private String password;
 
 	@Column(name = "PROFILEPIC")
-	private Blob profilePic;
+	private String profilePic;
 
 	@Column(name = "LOCALE")
 	private String locale;
@@ -94,12 +92,36 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 
-	public Blob getProfilePic() {
+	public String getProfilePic() {
 		return profilePic;
 	}
 
-	public void setProfilePic(Blob profilePic) {
+	public void setProfilePic(String profilePic) {
 		this.profilePic = profilePic;
+	}
+
+	public String getTimeZone() {
+		return timeZone;
+	}
+
+	public void setTimeZone(String timeZone) {
+		this.timeZone = timeZone;
+	}
+
+	public String getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(String lastLogin) {
+		this.lastLogin = lastLogin;
+	}
+
+	public String getLastActive() {
+		return lastActive;
+	}
+
+	public void setLastActive(String lastActive) {
+		this.lastActive = lastActive;
 	}
 
 	public String getLocale() {

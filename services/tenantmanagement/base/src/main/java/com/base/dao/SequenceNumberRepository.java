@@ -12,7 +12,7 @@ import com.base.entity.SequenceNumber;
  *
  */
 @Repository
-public interface SequenceNumberRepository extends JpaRepository<SequenceNumber, String> {
+public interface SequenceNumberRepository extends JpaRepository<SequenceNumber, Long> {
 	
 	final String findNextSequenceByClassNameQuery = "select sn from SequenceNumber sn where sn.className = :className";
 	

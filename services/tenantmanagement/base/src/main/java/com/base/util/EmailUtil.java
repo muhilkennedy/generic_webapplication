@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.ResourceUtils;
 
 /**
@@ -19,13 +18,6 @@ public class EmailUtil {
 
 	public static final int MAX_EMAIL_THREADS = 4;
 	public static final String TEMPLATE_EXTENTION = ".ftl";
-	
-	private static boolean isEmailFeatureEnabled;
-
-	@Value("${app.email.enabled}")
-	public void setEmailFeatureStatus(boolean status) {
-		isEmailFeatureEnabled = status;
-	}
 
 	public static List<Map> getBasicInlineImages(String tenantId, String tenantName, String tagLine, String tenantContact,
 			String tenantEmail, String tenantUniqueName) {
@@ -73,9 +65,5 @@ public class EmailUtil {
 		}
 		return inlineListMap;
 	}
-
-	public static boolean isEmailFeatureEnabled() {
-		return isEmailFeatureEnabled;
-	}
-
+	
 }

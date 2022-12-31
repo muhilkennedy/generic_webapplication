@@ -13,7 +13,7 @@ import com.base.annotation.ClassMetaProperty;
 @Entity
 @Table(name="SEQUENCENUMBER")
 @ClassMetaProperty(code="SEQ")
-public class SequenceNumber extends BaseIdentityEntity {
+public class SequenceNumber extends DefaultBaseEntity {
 
 	@Column(name = "CLASSNAME")
 	private String className;

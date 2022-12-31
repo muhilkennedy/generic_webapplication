@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { CookieService } from 'ngx-cookie-service';
 import { UserService } from 'src/app/service/user/user.service';
 
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(private http: HttpClient,
               private route: Router,
               private userService: UserService,
-              private cookieService: CookieService) { }
+              private cookieService: CookieService,
+              public translate: TranslateService) { }
 
   ngOnInit(): void {
   }

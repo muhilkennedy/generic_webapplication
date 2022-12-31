@@ -12,10 +12,16 @@ import org.springframework.stereotype.Component;
 public class PropertiesUtil {
 
 	private static String activeProfile;
+	private static String defaultDirectory;
 
 	@Value("${spring.profiles.active}")
 	public void setActiveProfile(String profile) {
 		PropertiesUtil.activeProfile = profile;
+	}
+
+	@Value("${app.nfs.path}")
+	public void setDefaultDirectoryProfile(String defaultDirectory) {
+		PropertiesUtil.defaultDirectory = defaultDirectory;
 	}
 
 	public static String getActiveProfile() {
@@ -47,6 +53,14 @@ public class PropertiesUtil {
 			return "SldUU2VjcmV0QDIwMjI="; //JWTSecret@2022 base64 encoded
 		}
 		return secret;
+	}
+
+	public static String getDefaultDirectory() {
+		String dir = System.getProperty("default.dir");
+		if (StringUtils.isAllBlank(dir)) {
+			return defaultDirectory;
+		}
+		return dir;
 	}
 
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { TranslateService } from "@ngx-translate/core";
 import { $ } from "protractor";
 
 declare interface RouteInfo {
@@ -42,7 +43,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() {}
+  constructor(public translate: TranslateService) {}
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);//.map(menuItem1 => menuItem1.title = $localize`${menuItem1.title}`);

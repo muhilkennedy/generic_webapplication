@@ -12,6 +12,7 @@ import { OnboardComponent } from "src/app/pages/onboard/onboard.component";
 import { EdittenantComponent } from "src/app/pages/edittenant/edittenant.component";
 import { MaterialModule } from "../../material.module";
 import { ManageuserComponent } from "src/app/pages/manageuser/manageuser.component";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ManageuserComponent } from "src/app/pages/manageuser/manageuser.compone
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    MaterialModule
+    MaterialModule,
+    TranslateModule
   ],
   declarations: [
     DashboardComponent,

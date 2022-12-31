@@ -12,6 +12,9 @@ export class HttpInterceptorService implements HttpInterceptor {
   constructor(private cookieService: CookieService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       let url = environment.backendBaseUrl + req.url;
+      if (req.url.includes("/assets/i18n/")){
+        url = req.url;
+      }
       let newHeaders = req.headers;
       // Append tenant-Id to all outgoing requests.
       if (environment.tenantId) {
