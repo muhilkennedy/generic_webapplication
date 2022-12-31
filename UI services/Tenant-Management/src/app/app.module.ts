@@ -19,6 +19,8 @@ import { LoginComponent } from "./pages/login/login.component";
 import { CommonModule } from "@angular/common";
 import { CookieService } from "ngx-cookie-service";
 import { MaterialModule} from './material.module';
+import { I18nModule } from './i18n/i18n.module';
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable()
 export class TenantInitializer {
@@ -68,7 +70,8 @@ export function init_tenant(initializer: TenantInitializer) {
     ReactiveFormsModule,
     CommonModule,
     ToastrModule.forRoot(),
-    MaterialModule
+    MaterialModule,
+    I18nModule
   ],
   declarations: [AppComponent, AdminLayoutComponent, LoginComponent],
   providers: [

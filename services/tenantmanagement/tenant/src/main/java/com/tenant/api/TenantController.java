@@ -22,6 +22,7 @@ import com.base.messages.GenericResponse;
 import com.base.messages.Response;
 import com.base.security.Permissions;
 import com.base.service.BaseSession;
+import com.base.service.StorageService;
 import com.sun.istack.NotNull;
 import com.tenant.api.model.TenantDetailsBody;
 import com.tenant.api.model.TenantRequestBody;
@@ -46,6 +47,9 @@ public class TenantController {
 
 	@Autowired
 	private BaseSession baseSession;
+	
+	@Autowired
+	private StorageService gcs;
 
 	@Loggable(message = "tenant pinged", perf = true)
 	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)

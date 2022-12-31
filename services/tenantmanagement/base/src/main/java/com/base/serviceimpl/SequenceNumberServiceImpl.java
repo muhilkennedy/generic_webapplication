@@ -29,8 +29,7 @@ public class SequenceNumberServiceImpl implements SequenceNumberService {
 
 	@Override
 	public Object findById(Object rootId) {
-		// TODO Auto-generated method stub
-		return null;
+		return sequenceNumberRepo.findById((Long) rootId);
 	}
 	
 	@Override

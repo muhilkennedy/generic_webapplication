@@ -9,11 +9,8 @@
       "projectType": "application",
       "prefix": "app",
       "i18n":{
-        "sourceLocale":"en-US",
-        "locales": {
-          "de": "src/translate/messages.de.xlf",
-          "ta-IN":"src/translate/messages.ta-IN.xlf"
-        }
+        "sourceLocale":"en-US"
+
       },
       "schematics": {
         "@schematics/angular:component": {
@@ -86,23 +83,6 @@
                 },
                 "fonts": true
               }
-            },
-            "de":{
-              "localize": ["de"],
-              "sourceMap": true,
-              "buildOptimizer": false,
-              "aot": false,
-              "optimization": {
-                "scripts": true,
-                "styles": {
-                  "minify": false,
-                  "inlineCritical": false
-                },
-                "fonts": true
-              }
-            },
-            "ta-IN":{
-              "localize": ["ta-IN"]
             }
           }
         },
@@ -117,12 +97,6 @@
             },
             "development":{
               "browserTarget": "Tenant-Management:build:development"
-            },
-            "de": {
-              "browserTarget": "Tenant-Management:build:de"
-            },
-            "ta-IN": {
-              "browserTarget": "Tenant-Management:build:ta-IN"
             }
           },
           "defaultConfiguration": "production"

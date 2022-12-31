@@ -7,9 +7,10 @@ import { FooterComponent } from "./footer/footer.component";
 import { NavbarComponent } from "./navbar/navbar.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgbModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, NgbModule, FormsModule, ReactiveFormsModule, TranslateModule],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent],
   exports: [FooterComponent, NavbarComponent, SidebarComponent]
 })

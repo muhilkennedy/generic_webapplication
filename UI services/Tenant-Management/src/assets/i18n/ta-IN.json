@@ -1,0 +1,11 @@
+{
+  "manageTenant" : "குத்தகைதாரர் தகவலை நிர்வகிக்கவும்",
+  "tenantManagement" : "குத்தகைதாரர் மேலாண்மை",
+  "login" : "உள்நுழை",
+  "tenantManager" :  "குத்தகைதாரர் மேலாளர்",
+  "tenantName" : "குத்தகைதாரர் பெயர்",
+  "tenantUniqueName" : "குத்தகைதாரர் தனிப்பட்ட பெயர்",
+  "tenantStatus" : "நிலை",
+  "timeZone" : "நேரம் மண்டலம்",
+  "validTill" : "வரை செல்லுபடியாகும்"
+}

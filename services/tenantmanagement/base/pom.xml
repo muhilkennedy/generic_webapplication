@@ -9,7 +9,40 @@
   <name>base</name>
   <description>Base Service Abstract Functionalities</description>
   <version>base-v1.0.0</version>
+  <properties>
+  	<docx4j.version>3.3.6</docx4j.version>
+  </properties>
   <dependencies>
-  		
+  		<!-- Docx4j for PDF conversion -->
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j</artifactId>
+		    <version>${docx4j.version}</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.slf4j</groupId>
+		            <artifactId>slf4j-log4j12</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>log4j</groupId>
+		            <artifactId>log4j</artifactId>
+	   			</exclusion>
+    		</exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j-export-fo</artifactId>
+		    <version>${docx4j.version}</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.slf4j</groupId>
+		            <artifactId>slf4j-log4j12</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>log4j</groupId>
+		            <artifactId>log4j</artifactId>
+	   			</exclusion>
+    		</exclusions>
+		</dependency>
   </dependencies>
 </project>

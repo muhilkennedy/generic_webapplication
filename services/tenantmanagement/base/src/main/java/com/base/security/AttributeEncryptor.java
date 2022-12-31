@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 import com.base.util.PropertiesUtil;
 
 /**
- * @author 
- * Muhil Kennedy Encryption Standard for DB field encryption and
+ * @author Muhil Kennedy
+ * Encryption Standard for DB field encryption and
  * decryption of entity - @Convert(converter = ValueAttributeConverter.class)
  *
  */
