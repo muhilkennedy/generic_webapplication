@@ -11,7 +11,7 @@
 	<artifactId>tenantmanagement</artifactId>
 	<version>tenantmanagement-v1.0.0</version>
 	<packaging>pom</packaging>
-	<name>tenantmanagement</name>
+	<name>tenant-management</name>
 	<description>Core Tenant / User management functionalities</description>
 	<properties>
 		<java.version>1.8</java.version>
