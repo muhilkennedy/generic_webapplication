@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.tenantmanagement</groupId>
 	<artifactId>tenantmanagement</artifactId>
-	<version>tenantmanagement-v1.0.0</version>
+	<version>v1.0.0</version>
 	<packaging>pom</packaging>
 	<name>tenant-management</name>
 	<description>Core Tenant / User management functionalities</description>
@@ -253,7 +253,6 @@
 					<artifactId>sonar-maven-plugin</artifactId>
 					<version>${sonar.maven.plugin.version}</version>
 				</plugin>
-				<!-- https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin -->
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>

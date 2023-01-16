@@ -22,7 +22,6 @@ import com.base.messages.GenericResponse;
 import com.base.messages.Response;
 import com.base.security.Permissions;
 import com.base.service.BaseSession;
-import com.base.service.StorageService;
 import com.sun.istack.NotNull;
 import com.tenant.api.model.TenantDetailsBody;
 import com.tenant.api.model.TenantRequestBody;
@@ -47,9 +46,6 @@ public class TenantController {
 
 	@Autowired
 	private BaseSession baseSession;
-	
-	@Autowired
-	private StorageService gcs;
 
 	@Loggable(message = "tenant pinged", perf = true)
 	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
@@ -123,8 +119,13 @@ public class TenantController {
 
 	@ValidateUserToken(permissions = { Permissions.SUPER_USER })
 	@RequestMapping(value = "/subscriptions", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
-	public GenericResponse<SubscriptionHistory> getSubscriptions(HttpServletRequest request) {
+	public GenericResponse<SubscriptionHistory> getSubscriptions(
+			@RequestParam(value = "tenantUniqueName", required = false) String tenantUniqueName,
+			HttpServletRequest request) {
 		GenericResponse<SubscriptionHistory> response = new GenericResponse<>();
+		if (StringUtils.isNotBlank(tenantUniqueName)) {
+			tenantService.reEvaluateSessionForTenant(tenantUniqueName);
+		}
 		List<SubscriptionHistory> subs = tenantService.getTenantHistory();
 		response.setStatus(Response.Status.OK).setDataList(subs);
 		return response;
@@ -132,9 +133,13 @@ public class TenantController {
 
 	@ValidateUserToken(permissions = { Permissions.SUPER_USER })
 	@RequestMapping(value = "/subscriptions", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-	public GenericResponse<SubscriptionHistory> getSubscriptions(
+	public GenericResponse<SubscriptionHistory> postSubscriptions(
+			@RequestParam(value = "tenantUniqueName", required = false) String tenantUniqueName,
 			@RequestBody @Valid TenantSubscriptionModel subscriptionModel) {
 		GenericResponse<SubscriptionHistory> response = new GenericResponse<>();
+		if (StringUtils.isNotBlank(tenantUniqueName)) {
+			tenantService.reEvaluateSessionForTenant(tenantUniqueName);
+		}
 		tenantService.updateTenantExpiry(subscriptionModel);
 		List<SubscriptionHistory> subs = tenantService.getTenantHistory();
 		response.setStatus(Response.Status.OK).setDataList(subs);

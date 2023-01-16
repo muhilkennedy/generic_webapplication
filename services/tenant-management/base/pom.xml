@@ -11,6 +11,7 @@
   <version>base-v1.0.0</version>
   <properties>
   	<docx4j.version>3.3.6</docx4j.version>
+  	<imagescalr.version>4.2</imagescalr.version>
   </properties>
   <dependencies>
   		<!-- Docx4j for PDF conversion -->
@@ -43,6 +44,12 @@
 		            <artifactId>log4j</artifactId>
 	   			</exclusion>
     		</exclusions>
+		</dependency>
+		<!-- image manipulation lib -->
+		<dependency>
+		    <groupId>org.imgscalr</groupId>
+		    <artifactId>imgscalr-lib</artifactId>
+		    <version>${imagescalr.version}</version>
 		</dependency>
   </dependencies>
 </project>

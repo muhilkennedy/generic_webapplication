@@ -83,6 +83,13 @@ public class TenantServiceImpl implements TenantService {
 		Filter filter = session.enableFilter("tenantFilter");
 		filter.setParameter("tenantId", baseSession.getTenantId());
 	}
+	
+	@Override
+	public void reEvaluateSessionForTenant(String tenantUniqueName) {
+		Tenant expectedTenant = this.findTenantByUniqueName(tenantUniqueName);
+		baseSession.setTenantInfo(expectedTenant);
+		reEvaluateTenantSession();
+	}
 
 	@Override
 	@CachePut(value = CacheUtil.TENANT_CACHE, keyGenerator = CacheUtil.REDIS_KEY_GENERATOR)
@@ -240,7 +247,5 @@ public class TenantServiceImpl implements TenantService {
 		}
 		return tenantsResponse;
 	}
-	
-	
 
 }

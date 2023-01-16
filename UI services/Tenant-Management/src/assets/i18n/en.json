@@ -7,5 +7,9 @@
   "tenantUniqueName" : "Tenant UniqueName",
   "tenantStatus" : "Tenant Status",
   "timeZone" : "Time Zone",
-  "validTill" : "Valid Till"
+  "validTill" : "Valid Till",
+  "Dashboard": "Dashboard",
+  "Onboard Tenant": "Onboard Tenant",
+  "Edit Tenant": "Edit Tenant",
+  "Manage Admin Users": "Manage Admin Users"
 }

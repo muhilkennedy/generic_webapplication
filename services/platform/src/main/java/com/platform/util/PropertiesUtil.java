@@ -11,8 +11,13 @@ import com.platform.configuration.PlatformConfiguration;
  */
 public class PropertiesUtil {
 	
-	public static List<String> getMandatoryProperties() {
+	public static List<String> getMandatoryFrontdoorProperties() {
 		return Arrays.asList(PlatformUtil.KEY_TENANT_FRONTDOOR, PlatformUtil.KEY_USER_FRONTDOOR);
+	}
+
+	public static List<String> getMandatoryEmailProperties() {
+		return Arrays.asList(PlatformUtil.KEY_DEFAULT_EMAIL, PlatformUtil.KEY_DEFAULT_PASSWORDs,
+				PlatformUtil.KEY_MAIL_AUTH, PlatformUtil.KEY_MAIL_HOST, PlatformUtil.KEY_MAIL_PORT);
 	}
 
 	public static String getTMFrontDoorUrl() {
@@ -21,6 +26,14 @@ public class PropertiesUtil {
 
 	public static String getUMFrontDoorUrl() {
 		return PlatformConfiguration.getFrontDoorProperties().getProperty(PlatformUtil.KEY_USER_FRONTDOOR);
+	}
+	
+	public static String getDefaultEmail() {
+		return PlatformConfiguration.getEmailProperties().getProperty(PlatformUtil.KEY_DEFAULT_EMAIL);
+	}
+	
+	public static String getDefaultEmailPassword() {
+		return PlatformConfiguration.getEmailProperties().getProperty(PlatformUtil.KEY_DEFAULT_PASSWORDs);
 	}
 
 }

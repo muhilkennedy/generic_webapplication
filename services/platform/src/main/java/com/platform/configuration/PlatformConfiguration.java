@@ -16,10 +16,12 @@ public class PlatformConfiguration {
 
 	private static Properties frontDoorProperties;
 	private static Properties appProperties;
+	private static Properties emailProperties;
 
-	public PlatformConfiguration(Properties frontDoorProperties, Properties appProperties) {
+	public PlatformConfiguration(Properties frontDoorProperties, Properties appProperties, Properties emailProperties) {
 		PlatformConfiguration.frontDoorProperties = frontDoorProperties;
 		PlatformConfiguration.appProperties = appProperties;
+		PlatformConfiguration.emailProperties = emailProperties;
 	}
 
 	public static Properties getFrontDoorProperties() {
@@ -38,9 +40,18 @@ public class PlatformConfiguration {
 		PlatformConfiguration.appProperties = appProperties;
 	}
 
+	public static Properties getEmailProperties() {
+		return emailProperties;
+	}
+
+	public static void setEmailProperties(Properties emailProperties) {
+		PlatformConfiguration.emailProperties = emailProperties;
+	}
+
 	public static class Builder {
 		private Properties frontDoorProperties;
 		private Properties appProperties;
+		private Properties emailProperties;
 
 		public Builder() {
 		}
@@ -54,14 +65,25 @@ public class PlatformConfiguration {
 			this.appProperties = appProperties;
 			return this;
 		}
+		
+		public PlatformConfiguration.Builder withEmailProperties(Properties emailProperties) {
+			this.emailProperties = emailProperties;
+			return this;
+		}
 
 		public PlatformConfiguration build() {
 			Objects.requireNonNull(this.frontDoorProperties, "Front door url properties cannot be null");
+			Objects.requireNonNull(this.emailProperties, "Email configuration properties cannot be null");
 			// validate frontdoor urls
-			PropertiesUtil.getMandatoryProperties().parallelStream().forEach(property -> {
-				Asserts.notBlank(property, String.format("Property %s is missing", property));
+			PropertiesUtil.getMandatoryFrontdoorProperties().parallelStream().forEach(property -> {
+				Asserts.notBlank(this.frontDoorProperties.getProperty(property),
+						String.format("Property %s is missing", property));
 			});
-			return new PlatformConfiguration(frontDoorProperties, appProperties);
+			PropertiesUtil.getMandatoryEmailProperties().parallelStream().forEach(property -> {
+				Asserts.notBlank(this.frontDoorProperties.getProperty(property),
+						String.format("Property %s is missing", property));
+			});
+			return new PlatformConfiguration(frontDoorProperties, appProperties, emailProperties);
 		}
 
 	}

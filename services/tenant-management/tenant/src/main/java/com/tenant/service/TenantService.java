@@ -18,6 +18,8 @@ public interface TenantService extends BaseService{
 	
 	public void reEvaluateTenantSession();
 	
+	public void reEvaluateSessionForTenant(String tenantUniqueName);
+	
 	public Tenant createTenant(TenantRequestBody tenantModel);
 
 	TenantDetails addTenantDetail(TenantDetails tenantDetail);

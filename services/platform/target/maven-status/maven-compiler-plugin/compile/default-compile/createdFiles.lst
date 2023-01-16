@@ -1,13 +1,17 @@
+com/platform/util/DocxUtil.class
 com/platform/util/Log.class
 com/platform/util/HttpUtil.class
 com/platform/service/HttpClient.class
 com/platform/cache/CacheStore.class
+com/platform/session/BaseSession.class
 com/platform/entity/TenantDetails.class
 com/platform/cache/CacheService.class
 com/platform/configuration/PlatformConfiguration$Builder.class
+com/platform/email/EmailTask.class
 com/platform/exception/TenantException.class
 com/platform/entity/TenantOrigin.class
 com/platform/util/Log$loggers.class
+com/platform/email/EmailTask$1.class
 com/platform/cache/TenantCache.class
 com/platform/entity/Tenant.class
 com/platform/cache/UserCache.class
@@ -15,4 +19,5 @@ com/platform/service/TenantService.class
 com/platform/configuration/PlatformConfiguration.class
 com/platform/util/PropertiesUtil.class
 com/platform/entity/BaseObject.class
+com/platform/util/FileUtil.class
 com/platform/util/PlatformUtil.class
