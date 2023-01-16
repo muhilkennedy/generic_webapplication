@@ -5,7 +5,7 @@
     </div>
   </a>
   <a href="#" class="simple-text logo-normal">
-    TENANT MANAGER
+    {{ 'tenantManagement' | translate}}
   </a>
 </div>
 <div class="sidebar-wrapper">
@@ -16,7 +16,7 @@
       class="{{ menuItem.class }} nav-item" i18n>
       <a [routerLink]="[menuItem.path]">
         <i class="tim-icons  {{ menuItem.icon }}"></i>
-        <p>{{ menuItem.title }}</p>
+        <p>{{ menuItem.title | translate }}</p>
       </a>
     </li>
   </ul>

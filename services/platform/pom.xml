@@ -24,6 +24,9 @@
 		<freemarker.version>2.3.31</freemarker.version>
 		<google.cloud.storage.version>2.6.1</google.cloud.storage.version>
 		<httpclient.version>4.5.14</httpclient.version>
+		<commons.io.version>2.11.0</commons.io.version>
+		<docx4j.version>3.3.6</docx4j.version>
+		<imagescalr.version>4.2</imagescalr.version>
   </properties>
   <dependencies>
   	<dependency>
@@ -85,6 +88,47 @@
 		    <groupId>org.freemarker</groupId>
 		    <artifactId>freemarker</artifactId>
 		    <version>${freemarker.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>${commons.io.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j</artifactId>
+		    <version>${docx4j.version}</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.slf4j</groupId>
+		            <artifactId>slf4j-log4j12</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>log4j</groupId>
+		            <artifactId>log4j</artifactId>
+	   			</exclusion>
+    		</exclusions>
+		</dependency>
+		<dependency>
+		    <groupId>org.docx4j</groupId>
+		    <artifactId>docx4j-export-fo</artifactId>
+		    <version>${docx4j.version}</version>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.slf4j</groupId>
+		            <artifactId>slf4j-log4j12</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>log4j</groupId>
+		            <artifactId>log4j</artifactId>
+	   			</exclusion>
+    		</exclusions>
+		</dependency>
+	<!-- image manipulation lib -->
+		<dependency>
+		    <groupId>org.imgscalr</groupId>
+		    <artifactId>imgscalr-lib</artifactId>
+		    <version>${imagescalr.version}</version>
 		</dependency>
   </dependencies>
 </project>
