@@ -21,3 +21,4 @@ com/platform/util/PropertiesUtil.class
 com/platform/entity/BaseObject.class
 com/platform/util/FileUtil.class
 com/platform/util/PlatformUtil.class
+com/platform/util/ImageUtil.class

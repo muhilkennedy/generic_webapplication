@@ -1,15 +1,21 @@
 package com.base.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import org.apache.poi.xwpf.converter.core.XWPFConverterException;
+import org.apache.poi.xwpf.converter.pdf.PdfConverter;
+import org.apache.poi.xwpf.converter.pdf.PdfOptions;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.docx4j.Docx4J;
 import org.docx4j.convert.out.FOSettings;
-import org.docx4j.fonts.IdentityPlusMapper;
-import org.docx4j.fonts.Mapper;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 public class DocxUtil {
@@ -43,6 +49,26 @@ public class DocxUtil {
 		// flush Image Directory
 		FileUtil.deleteDirectoryOrFile(tempPath.toFile());
 		return pdfFile;
+	}
+	
+	public static File convertDocToPDFUsingPoi(File docFile) throws XWPFConverterException, IOException {
+		File pdf = File.createTempFile(docFile.getName(), ".pdf");
+		InputStream doc = new FileInputStream(docFile);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		XWPFDocument document = new XWPFDocument(doc);
+		PdfOptions options = PdfOptions.create();
+		PdfConverter.getInstance().convert(document, baos, options);
+		Files.write(pdf.toPath(), baos.toByteArray());
+		return pdf;
+	}
+
+	public static void convertDocToPDFUsingPoi(File docFile, File pdfFile) throws XWPFConverterException, IOException {
+		InputStream doc = new FileInputStream(docFile);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		XWPFDocument document = new XWPFDocument(doc);
+		PdfOptions options = PdfOptions.create();
+		PdfConverter.getInstance().convert(document, baos, options);
+		Files.write(pdfFile.toPath(), baos.toByteArray());
 	}
 	
 	//need to take care of custom fonts (only tamil font is added for now)
