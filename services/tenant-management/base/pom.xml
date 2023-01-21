@@ -11,6 +11,8 @@
   <version>base-v1.0.0</version>
   <properties>
   	<docx4j.version>3.3.6</docx4j.version>
+  	<poi.version>3.13</poi.version>
+  	<poi.pdf.version>1.0.6</poi.pdf.version>
   	<imagescalr.version>4.2</imagescalr.version>
   </properties>
   <dependencies>
@@ -50,6 +52,22 @@
 		    <groupId>org.imgscalr</groupId>
 		    <artifactId>imgscalr-lib</artifactId>
 		    <version>${imagescalr.version}</version>
+		</dependency>
+		<!-- Apache poi dependencies -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>${poi.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>${poi.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>fr.opensagres.xdocreport</groupId>
+		    <artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
+		    <version>${poi.pdf.version}</version>
 		</dependency>
   </dependencies>
 </project>
