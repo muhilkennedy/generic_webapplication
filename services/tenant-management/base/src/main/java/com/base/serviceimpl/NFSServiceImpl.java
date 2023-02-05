@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import com.base.service.BaseSession;
 import com.base.service.StorageService;
 import com.base.util.FileUtil;
-import com.base.util.PropertiesUtil;
 import com.google.api.client.util.Value;
 
 /**
@@ -29,6 +28,9 @@ public class NFSServiceImpl implements StorageService {
 	@Value("${app.gcs.bucket.default}")
 	private String defaultBucketName;
 	
+	@Value("${app.nfs.path}")
+	private String basePath;
+	
 	@Override
 	public File readFile(String filePath) throws IOException  {
 		return new File(filePath);
@@ -36,7 +38,7 @@ public class NFSServiceImpl implements StorageService {
 
 	@Override
 	public String saveFile(File file) throws IOException {
-		File newFile = new File(PropertiesUtil.getDefaultDirectory()
+		File newFile = new File(basePath
 				+ (StringUtils.isNotBlank(baseSession.getTenantId()) ? baseSession.getTenantId() : "admin")
 				+ File.separator + file.getName());
 		FileUtils.copyFile(file, newFile);
@@ -51,7 +53,7 @@ public class NFSServiceImpl implements StorageService {
 
 	@Override
 	public String saveFile(File file, String dir) throws IOException {
-		File newFile = new File(PropertiesUtil.getDefaultDirectory()
+		File newFile = new File(basePath
 				+ (StringUtils.isNotBlank(baseSession.getTenantId()) ? baseSession.getTenantId() : "admin")
 						.concat(FileUtil.sanitizeDirPath(dir)).concat(file.getName()));
 		FileUtils.copyFile(file, newFile);

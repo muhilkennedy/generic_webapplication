@@ -36,31 +36,19 @@ public class PropertiesUtil {
 	}
 	
 	public static String getDBEncryptionSecret() {
-		String secret = EnvPropertiesUtil.getEnvironmentValue("DB_SECRET");
-		if (StringUtils.isAllBlank(secret)) {
-			Log.base.warn("----- DB_SECRET is missing! consider adding the property -----");
-			Log.base.info("Falling back to default secret");
-			return "0123456789abcdef";
-		}
-		return secret;
+		return EnvPropertiesUtil.getEnvironmentValue("DB_SECRET");
 	}
 	
 	public static String getJWTSecret() {
-		String secret = EnvPropertiesUtil.getEnvironmentValue("DB_SECRET");
-		if (StringUtils.isAllBlank(secret)) {
-			Log.base.warn("----- JWT_SECRET is missing! consider adding the property -----");
-			Log.base.info("Falling back to default secret");
-			return "SldUU2VjcmV0QDIwMjI="; //JWTSecret@2022 base64 encoded
-		}
-		return secret;
+		return EnvPropertiesUtil.getEnvironmentValue("JWT_SECRET");
 	}
 
 	public static String getDefaultDirectory() {
-		String dir = System.getProperty("default.dir");
-		if (StringUtils.isAllBlank(dir)) {
-			return defaultDirectory;
-		}
-		return dir;
+		return System.getProperty("default.dir");
+	}
+	
+	public static String getFileEncryptionSecret() {
+		return EnvPropertiesUtil.getEnvironmentValue("FILE_SECRET");
 	}
 
 }

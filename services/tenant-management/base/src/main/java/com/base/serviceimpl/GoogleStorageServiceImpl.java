@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLConnection;
 
 import org.apache.commons.io.FileUtils;
@@ -11,12 +12,17 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import com.base.exceptions.CryptoException;
 import com.base.service.BaseSession;
 import com.base.service.StorageService;
+import com.base.util.FileCryptoUtil;
 import com.base.util.FileUtil;
+import com.base.util.PropertiesUtil;
 import com.google.auth.Credentials;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Blob;
@@ -43,10 +49,15 @@ public class GoogleStorageServiceImpl implements StorageService {
 
 	@Value("${app.gcs.bucket.default}")
 	private String defaultBucketName;
-
-	public GoogleStorageServiceImpl() throws FileNotFoundException, IOException {
+	
+	public GoogleStorageServiceImpl() throws FileNotFoundException, IOException, CryptoException {
+		//ResourceUtils.getFile("classpath:gcs/config.json")
+		InputStream is = getClass().getResourceAsStream("/gcs/config.json");
+		File tempFile = File.createTempFile("config", ".json");
+	    FileUtils.copyInputStreamToFile(is, tempFile);
+		File decryptedFile = FileCryptoUtil.decrypt(PropertiesUtil.getFileEncryptionSecret(), tempFile);
 		this.credentials = GoogleCredentials
-				.fromStream(new FileInputStream(ResourceUtils.getFile("classpath:gcs/config.json")));
+				.fromStream(new FileInputStream(decryptedFile));
 		this.storage = StorageOptions.newBuilder().setCredentials(credentials).setProjectId("master").build()
 				.getService();
 	}

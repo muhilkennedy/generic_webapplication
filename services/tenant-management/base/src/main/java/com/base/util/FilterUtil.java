@@ -31,7 +31,9 @@ public class FilterUtil {
 					String[] arr = mapping.split("{");
 					mapping = arr[0];
 				}
-				paths.add(String.format("/%s%s/*", classRequestMapping.value()[0], mapping));
+				String path = String.format("/%s%s/*", classRequestMapping.value()[0], mapping);
+				Log.base.debug(path);
+				paths.add(path);
 			});
 		});
 		Log.base.debug("Identified User Auth URL patterns : " + paths.toString());

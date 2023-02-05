@@ -20,13 +20,11 @@
 		<jsonorg.version>20220320</jsonorg.version>
 		<mysql.version>8.0.30</mysql.version>
 		<r2dbc.mysql.version>0.8.2.RELEASE</r2dbc.mysql.version>
+		<javax.rs.version>2.1.1</javax.rs.version>
+		<jobrunr.version>5.3.1</jobrunr.version>
 	</properties>
 	<dependencies>
 		<!-- default spring-boot web dependencies -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency> -->
 		<dependency>
 			<groupId>com.platform</groupId>
 			<artifactId>platform</artifactId>
@@ -36,6 +34,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -81,13 +83,18 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency> -->				
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- Reactive relational database connectivity r2dbc dependencies -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/dev.miku/r2dbc-mysql -->
  		<dependency>
@@ -100,11 +107,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>${mysql.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>${jsonorg.version}</version>
-		</dependency>
 		<!-- Flyway DB migration -->
 		<dependency>
 			<groupId>org.flywaydb</groupId>
@@ -114,6 +116,27 @@
 		    <groupId>org.flywaydb</groupId>
 		    <artifactId>flyway-mysql</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>${javax.rs.version}</version>
+		</dependency>
+		<!-- job scheduling -->
+		<dependency>
+		   <groupId>org.jobrunr</groupId>
+		   <artifactId>jobrunr</artifactId>
+		   <version>${jobrunr.version}</version>
+		</dependency>
+		<dependency>
+		  <groupId>org.jobrunr</groupId>
+		  <artifactId>jobrunr-spring-boot-starter</artifactId>
+		  <version>${jobrunr.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${jsonorg.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -121,6 +144,9 @@
 		</plugins>
 	</build>
 	<modules>
+		<module>i18n</module>
+		<module>base</module>
+		<module>service</module>
 		<module>core</module>
 	</modules>
 </project>
