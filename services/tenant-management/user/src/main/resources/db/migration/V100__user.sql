@@ -8,6 +8,6 @@ CREATE TABLE IF NOT EXISTS customer (rootid varchar(64) NOT NULL PRIMARY KEY, te
 
 /* Default data*/
 
-INSERT INTO EMPLOYEE(rootid, tenantid, active, fname, lname, emailid, mobile, password, locale, timezone, timecreated, timeupdated) values ("1:USER", "tenant1", true, "support", "admin", "superuser", "0000000000", "$2a$05$MhdU7apzW37pNyu77/1xt.ICQdYmri/q4e.606JZQFFGaYNDyiUXG", "en_US", "IST", 0, 0);
-INSERT INTO EMPLOYEE(rootid, tenantid, active, fname, lname, emailid, mobile, password, locale, timezone, timecreated, timeupdated) values ("ADMINTENANT:USER", "ADMINTENANT", true, "customersupport", "admin", "superuser", "0000000000", "$2a$05$FnCFD1U3J5Nfmsv9MeYWp.FS.Sf1moUOFpuqu0WtjzYHKb0mGIcfC", "en_US", "IST", 0, 0);
+INSERT INTO employee(rootid, tenantid, active, fname, lname, emailid, mobile, password, locale, timezone, timecreated, timeupdated) values ("1:USER", "tenant1", true, "support", "admin", "superuser", "0000000000", "$2a$05$MhdU7apzW37pNyu77/1xt.ICQdYmri/q4e.606JZQFFGaYNDyiUXG", "en_US", "IST", 0, 0);
+INSERT INTO employee(rootid, tenantid, active, fname, lname, emailid, mobile, password, locale, timezone, timecreated, timeupdated) values ("ADMINTENANT:USER", "ADMINTENANT", true, "customersupport", "admin", "superuser", "0000000000", "$2a$05$FnCFD1U3J5Nfmsv9MeYWp.FS.Sf1moUOFpuqu0WtjzYHKb0mGIcfC", "en_US", "IST", 0, 0);
 
