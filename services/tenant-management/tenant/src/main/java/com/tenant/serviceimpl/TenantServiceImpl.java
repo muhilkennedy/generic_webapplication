@@ -125,7 +125,7 @@ public class TenantServiceImpl implements TenantService {
 
 	private void evictTenantByUniqueName(BaseObject obj) {
 		cacheManager.getCache(CacheUtil.TENANT_CACHE).evictIfPresent(((Tenant) obj).getTenantUniqueName());
-		cacheManager.getCache(CacheUtil.TENANT_CACHE).evictIfPresent(obj.getObjectId());
+		//cacheManager.getCache(CacheUtil.TENANT_CACHE).evictIfPresent(obj.getObjectId());
 	}
 
 	@Override

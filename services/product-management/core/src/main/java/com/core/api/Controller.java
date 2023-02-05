@@ -1,19 +1,19 @@
 package com.core.api;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.core.service.ProductService;
+import com.platform.entity.Tenant;
+import com.platform.exception.TenantException;
+import com.platform.service.TenantService;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,7 +26,8 @@ public class Controller {
 	private ProductService service;
 	
 	@GetMapping("/ping")
-	public ResponseEntity<?> getFile() throws IOException {
+	public ResponseEntity<?> getFile() throws IOException, TenantException {
+		Tenant tenant = TenantService.findByUniqueName("devTenant");
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 	

@@ -37,7 +37,6 @@ public class Tenant implements Serializable, BaseObject {
 	@GenericGenerator(name="realm_Id", strategy = "com.base.generator.RealmIdGenerator")
 	@GeneratedValue(generator = "realm_Id")
 	@Column(name = "ROOTID", updatable = false, nullable = false)
-	@JsonIgnore
 	private String rootId;
 	
 	@Column(name = "TENANTUNIQUENAME")

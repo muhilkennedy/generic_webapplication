@@ -14,6 +14,8 @@ public class Constants {
 	public static String TENANT_PACKAGE = "com.tenant*";
 	public static String CORE_PACKAGE = "com.core*";
 	public static String USER_PACKAGE = "com.user*";
+	public static String SERVICE_PACKAGE = "com.service*";
+	public static String I18N_PACKAGE = "com.i18n*";
 	
 	public static final String Key_Hibernate_Interceptor = "hibernate.ejb.interceptor";
 	public static final String TENANT_FILTER_NAME = "tenantFilter";

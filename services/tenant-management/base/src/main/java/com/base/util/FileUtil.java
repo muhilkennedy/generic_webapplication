@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLConnection;
 
+import org.apache.commons.io.FilenameUtils;
+
 public class FileUtil {
 	
 	/**
@@ -31,6 +33,18 @@ public class FileUtil {
 	
 	public static String getFileExtensionFromName(String fileName) {
 		return fileName != null ? fileName.substring(fileName.lastIndexOf(".") + 1) : null;
+	}
+	
+	public static String getFileExtension(String fileName) {
+		return "." + FilenameUtils.getExtension(fileName);
+	}
+	
+	public static String getFileBaseName(File file) {
+		return FilenameUtils.getBaseName(file.getName());
+	}
+	
+	public static File createTempFile(File file) throws IOException {
+		return File.createTempFile(getFileBaseName(file), getFileExtension(file.getName()));
 	}
 
 	public static File createTempFile(String prefix, String suffix) throws IOException {

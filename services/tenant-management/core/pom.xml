@@ -8,7 +8,7 @@
 	<artifactId>core</artifactId>
 	<name>core</name>
 	<description>Tenant Management Core module</description>
-	<version>core-v1.0.0</version>
+	<version>v1.0.0</version>
 	<properties>
 		<skip.tests>true</skip.tests>
 	</properties>

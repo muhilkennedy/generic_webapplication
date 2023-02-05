@@ -7,7 +7,8 @@ public class EnvPropertiesUtil {
 	
 	public static String getEnvironmentValue(final String key) {
 		String value = System.getenv(key);
-		Assert.isTrue(StringUtils.isAllBlank(value), "ENVIROMENT_VARIABLE_" + key + "_NOT_DEFNINED");
+		Log.base.debug("Requested for Key - {} :: value - {}", key, value);
+		Assert.isTrue(!StringUtils.isAllBlank(value), "ENVIROMENT_VARIABLE " + key + " NOT_DEFINED");
 		return value;
 	}
 

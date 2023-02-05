@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.tenantmanagement</groupId>
 	<artifactId>tenantmanagement</artifactId>
-	<version>v1.0.0</version>
+	<version>tenantmanagement-v1.0.0</version>
 	<packaging>pom</packaging>
 	<name>tenant-management</name>
 	<description>Core Tenant / User management functionalities</description>
@@ -266,6 +266,32 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<!-- <pluginRepositories>
+	    <pluginRepository>
+	        <id>central</id>
+	        <name>Central Repository</name>
+	        <url>https://repo.maven.apache.org/maven2</url>
+	        <layout>default</layout>
+	        <snapshots>
+	            <enabled>false</enabled>
+	        </snapshots>
+	        <releases>
+	            <updatePolicy>never</updatePolicy>
+	        </releases>
+	    </pluginRepository>
+	</pluginRepositories>
+	
+	<repositories>
+	    <repository>
+	        <id>central</id>
+	        <name>Central Repository</name>
+	        <url>https://repo.maven.apache.org/maven2</url>
+	        <layout>default</layout>
+	        <snapshots>
+	            <enabled>false</enabled>
+	        </snapshots>
+	    </repository>
+	</repositories> -->
 	<!-- <repositories>
 		<repository>
 			<id>spring-milestones</id>
