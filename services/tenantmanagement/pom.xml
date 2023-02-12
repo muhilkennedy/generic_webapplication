@@ -213,15 +213,6 @@
 		    <version>${commons.beanutils.version}</version>
 		</dependency>
 		<dependency>
-<<<<<<< HEAD
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-=======
 		    <groupId>org.reflections</groupId>
 		    <artifactId>reflections</artifactId>
 		    <version>${reflections.version}</version>
@@ -231,7 +222,6 @@
 		    <artifactId>freemarker</artifactId>
 		    <version>${freemarker.version}</version>
 		</dependency>
->>>>>>> dev
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
