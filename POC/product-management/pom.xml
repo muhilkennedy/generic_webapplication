@@ -122,20 +122,25 @@
 			<version>${javax.rs.version}</version>
 		</dependency>
 		<!-- job scheduling -->
-		<dependency>
+		<!-- <dependency>
 		   <groupId>org.jobrunr</groupId>
 		   <artifactId>jobrunr</artifactId>
 		   <version>${jobrunr.version}</version>
-		</dependency>
-		<dependency>
+		</dependency> -->
+		<!-- <dependency>
 		  <groupId>org.jobrunr</groupId>
 		  <artifactId>jobrunr-spring-boot-starter</artifactId>
 		  <version>${jobrunr.version}</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>${jsonorg.version}</version>
+		</dependency>
+		<!-- redis -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 	</dependencies>
 	<build>

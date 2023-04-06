@@ -4,12 +4,14 @@ import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
+import javax.annotation.PostConstruct;
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.AttributeConverter;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.base.util.PropertiesUtil;
@@ -25,11 +27,15 @@ public class AttributeEncryptor implements AttributeConverter<String, String> {
 
 	private static final String ALGORITHM_AES = "AES";
 
-	private final Key key;
-	private final Cipher cipher;
+	private Key key;
+	private Cipher cipher;
+	
+	@Value("${encryption.db.secret}")
+	private String secret;
 
-	public AttributeEncryptor() throws Exception {
-		key = new SecretKeySpec(PropertiesUtil.getDBEncryptionSecret().getBytes(), ALGORITHM_AES);
+	@PostConstruct
+	public void AttributeEncryptor() throws Exception {
+		key = new SecretKeySpec(secret.getBytes(), ALGORITHM_AES);
 		try {
 			cipher = Cipher.getInstance(ALGORITHM_AES);
 		} catch (NoSuchAlgorithmException | NoSuchPaddingException e) {

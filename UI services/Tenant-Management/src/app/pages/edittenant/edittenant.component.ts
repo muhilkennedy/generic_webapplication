@@ -47,7 +47,7 @@ export class EdittenantComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(environment.backendBaseUrl + '/tenant/alltenants', {
+    this.http.get(environment.backendBaseUrl + '/tenantresource/alltenants', {
       headers: {
         'X-Tenant': environment.tenantId,
         'Accept-Language': 'en_US',
@@ -65,7 +65,7 @@ export class EdittenantComponent implements OnInit {
 
   getRealmData(realmUniqueName){
     this.isRealmSelected =  true;
-    this.http.get(environment.backendBaseUrl + '/tenant/subscriptions?tenantUniqueName='+realmUniqueName.tenantUniqueName, {
+    this.http.get(environment.backendBaseUrl + '/tenantresource/subscriptions?tenantUniqueName='+realmUniqueName.tenantUniqueName, {
       headers: {
         'X-Tenant': environment.tenantId,
         'Accept-Language': 'en_US',
@@ -86,7 +86,7 @@ export class EdittenantComponent implements OnInit {
         renewalDate: this.datePipe.transform(this.range.value.start, 'yyyy-MM-dd'),
         expiryDate: this.datePipe.transform(this.range.value.end, 'yyyy-MM-dd')
    };
-    this.http.post<any>(environment.backendBaseUrl+'/tenant/subscriptions?tenantUniqueName='+this.selectedRealm.tenantUniqueName, body,
+    this.http.post<any>(environment.backendBaseUrl+'/tenantresource/subscriptions?tenantUniqueName='+this.selectedRealm.tenantUniqueName, body,
       {
       headers: {
         'X-Tenant': environment.tenantId,

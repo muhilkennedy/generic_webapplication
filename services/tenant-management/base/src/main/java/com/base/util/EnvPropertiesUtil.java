@@ -3,6 +3,10 @@ package com.base.util;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
+/**
+ * @author Muhil
+ *
+ */
 public class EnvPropertiesUtil {
 	
 	public static String getEnvironmentValue(final String key) {

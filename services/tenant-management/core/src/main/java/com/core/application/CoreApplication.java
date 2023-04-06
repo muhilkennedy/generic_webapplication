@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.base.security.DatabaseFieldProperties;
 import com.base.util.Log;
+import com.base.util.PropertiesUtil;
 
 /**
  * @author Muhil Kennedy
@@ -38,6 +39,7 @@ public class CoreApplication {
 
 	public static void main(String[] args) {
 		Log.logger.info("<<<<<<<<<<<<< Starting Core Application >>>>>>>>>>>>>");
+		PropertiesUtil.loadCustomCommandLineArgs(args);
 		SpringApplication.run(CoreApplication.class, args);
 		Log.logger.info("Heap Size = " + (Runtime.getRuntime().totalMemory() / 1000000000.0) + " GB");
 		Log.logger.info("Max Memory Size = " + (Runtime.getRuntime().maxMemory() / 1000000000.0) + " GB");

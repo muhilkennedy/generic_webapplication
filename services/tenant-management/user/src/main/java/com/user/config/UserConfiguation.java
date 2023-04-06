@@ -22,7 +22,7 @@ public class UserConfiguation {
 	@Bean
 	public FilterRegistrationBean<UserTokenFilter> UserFilterRegistration() {
 		Log.user.info("----- User Filter Registered -----");
-		String[] urlPatterns = FilterUtil.getAuthUrlPatterns();
+		String[] urlPatterns = FilterUtil.getUserTokenFilterPatterns();
 		FilterRegistrationBean<UserTokenFilter> registration = new FilterRegistrationBean<UserTokenFilter>();
 		registration.setFilter(userFilter);
 		registration.addUrlPatterns(urlPatterns);

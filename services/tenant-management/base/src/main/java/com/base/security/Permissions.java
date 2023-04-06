@@ -9,7 +9,7 @@ import java.util.stream.Stream;
  */
 public enum Permissions {
 	
-	SUPER_USER("Master"), ADMIN("Admin"), CUSTOMER_SUPPORT("CustomerSupport"), MANAGE_USERS("ManageUsers"),
+	SUPER_USER("SuperUser"), ADMIN("Admin"), CUSTOMER_SUPPORT("CustomerSupport"), MANAGE_USERS("ManageUsers"),
 	EDIT_USERS("EditUsers"), MANAGE_ORDERS("ManageOrders"), EDIT_ORDERS("EditOrders"),
 	MANAGE_PROMOTIONS("ManagePromotions"), EDIT_PROMOTIONS("EditPromotions"), MANAGE_PRODUCTS("ManageProducts"),
 	EDIT_PRODUCTS("EditProducts"), POINT_OF_SALE("PointOfSale"), MANAGE_CATEGORIES("ManageCategories"),
@@ -21,7 +21,7 @@ public enum Permissions {
 	Permissions(String value) {
 		this.value = value;
 	}
-
+	
 	public String getPermissionUniqueName() {
 		return this.value;
 	}

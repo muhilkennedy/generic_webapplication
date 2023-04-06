@@ -4,6 +4,7 @@ com/platform/messages/ErrorResponse.class
 com/platform/entity/TenantDetails.class
 com/platform/cache/CacheService.class
 com/platform/messages/Response$Status.class
+com/platform/entity/User.class
 com/platform/security/AttributeEncryptor.class
 com/platform/email/EmailTask.class
 com/platform/exception/TenantException.class
@@ -16,6 +17,7 @@ com/platform/service/TenantService.class
 com/platform/configuration/PlatformConfiguration.class
 com/platform/util/FileCryptoUtil.class
 com/platform/util/FileUtil.class
+com/platform/util/PlatformUtil.class
 com/platform/service/NFSStorageService.class
 com/platform/util/PlatformPropertiesUtil.class
 com/platform/util/DocxUtil.class

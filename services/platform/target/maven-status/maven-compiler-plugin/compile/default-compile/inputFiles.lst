@@ -19,10 +19,12 @@
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/cache/UserCache.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/util/EnvPropertiesUtil.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/util/FileUtil.java
+/Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/util/PlatformUtil.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/util/Log.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/service/GoogleStorageService.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/cache/CacheStore.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/entity/Tenant.java
+/Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/entity/User.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/util/FileCryptoUtil.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/entity/TenantOrigin.java
 /Users/i339628/muhil-dev/january/generic_webapplication/services/platform/src/main/java/com/platform/cache/TenantCache.java

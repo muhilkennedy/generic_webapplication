@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
 
     };
     console.log(body);
-    this.http.post<any>('/user/employee/login', body, {observe: 'response'})
+    this.http.post<any>('/authenticate/employee/login', body, {observe: 'response'})
         .subscribe(
           (resp:HttpResponse<any>) => {
             this.userService.userEmail = resp.body.data.emailId;

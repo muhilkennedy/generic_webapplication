@@ -1,5 +1,7 @@
 package com.platform.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,16 +11,23 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.apache.poi.xwpf.converter.core.XWPFConverterException;
 import org.apache.poi.xwpf.converter.pdf.PdfConverter;
 import org.apache.poi.xwpf.converter.pdf.PdfOptions;
+import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.poi.xwpf.usermodel.XWPFStyles;
+import org.apache.xmlbeans.XmlException;
 import org.docx4j.Docx4J;
 import org.docx4j.convert.out.FOSettings;
 import org.docx4j.fonts.IdentityPlusMapper;
 import org.docx4j.fonts.Mapper;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTRPr;
 
 public class DocxUtil {
 	
@@ -72,6 +81,130 @@ public class DocxUtil {
 		PdfConverter.getInstance().convert(document, baos, options);
 		Files.write(pdfFile.toPath(), baos.toByteArray());
 	}
+	
+	public static void split(String FilePath, long splitlen) {
+	    long leninfile = 0, leng = 0;
+	    int count = 1, data;
+	    try {
+	        File filename = new File(FilePath);
+	        //RandomAccessFile infile = new RandomAccessFile(filename, "r");
+	        InputStream infile = new BufferedInputStream(new FileInputStream(filename));
+	        data = infile.read();
+	        while (data != -1) {
+	            filename = new File(FilePath + count + ".docx");
+	            //RandomAccessFile outfile = new RandomAccessFile(filename, "rw");
+	            OutputStream outfile = new BufferedOutputStream(new FileOutputStream(filename));
+	            while (data != -1 && leng < splitlen) {
+	                outfile.write(data);
+	                leng++;
+	                data = infile.read();
+	                
+	            }
+	            leninfile += leng;
+	            leng = 0;
+	            outfile.close();
+	            count++;
+	            convertDocToPDF(filename);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public static void join(String FilePath) {
+	    long leninfile = 0, leng = 0;
+	    int count = 1, data = 0;
+	    try {
+	        File filename = new File(FilePath);
+	        //RandomAccessFile outfile = new RandomAccessFile(filename,"rw");
+
+	        OutputStream outfile = new BufferedOutputStream(new FileOutputStream(filename));
+	        while (true) {
+	            filename = new File(FilePath + count + ".docx");
+	            if (filename.exists()) {
+	                //RandomAccessFile infile = new RandomAccessFile(filename,"r");
+	                InputStream infile = new BufferedInputStream(new FileInputStream(filename));
+	                data = infile.read();
+	                while (data != -1) {
+	                    outfile.write(data);
+	                    data = infile.read();
+	                }
+	                leng++;
+	                infile.close();
+	                count++;
+	            } else {
+	                break;
+	            }
+	        }
+	        outfile.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public static void copyFile(String filePath) {
+		try {
+		    FileInputStream in = new FileInputStream(filePath);
+		    XWPFDocument oldDoc = new XWPFDocument(in);
+		    XWPFDocument newDoc = new XWPFDocument();
+		    
+		    
+		    XWPFDocument newDoc1 = new XWPFDocument();
+		    List<IBodyElement> ele = oldDoc.getBodyElements();
+		    int eleCount = 0;
+		    for(IBodyElement el : ele) {
+		    	newDoc1.getBodyElements().add(el);
+		    }
+		    FileOutputStream out1 = new FileOutputStream(new File(filePath + "ele" + ".docx"));
+	        newDoc.write(out1);
+	        out1.close();
+		    
+		    // Copy styles from template to new doc
+		    XWPFStyles newXStyles = newDoc.createStyles();
+		    newXStyles.setStyles(oldDoc.getStyle());
+
+		    
+		    List<XWPFParagraph> oldDocParagraphs = oldDoc.getParagraphs();
+		    int counter = 0, count =0;
+		    for (XWPFParagraph oldPar : oldDocParagraphs) {
+		    	counter ++;
+		        // Create new paragraph and set it style of old paragraph
+		        XWPFParagraph newPar = newDoc.createParagraph();
+		        newPar.setStyle(oldPar.getStyle());
+		        // Loop in runs of old paragraphs.
+		        for (XWPFRun oldRun : oldPar.getRuns()) { // Paragrafın sitillere göre parçalanmış stringleri
+		            // Create a run for the new paragraph
+		            XWPFRun newParRun = newPar.createRun();
+		            // Set old run's text of old paragraph to the run of new paragraph
+		            String runText = oldRun.text();
+		            newParRun.setText(runText);
+		            // Set old run's style of old paragraph to the run of new paragraph
+		            CTRPr oldCTRPr = oldRun.getCTR().getRPr();
+		            if (oldCTRPr != null) {
+//		                if (oldCTRPr. sizeOfRStyleArray() != 0){
+//		                    String carStyle = oldRun.getCTR();
+//		                    
+//		                }
+		            	newParRun.getCTR().setRPr(oldRun.getCTR().getRPr());
+		            }
+		            // Add the new run to the new paragraph
+		            newPar.addRun(newParRun);
+		        }
+		        if(counter >= 10000) {
+		        	// Write to file and close.
+			        FileOutputStream out = new FileOutputStream(new File(filePath + count + ".docx"));
+			        newDoc.write(out);
+			        out.close();
+			        count++;
+			        counter = 0;
+		        }
+		        
+		    }
+		} catch (IOException | XmlException e) {
+		    e.printStackTrace();
+		}
+	}
+
 	
 	//need to take care of custom fonts (only tamil font is added for now)
 			/*Mapper fontMapper = new IdentityPlusMapper();

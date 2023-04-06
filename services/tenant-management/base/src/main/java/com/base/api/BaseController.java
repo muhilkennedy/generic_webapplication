@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.base.annotation.Loggable;
-import com.base.annotation.ValidateUserToken;
+import com.base.annotation.UserAuthValidation;
+import com.base.annotation.UserPermission;
 import com.base.security.Permissions;
 import com.base.service.CacheService;
 import com.base.service.FileBlobService;
@@ -30,6 +31,7 @@ import com.base.util.Log;
  */
 @RestController
 @RequestMapping("base")
+@UserAuthValidation
 public class BaseController {
 	
 	@Autowired
@@ -38,7 +40,7 @@ public class BaseController {
 	@Autowired
 	private FileBlobService fileBlobService;
 
-	@ValidateUserToken(permissions = { Permissions.SUPER_USER })
+	@UserPermission(values = { Permissions.SUPER_USER })
 	@Loggable(message = "Clear Cache", perf = true)
 	@RequestMapping(value = "/cache", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON)
 	public Response clearCache(HttpServletRequest request) {

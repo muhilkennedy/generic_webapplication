@@ -26,7 +26,7 @@ export class ManageuserComponent implements OnInit {
   constructor(private http: HttpClient,private toastr: ToastrService, private cookieService: CookieService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.http.get(environment.backendBaseUrl + '/tenant/alltenants', {
+    this.http.get(environment.backendBaseUrl + '/tenantresource/alltenants', {
       headers: {
         'X-Tenant': environment.tenantId,
         'Accept-Language': 'en_US',
