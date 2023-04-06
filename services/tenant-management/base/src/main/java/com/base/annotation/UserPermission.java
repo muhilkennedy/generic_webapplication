@@ -7,9 +7,14 @@ import java.lang.annotation.Target;
 
 import com.base.security.Permissions;
 
+/**
+ * @author Muhil
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface ValidateUserToken {
+public @interface UserPermission {
 	
-	public Permissions[] permissions() default{};
+	public Permissions[] values() default{};
+	
 }

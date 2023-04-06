@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.base.annotation.ValidateUserToken;
+import com.base.annotation.UserAuthValidation;
+import com.base.annotation.UserPermission;
 import com.base.messages.GenericResponse;
 import com.base.messages.Response;
 import com.base.security.Permissions;
@@ -36,6 +37,7 @@ import com.user.service.EmployeeService;
 
 @RestController
 @RequestMapping("user")
+@UserAuthValidation
 public class UserController {
 	
 	@Autowired
@@ -48,40 +50,14 @@ public class UserController {
 	@Autowired
 	private TenantService tenantService;
 	
-	@ValidateUserToken
 	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<User> getUser(HttpServletRequest request) {
 		GenericResponse<User> response = new GenericResponse<>();
 		return response.setStatus(Response.Status.OK).setData((User) baseSession.getUserInfo()).build();
 	}
 	
-	@RequestMapping(value = "/employee/register", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-	public GenericResponse<User> registerEmployee(HttpServletRequest request, @RequestBody @Valid UserRequestbody user) {
-		GenericResponse<User> response = new GenericResponse<>();
-		Employee employee = new Employee();
-		employee.setEmailId(user.getEmail());
-		employee.setMobile(user.getMobile());
-		employee.setPassword(user.getPassword());
-		employee.setfName(user.getFirstName());
-		employee.setlName(user.getLastName());
-		empService.register(employee);
-		return response.setStatus(Response.Status.CREATED).setData(employee).build();
-	}
-	
-	@RequestMapping(value = "/employee/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-	public GenericResponse<User> loginEmployee(HttpServletRequest request, HttpServletResponse httpResponse , @RequestBody @Valid UserLoginRequest user)
-			throws AuthenticationException, UserNotFoundException {
-		GenericResponse<User> response = new GenericResponse<>();
-		Employee employee = new Employee();
-		employee.setEmailId(user.getEmail());
-		employee.setPassword(user.getPassword());
-		employee = (Employee) empService.login(employee);
-		return response.setStatus(Response.Status.OK).setData(employee)
-				.setDataList(Arrays.asList(JWTUtil.generateToken(employee.getRootId(), JWTUtil.USER_TYPE_EMPLOYEE, false))).build();
-	}
-	
 	// Use this endpoint only for tenant-management
-	@ValidateUserToken(permissions = {Permissions.SUPER_USER})
+	@UserPermission(values = {Permissions.SUPER_USER})
 	@RequestMapping(value = "/employee/create", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<User> createAdminEmployee(HttpServletRequest request,
 			@RequestParam(value = "tenantUniqueName", required = false) String tenantUniqueName,
@@ -104,7 +80,7 @@ public class UserController {
 		return response.setStatus(Response.Status.OK).setData(employee).build();
 	}
 	
-	@ValidateUserToken(permissions = {Permissions.ADMIN, Permissions.EDIT_USERS})
+	@UserPermission(values = {Permissions.ADMIN, Permissions.EDIT_USERS})
 	@RequestMapping(value = "/createemployee", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<User> createEmployee(HttpServletRequest request,
 			@RequestParam(value = "tenantUniqueName", required = false) String tenantUniqueName,
@@ -115,14 +91,14 @@ public class UserController {
 	}
 	
 	//impl get by user id
-	@ValidateUserToken(permissions = {Permissions.SUPER_USER, Permissions.ADMIN, Permissions.MANAGE_USERS})
+	@UserPermission(values = {Permissions.SUPER_USER, Permissions.ADMIN, Permissions.MANAGE_USERS})
 	@RequestMapping(value = "/employee/fetch", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<User> getAllUser(HttpServletRequest request) {
 		GenericResponse<User> response = new GenericResponse<>();
 		return response.setStatus(Response.Status.OK).setDataList(empService.findAll()).build();
 	}
 	
-	@ValidateUserToken(permissions = {Permissions.SUPER_USER, Permissions.ADMIN, Permissions.EDIT_USERS})
+	@UserPermission(values = {Permissions.SUPER_USER, Permissions.ADMIN, Permissions.EDIT_USERS})
 	@RequestMapping(value = "/employee/toggleuserstatus", method = RequestMethod.PATCH, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<User> toggleTenant(HttpServletRequest request,
 			@RequestParam(value = "userId", required = false) @Valid @NotBlank String userRootId)

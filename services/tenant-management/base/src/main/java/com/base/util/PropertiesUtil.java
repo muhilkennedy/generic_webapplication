@@ -1,5 +1,8 @@
 package com.base.util;
 
+import java.util.Arrays;
+import java.util.Properties;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,16 +15,11 @@ import org.springframework.stereotype.Component;
 public class PropertiesUtil {
 
 	private static String activeProfile;
-	private static String defaultDirectory;
+	private	static Properties commandLineProperties = new Properties();
 
 	@Value("${spring.profiles.active}")
 	public void setActiveProfile(String profile) {
 		PropertiesUtil.activeProfile = profile;
-	}
-
-	@Value("${app.nfs.path}")
-	public void setDefaultDirectoryProfile(String defaultDirectory) {
-		PropertiesUtil.defaultDirectory = defaultDirectory;
 	}
 
 	public static String getActiveProfile() {
@@ -49,6 +47,21 @@ public class PropertiesUtil {
 	
 	public static String getFileEncryptionSecret() {
 		return EnvPropertiesUtil.getEnvironmentValue("FILE_SECRET");
+	}
+	
+	public static void loadCustomCommandLineArgs(String[] args) {
+		Arrays.stream(args).forEach(arg -> {
+			arg = arg.startsWith("-") ? arg.substring(1) : arg;
+			String[] argValue = arg.split("=");
+			String key = argValue[0];
+			String value = argValue[1];
+			Log.base.debug("Loaded CommandLineArg - key : {} & value : {}", key, value);
+			commandLineProperties.put(key, value);
+		});
+	}
+	
+	public static String getCLAProperty(String key) {
+		return commandLineProperties.getProperty(key);
 	}
 
 }

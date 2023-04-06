@@ -14,7 +14,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.base.annotation.ValidateUserToken;
+import com.base.annotation.UserPermission;
 import com.base.security.Permissions;
 import com.base.service.BaseSession;
 import com.base.util.Log;
@@ -32,7 +32,7 @@ public class PermissionsAspect {
 	@Autowired
 	private BaseSession baseSession;
 
-	@Pointcut("@within(com.base.annotation.ValidateUserToken) || @annotation(com.base.annotation.ValidateUserToken)")
+	@Pointcut("@within(com.base.annotation.UserPermission) || @annotation(com.base.annotation.UserPermission)")
 	protected void userTokenPointCut() {
 
 	}
@@ -41,8 +41,8 @@ public class PermissionsAspect {
 	public Object enableTenantFilter(ProceedingJoinPoint joinPoint) throws Throwable {
 		MethodSignature signature = (MethodSignature) joinPoint.getSignature();
 		Method method = signature.getMethod();
-		ValidateUserToken annotation = method.getAnnotation(ValidateUserToken.class);
-		Permissions[] permissions = annotation.permissions();
+		UserPermission annotation = method.getAnnotation(UserPermission.class);
+		Permissions[] permissions = annotation.values();
 		// validate for permissions only if present in annotation.
 		if (permissions.length > 0) {
 			Employee employee = (Employee) baseSession.getUserInfo();
@@ -52,15 +52,18 @@ public class PermissionsAspect {
 			List<String> empPermissions = rolePermissions.parallelStream()
 					.map(rolePermission -> rolePermission.getPermission().getPermission()).collect(Collectors.toList());
 			if (permissions.length > 0 && empPermissions.isEmpty()) {
-				Log.user.error("Employee doesnt seem to have required permission to access this endpoint");
+				Log.user.error("User doesnt seem to have required permission to access this endpoint");
+				Log.user.debug("Required permission(s) to access this endpoint {}", permissions);
 				throw new InvalidUserPermission(
-						"Employee doesnt seem to have required permission to access this endpoint");
+						"User doesnt seem to have required permission to access this endpoint");
 			}
 			if (!Stream.of(permissions).filter(prem -> empPermissions.contains(prem.getPermissionUniqueName()))
 					.findFirst().isPresent()) {
-				Log.user.error("Authorization denied for this to user to acces this endpoint");
-				throw new InvalidUserPermission("Authorization denied for this to user to acces this endpoint");
+				Log.user.error("Authorization denied for user to acces this endpoint");
+				Log.user.debug("Required permission(s) to access this endpoint {}", permissions);
+				throw new InvalidUserPermission("Authorization denied for user to acces this endpoint");
 			}
+			throw new InvalidUserPermission("Authorization denied for user to acces this endpoint");
 		}
 		Log.user.debug(String.format("User Permissions are valid for method : %s required permissions %s", method.getName(),
 				Permissions.getPermissionsAsString(permissions)));
