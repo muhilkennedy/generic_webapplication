@@ -1,0 +1,1 @@
+create table if not exists fileblob (rootid bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, blobinfo blob, mediaurl varchar(1024), storetype varchar(64), timecreated bigint, timeupdated bigint, active BOOL DEFAULT TRUE, modifiedby bigint, createdby bigint, version bigint DEFAULT 0);

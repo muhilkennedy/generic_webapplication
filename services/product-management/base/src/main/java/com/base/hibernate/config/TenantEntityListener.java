@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.base.configuration.AutowireHelper;
 import com.base.entity.MultiTenantEntity;
-import com.platform.session.BaseSession;
+import com.platform.session.PlatformBaseSession;
 import com.platform.util.PlatformUtil;
 
 /**
@@ -23,7 +23,7 @@ public class TenantEntityListener {
         if(object instanceof MultiTenantEntity){
         	//AutowireHelper.autowire(this, this.baseSession);
         	MultiTenantEntity entity = (MultiTenantEntity)object;
-            entity.setTenantId(BaseSession.getTenantId());
+            entity.setTenantId(PlatformBaseSession.getTenantId());
             if (entity.getTimeCreated() == 0L) {
             	entity.setTimeCreated(System.currentTimeMillis());
     		}
@@ -40,7 +40,7 @@ public class TenantEntityListener {
         if(object instanceof MultiTenantEntity){
         	//AutowireHelper.autowire(this, this.baseSession);
         	MultiTenantEntity entity = (MultiTenantEntity)object;
-            entity.setTenantId(BaseSession.getTenantId());
+            entity.setTenantId(PlatformBaseSession.getTenantId());
             entity.setTimeUpdated(System.currentTimeMillis());
     		if(entity.getModifiedBy() == null) {
     			entity.setModifiedBy(getCurrentUser());
@@ -54,15 +54,15 @@ public class TenantEntityListener {
         if(object instanceof MultiTenantEntity){
         	//AutowireHelper.autowire(this, this.baseSession);
         	MultiTenantEntity entity = (MultiTenantEntity)object;
-            entity.setTenantId(BaseSession.getTenantId());
+            entity.setTenantId(PlatformBaseSession.getTenantId());
         }
     }
 	
 	private String getCurrentUser() {
-		if (BaseSession.getUser() == null) {
+		if (PlatformBaseSession.getUser() == null) {
 			return PlatformUtil.DEFAULT_USER_ID;
 		}
-		return BaseSession.getUser().getObjectId();
+		return PlatformBaseSession.getUser().getObjectId();
 	}
 
 }

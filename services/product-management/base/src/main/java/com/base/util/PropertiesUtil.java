@@ -61,14 +61,26 @@ public class PropertiesUtil {
 	}
 	
 	public static String getDBEncryptionSecret() {
+		String key = env.getProperty("encryption.db.secret");
+		if(!StringUtils.isAllBlank(key)) {
+			return key;
+		}
 		return EnvPropertiesUtil.getEnvironmentValue("DB_SECRET");
 	}
 	
 	public static String getJWTSecret() {
+		String key = env.getProperty("encryption.jwt.secret");
+		if(!StringUtils.isAllBlank(key)) {
+			return key;
+		}
 		return EnvPropertiesUtil.getEnvironmentValue("JWT_SECRET");
 	}
 	
 	public static String getFileSecret() {
+		String key = env.getProperty("encryption.file.secret");
+		if(!StringUtils.isAllBlank(key)) {
+			return key;
+		}
 		return EnvPropertiesUtil.getEnvironmentValue("FILE_SECRET");
 	}
 

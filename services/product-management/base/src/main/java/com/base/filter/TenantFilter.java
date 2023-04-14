@@ -21,7 +21,7 @@ import com.platform.entity.Tenant;
 import com.platform.entity.TenantDetails;
 import com.platform.exception.TenantException;
 import com.platform.service.TenantService;
-import com.platform.session.BaseSession;
+import com.platform.session.PlatformBaseSession;
 
 /**
  * @author Muhil
@@ -71,7 +71,7 @@ public class TenantFilter extends OncePerRequestFilter  {
 					"Tenant not Active");
 			return;
 		}
-		BaseSession.setTenant(tenant);
+		PlatformBaseSession.setTenant(tenant);
 		TenantDetails td = tenant.getTenantDetail();
 		//check valid tenant origins
 		Log.base.debug("Tenant filter validation successful");
