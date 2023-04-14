@@ -1,0 +1,22 @@
+{
+  "manageTenant" : "Manage Tenant information.",
+  "tenantManagement" : "Tenant Management",
+  "login" : "Login",
+  "tenantManager" : "TENANT MANAGER",
+  "tenantName" : "Tenant Name",
+  "tenantUniqueName" : "Tenant UniqueName",
+  "tenantStatus" : "Tenant Status",
+  "timeZone" : "Time Zone",
+  "validTill" : "Valid Till",
+  "Dashboard": "Dashboard",
+  "Onboard Tenant": "Onboard Tenant",
+  "Edit Tenant": "Edit Tenant",
+  "Manage Admin Users": "Manage Admin Users",
+  "Admin Console": "Admin Console",
+  "First Name": "First Name",
+  "Last Name": "Last Name",
+  "Mobile Number": "Mobile Number",
+  "Email-Id": "Email-Id",
+  "save": "Save",
+  "captchaError": "Please verify you are Human!"
+}
