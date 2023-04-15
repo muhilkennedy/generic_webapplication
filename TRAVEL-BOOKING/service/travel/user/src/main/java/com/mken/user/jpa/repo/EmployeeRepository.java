@@ -7,6 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import com.mken.user.entity.Employee;
 
+/**
+ * @author Muhil
+ *
+ */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	

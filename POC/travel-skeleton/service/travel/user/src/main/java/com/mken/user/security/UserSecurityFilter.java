@@ -23,6 +23,10 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+/**
+ * @author Muhil
+ *
+ */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class UserSecurityFilter implements Filter {

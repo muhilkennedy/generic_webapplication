@@ -12,6 +12,11 @@ import com.mken.base.util.PropertiesUtil;
 import com.platform.configuration.PlatformConfiguration;
 import com.platform.util.PlatformPropertiesUtil;
 
+/**
+ * @author Muhil
+ * configure required platform properties.
+ *
+ */
 @Configuration
 public class BasePlatformConfiguration {
 

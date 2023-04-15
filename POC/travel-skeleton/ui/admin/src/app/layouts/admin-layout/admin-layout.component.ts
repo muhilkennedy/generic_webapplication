@@ -25,6 +25,7 @@ export class AdminLayoutComponent implements OnInit, AfterViewInit {
           this.userService.userEmail = resp.data.emailId;
           this.userService.userId = resp.data.rootId;
           this.userService.userName = resp.data.fName + " " + resp.data.lName;
+          this.userService.profilePic = resp.data.profilePic;
         },
         (error:any) => {
           this.cookieService.deleteAll();

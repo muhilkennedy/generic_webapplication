@@ -8,6 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import com.mken.base.util.FilterUtil;
 import com.mken.base.util.Log;
 
+/**
+ * @author Muhil
+ *
+ */
 @Configuration
 public class UserFilterConfiguration {
 

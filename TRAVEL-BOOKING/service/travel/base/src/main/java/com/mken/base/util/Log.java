@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Log {
 	
-	public static enum loggers { base, core, i18n, service };
+	public static enum loggers { base, itinerary, user, i18n, service };
 
 	public static Logger logger = LoggerFactory.getLogger(Log.class);
 	

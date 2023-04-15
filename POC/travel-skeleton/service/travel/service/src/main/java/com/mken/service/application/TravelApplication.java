@@ -15,12 +15,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 import com.mken.base.util.Log;
 
+/**
+ * @author Muhil
+ *
+ */
 @SpringBootApplication
-@ComponentScan(basePackages = { "com.mken.base.*", "com.mken.user.*" })
-@ConfigurationPropertiesScan(basePackages = { "com.mken.base.*", "com.mken.user.*" })
-@EntityScan(basePackages = { "com.mken.base.*","com.mken.user.*" })
-@EnableR2dbcRepositories(basePackages = { "com.mken.user.r2db.repo" })
-@EnableJpaRepositories(basePackages = { "com.mken.user.jpa.repo" })
+@ComponentScan(basePackages = { "com.mken.base.*", "com.mken.user.*", "com.mken.itinerary.*" })
+@ConfigurationPropertiesScan(basePackages = { "com.mken.base.*", "com.mken.user.*", "com.mken.itinerary.*" })
+@EntityScan(basePackages = { "com.mken.base.*", "com.mken.user.*", "com.mken.itinerary.*" })
+@EnableR2dbcRepositories(basePackages = { "com.mken.user.r2db.*", "com.mken.base.r2db.*", "com.mken.itinerary.r2db.*" })
+@EnableJpaRepositories(basePackages = { "com.mken.user.jpa.*", "com.mken.base.jpa.*", "com.mken.itinerary.jpa.*" })
 @EnableAutoConfiguration
 @EnableAsync
 @EnableScheduling

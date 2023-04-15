@@ -3,6 +3,7 @@ package com.mken.user.api;
 import javax.ws.rs.core.MediaType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -11,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mken.base.service.ReCaptchaService;
 import com.mken.base.session.BaseSession;
-import com.mken.user.emailservice.EmployeeEmailService;
 import com.mken.user.entity.Employee;
 import com.mken.user.entity.User;
 import com.mken.user.messages.UserRequestbody;
@@ -27,6 +28,10 @@ import com.platform.messages.Response;
 import jakarta.validation.Valid;
 import reactor.core.publisher.Flux;
 
+/**
+ * @author Muhil
+ *
+ */
 @RestController
 @RequestMapping("employee")
 @ValidateUserToken
@@ -54,14 +59,10 @@ public class EmployeeController {
 		return response.setStatus(Response.Status.OK).setData(employee).build();
 	}
 	
-	@Autowired
-	EmployeeEmailService emailService;
-	
 	@RequestMapping(value = "/ping", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
 	public GenericResponse<User> getUserDetails()
 	{
 		GenericResponse<User> response = new GenericResponse<>();
-		emailService.sendWelcomeActivationEmail((User)BaseSession.getUser());
 		return response.setStatus(Response.Status.OK).setData((User)BaseSession.getUser()).build();
 	}
 	
@@ -79,6 +80,13 @@ public class EmployeeController {
 		else {
 			empService.toggleUserStatus(BaseSession.getUser().getRootId());
 		}
+		return response.setStatus(Response.Status.OK).setData((User)BaseSession.getUser()).build();
+	}
+	
+	@PutMapping(value = "/profilepic", produces = MediaType.APPLICATION_JSON)
+	public GenericResponse<User> uploadProfilePic(@RequestParam("file") MultipartFile file) throws Exception {
+		GenericResponse<User> response = new GenericResponse<>();
+		empService.updateProfilePic(file);
 		return response.setStatus(Response.Status.OK).setData((User)BaseSession.getUser()).build();
 	}
 	

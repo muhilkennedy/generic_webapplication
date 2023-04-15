@@ -2,6 +2,10 @@ package com.mken.user.messages;
 
 import jakarta.validation.constraints.NotBlank;
 
+/**
+ * @author Muhil
+ *
+ */
 public class UserRequestbody {
 	
 	@NotBlank

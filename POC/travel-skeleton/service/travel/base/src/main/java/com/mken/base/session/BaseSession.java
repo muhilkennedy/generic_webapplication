@@ -6,6 +6,10 @@ import org.apache.commons.lang3.LocaleUtils;
 
 import com.mken.base.entity.BaseEntity;
 
+/**
+ * @author Muhil
+ * Basesession should be set for each http request/thread.
+ */
 public class BaseSession {
 
 	private static final ThreadLocal<BaseEntity> user = new ThreadLocal<>();

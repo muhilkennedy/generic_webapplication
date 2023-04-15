@@ -1,5 +1,9 @@
 package com.mken.base.util;
 
+/**
+ * @author Muhil
+ *
+ */
 public class Constants {
 	
 	public static enum DEPLOYMENT_MODES {
