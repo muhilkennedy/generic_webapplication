@@ -6,6 +6,8 @@ import java.net.URLConnection;
 
 import org.apache.commons.io.FilenameUtils;
 
+import com.platform.configuration.PlatformConfiguration;
+
 public class FileUtil {
 	
 	/**
@@ -39,6 +41,10 @@ public class FileUtil {
 		return "." + FilenameUtils.getExtension(fileName);
 	}
 	
+	public static String getFileName(String fileName) {
+		return FilenameUtils.getBaseName(fileName);
+	}
+	
 	public static String getFileBaseName(File file) {
 		return FilenameUtils.getBaseName(file.getName());
 	}
@@ -57,6 +63,15 @@ public class FileUtil {
 
 	public static File createTempFile() throws IOException {
 		return File.createTempFile("temp", ".tmp");
+	}
+
+	public static String getTempDirectory() {
+		return "/tmp" + File.separator + PlatformConfiguration.getAppName() + File.separator;
+	}
+	
+	public static File crreateFileinTempDirectory(String fileNamewithExtension) {
+		return new File(FileUtil.getTempDirectory() + getFileName(fileNamewithExtension)
+				+ getFileExtension(fileNamewithExtension));
 	}
 	
 	public static String sanitizeDirPath(String dir) {

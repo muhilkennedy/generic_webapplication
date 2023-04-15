@@ -10,6 +10,7 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { MaterialModule } from "../../material.module";
 import { ManageuserComponent } from "src/app/pages/manageuser/manageuser.component";
 import { TranslateModule } from "@ngx-translate/core";
+import { ManagecustomerComponent } from '../../pages/managecustomer/managecustomer.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { TranslateModule } from "@ngx-translate/core";
   ],
   declarations: [
     DashboardComponent,
-    ManageuserComponent
+    ManageuserComponent,
+    ManagecustomerComponent
   ],
   providers:[
 

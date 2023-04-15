@@ -11,6 +11,10 @@ import org.springframework.web.client.RestTemplate;
 import com.platform.exception.ReCaptchaException;
 import com.platform.messages.RecaptchaResponse;
 
+/**
+ * @author Muhil
+ * Google recaptcha verification service.
+ */
 @Service
 public class ReCaptchaService {
 	
@@ -39,11 +43,7 @@ public class ReCaptchaService {
 		} catch (RestClientException e) {
 			throw new ReCaptchaException(e.getMessage());
 		}
-		if (recaptchaResponse.isSuccess()) {
-			return true;
-		} else {
-			return false;
-		}
+		return (recaptchaResponse != null && recaptchaResponse.isSuccess());
 	}
 
 }

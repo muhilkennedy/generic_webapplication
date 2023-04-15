@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.ResourceUtils;
 
 import com.mken.base.util.PropertiesUtil;
 import com.platform.exception.CryptoException;
@@ -22,7 +21,7 @@ import com.platform.util.Log;
 
 /**
  * @author Muhil
- * Initialize storage objects.
+ * Initialize google storage objects.
  */
 @Configuration
 public class StorageConfiguration {

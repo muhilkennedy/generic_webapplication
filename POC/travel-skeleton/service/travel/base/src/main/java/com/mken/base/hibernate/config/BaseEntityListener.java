@@ -6,6 +6,11 @@ import com.mken.base.session.BaseSession;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
+/**
+ * @author Muhil
+ * manipulate basic required fields before persist. 
+ *
+ */
 public class BaseEntityListener {
 
 	@PrePersist

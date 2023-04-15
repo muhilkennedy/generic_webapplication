@@ -26,7 +26,7 @@ import freemarker.template.TemplateException;
 
 /**
  * @author Muhil
- * Execute email sending as fixed threads
+ * Execute email sending as fixed number of threads.
  */
 @Component
 public class EmailService {

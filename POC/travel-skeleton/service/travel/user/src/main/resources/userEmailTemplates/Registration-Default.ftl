@@ -180,7 +180,7 @@
 <td class="pad">
 <div style="font-family: sans-serif">
 <div class="" style="font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">Thanks so much for joining Our Site!<br/>Your user id is: <span style="color:#a8bf6f;font-size:14px;"><strong>${userId}<br/></strong></span></p>
+<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 21px;">Thanks so much for joining Our Site!<br/>Your user id is: <span style="color:#a8bf6f;font-size:14px;"><strong>${password}<br/></strong></span></p>
 </div>
 </div>
 </td>

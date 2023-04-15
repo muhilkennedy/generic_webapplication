@@ -4,11 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserService {
-
   private _userName: string;
   private _userEmail: string;
   private _userId: string;
   private _userActive: boolean;
+  private _profilePic: string;
 
   private _token: string;
 
@@ -52,6 +52,14 @@ export class UserService {
 
   get userId(){
     return this._userId;
+  }
+
+  set profilePic(pic: string){
+    this._profilePic = pic;
+  }
+
+  get profilePic(){
+    return this._profilePic;
   }
 
 }

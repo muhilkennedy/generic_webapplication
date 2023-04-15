@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.platform.annotations.ValidateUserToken;
 
 
+/**
+ * @author Muhil
+ *
+ */
 public class FilterUtil {
 	
 	public static String[] getValidateUserTokenUrlPatterns() {

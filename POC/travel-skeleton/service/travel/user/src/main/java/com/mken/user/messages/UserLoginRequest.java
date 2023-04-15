@@ -1,5 +1,9 @@
 package com.mken.user.messages;
 
+/**
+ * @author Muhil
+ *
+ */
 public class UserLoginRequest {
 	
 	private String email;

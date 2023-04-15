@@ -488,7 +488,6 @@ export class DashboardComponent implements OnInit {
     this.tenantsResponse.filter(tenantResponse => tenantResponse.tenant.tenantUniqueName == tenantUniqueName).map(tenantResponse => tenantResponse.tenant.active = event.checked);
     this.http.patch<any>(environment.backendBaseUrl + '/tenantresource/toggleTenantStatus?tenantUniqueName='+tenantUniqueName, {}, {
       headers: {
-        'X-Tenant': environment.tenantId,
         'Accept-Language': 'en_US',
         'Authorization': 'Bearer ' + this.cookieService.get('X-Token')
       }})
@@ -513,10 +512,6 @@ export class DashboardComponent implements OnInit {
             });
           }
         );
-  }
-
-  shouldDisable(tenant: any){
-    return tenant.tenantUniqueName==environment.tenantId;
   }
 
   getValidTenantExpiry(subscriptions: any):string{

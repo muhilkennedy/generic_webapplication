@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { get } from 'scriptjs';
 import { Observable, Subscription, observable } from 'rxjs';
 import {EventSourcePolyfill} from 'ng-event-source';
+import { User } from 'src/app/model/user.model';
 
 declare var grecaptcha: any;
 

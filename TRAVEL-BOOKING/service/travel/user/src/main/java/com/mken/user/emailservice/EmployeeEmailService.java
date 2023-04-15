@@ -13,6 +13,10 @@ import com.mken.user.entity.User;
 
 import freemarker.template.TemplateException;
 
+/**
+ * @author Muhil
+ *
+ */
 @Service
 public class EmployeeEmailService {
 	
@@ -21,10 +25,10 @@ public class EmployeeEmailService {
 	@Autowired
 	private EmailService emailService;
 	
-	public void sendWelcomeActivationEmail(User user) {
+	public void sendWelcomeActivationEmail(User user, String generatedPassword) {
 		Map<String, String> contentMap = new HashedMap<String, String>();
 		contentMap.put("userName", String.format("%s %s", user.getfName(), user.getlName()));
-		contentMap.put("userId", String.valueOf(user.getRootId()));
+		contentMap.put("password", String.valueOf(user.getRootId()));
 		contentMap.put("mobile", user.getMobile());
 		contentMap.put("email", user.getEmailId());
 		try {

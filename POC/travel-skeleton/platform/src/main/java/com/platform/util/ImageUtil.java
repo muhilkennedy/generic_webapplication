@@ -21,7 +21,7 @@ public class ImageUtil {
 
 	public static final int Thumbnail_AspectWidth = 200;
 	public static final int Thumbnail_AspectHeight = 200;
-	public static final String Thumbnail_Exension = "jpg";
+	public static final String Thumbnail_Exension = "png";
 
 	public static byte[] compressImage(byte[] data) {
 		return compressImage(data);
@@ -77,11 +77,16 @@ public class ImageUtil {
 	}
 
 	public static byte[] getThumbnailImage(byte[] image) throws Exception {
-		InputStream in = new ByteArrayInputStream(image);
-		BufferedImage bImage = resizeImage(in, Thumbnail_AspectWidth, Thumbnail_AspectHeight);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(bImage, Thumbnail_Exension, baos);
-		return baos.toByteArray();
+		try {
+			InputStream in = new ByteArrayInputStream(image);
+			BufferedImage bImage = resizeImage(in, Thumbnail_AspectWidth, Thumbnail_AspectHeight);
+			ImageIO.write(bImage, Thumbnail_Exension, baos);
+			return baos.toByteArray();
+		}
+		finally {
+			baos.close();
+		}
 	}
 
 }

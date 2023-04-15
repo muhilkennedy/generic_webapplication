@@ -7,13 +7,26 @@
 //     color: #333333;
 //   }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+.imgbox {
+  display: grid;
+  height: 100%;
+}
+.center-fit {
+  max-width: 100%;
+  max-height: 50vh;
+  margin: auto;
+}
   .box-form {
     margin: 0 auto;
     width: 80%;
     background: #FFFFFF;
     border-radius: 10px;
     overflow: hidden;
-    display: flex;
+    // display: flex;
     flex: 1 1 100%;
     align-items: stretch;
     justify-content: space-between;

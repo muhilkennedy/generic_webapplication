@@ -12,6 +12,10 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.PrePersist;
 
+/**
+ * @author Muhil
+ *
+ */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User extends BaseEntity {
@@ -93,8 +97,8 @@ public class User extends BaseEntity {
 		return profilepic;
 	}
 
-	public void setProfilePic(String profilePic) {
-		this.profilepic = profilePic;
+	public void setProfilePic(String profilepic) {
+		this.profilepic = profilepic;
 	}
 
 	public String getLocale() {

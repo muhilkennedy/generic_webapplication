@@ -2,6 +2,10 @@ package com.mken.base.util;
 
 import java.util.Arrays;
 
+/**
+ * @author Muhil
+ *
+ */
 public class SecurityUtil {
 	
 	public static final int PASSWORD_SALT_ROUNDS = 5;
