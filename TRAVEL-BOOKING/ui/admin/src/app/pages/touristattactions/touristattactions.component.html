@@ -1,0 +1,123 @@
+<div class="content">
+<!-- #################
+
+  Attraction cards
+
+ ####################-->
+
+  <div class=" row">
+
+    <div class=" col-md-6">
+      <div class=" card">
+        <ngx-loading [show]="loading"></ngx-loading>
+        <div class=" card-header"><h3 class=" title">CREATE TOURIST ATTRACTION</h3></div>
+        <div class=" card-body">
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Attraction Place Title' | translate }}</label>
+                <input
+                  class=" form-control"
+                  placeholder="Title"
+                  type="text"
+                  [(ngModel)]="attractionName"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Description' | translate }}</label>
+                <textarea class=" form-control" placeholder="Describe about destination" [(ngModel)]="atrDescription" ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Attraction GoogleMap Url' | translate }}
+                  <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer"> (gmap) </a>
+                </label>
+                <input
+                  class=" form-control"
+                  placeholder="Embedded url src"
+                  type="text"
+                  [(ngModel)]="atrGmap"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Destination' | translate }}</label>
+                <mat-form-field style="width: 100%;">
+                  <mat-select placeholder="Select if applicable" name="parent_destination" [(ngModel)]="selectedParentDestination">
+                    <mat-option *ngFor="let destination of destinations" [value]="destination">{{ destination.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <!-- <div class=" form-group"> -->
+                <label for="file">Choose Attraction Thumnail Picture</label><br/>
+                <input type="file" placeholder="Choose Destination Thumnail Picture"
+                      id="dstFile"
+                      (change)="handleAttractionFileSelect($event.target.files)">
+              <!-- </div> -->
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-6">
+            </div>
+            <div class=" col-md-6">
+              <button style="width: inherit;" class=" btn btn-fill btn-danger" type="submit" (click)="onAttractionSave()">{{ 'Save' | translate}}</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class=" col-md-6">
+      <div class=" card">
+        <ngx-loading [show]="manageAttractionLoading"></ngx-loading>
+        <div class=" card-header"><h3 class=" title">MANAGE ATTRACTION</h3></div>
+        <div class=" card-body">
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <mat-form-field style="width: 100%;">
+                  <mat-select placeholder="Select Destination" name="manage_destination" [(ngModel)]="manageDestination" (selectionChange)="setParentDestinationForManage(manageDestination)">
+                    <mat-option *ngFor="let destination of destinations" [value]="destination">{{ destination.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <mat-form-field style="width: 100%;">
+                  <mat-select placeholder="Select Tourist Attraction" name="manage_attraction" [(ngModel)]="manageAttraction" (selectionChange)="setAttractionForManage(manageAttraction)">
+                    <mat-option *ngFor="let attraction of attractions" [value]="attraction">{{ attraction.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

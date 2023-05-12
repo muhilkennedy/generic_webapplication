@@ -4,13 +4,16 @@ import java.awt.image.BufferedImage;
 import java.awt.image.ImagingOpException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
 import org.imgscalr.Scalr;
 
 /**
@@ -21,7 +24,10 @@ public class ImageUtil {
 
 	public static final int Thumbnail_AspectWidth = 200;
 	public static final int Thumbnail_AspectHeight = 200;
+	public static final int Banner_AspectRatio = 1080;
 	public static final String Thumbnail_Exension = "png";
+	
+	public static final String[] IMAGE_EXTENTIONS = { "png", "jpg", "jpeg" };
 
 	public static byte[] compressImage(byte[] data) {
 		return compressImage(data);
@@ -75,17 +81,40 @@ public class ImageUtil {
 		return Scalr.resize(ImageIO.read(in), Scalr.Method.AUTOMATIC, Scalr.Mode.AUTOMATIC, aspectWidth, aspectHeight,
 				Scalr.OP_ANTIALIAS);
 	}
+	
+	public static byte[] getBannerImage(byte[] image, String extension)
+			throws IllegalArgumentException, ImagingOpException, IOException {
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			InputStream in = new ByteArrayInputStream(image);
+			BufferedImage bImage = Scalr.resize(ImageIO.read(in), Scalr.Method.ULTRA_QUALITY, Scalr.Mode.AUTOMATIC,
+					Banner_AspectRatio, Scalr.OP_ANTIALIAS);
+			ImageIO.write(bImage, extension, baos);
+			return baos.toByteArray();
+		}
+	}
 
-	public static byte[] getThumbnailImage(byte[] image) throws Exception {
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try {
+	public static File compressImageForBanner(File file) throws IOException {
+		byte[] image = getBannerImage(Files.readAllBytes(file.toPath()),
+				FileUtil.getFileExtensionFromName(FileUtil.getFileExtension(file.getName())));
+		FileUtils.writeByteArrayToFile(file, image);
+		return file;
+	}
+
+	public static byte[] getPNGThumbnailImage(byte[] image) throws IOException {
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
 			InputStream in = new ByteArrayInputStream(image);
 			BufferedImage bImage = resizeImage(in, Thumbnail_AspectWidth, Thumbnail_AspectHeight);
 			ImageIO.write(bImage, Thumbnail_Exension, baos);
 			return baos.toByteArray();
 		}
-		finally {
-			baos.close();
+	}
+
+	public static byte[] getThumbnailImage(byte[] image, String extension) throws IOException {
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+			InputStream in = new ByteArrayInputStream(image);
+			BufferedImage bImage = resizeImage(in, Thumbnail_AspectWidth, Thumbnail_AspectHeight);
+			ImageIO.write(bImage, extension, baos);
+			return baos.toByteArray();
 		}
 	}
 
