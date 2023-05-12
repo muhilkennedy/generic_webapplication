@@ -1,0 +1,227 @@
+<div class="content">
+  <div class=" row">
+    <div class=" col-md-6">
+      <div class=" card">
+        <ngx-loading [show]="loading"></ngx-loading>
+        <div class=" card-header"><h3 class=" title">CREATE DESTINATION</h3></div>
+        <div class=" card-body">
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Destination Title' | translate }}</label>
+                <input
+                  class=" form-control"
+                  placeholder="Title"
+                  type="text"
+                  [(ngModel)]="destinationName"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Description' | translate }}</label>
+                <textarea class=" form-control" placeholder="Describe about destination" [(ngModel)]="description" ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Destination GoogleMap Url' | translate }}
+                  <a href="https://www.google.com/maps" target="_blank" rel="noopener noreferrer"> (gmap) </a>
+                </label>
+                <input
+                  class=" form-control"
+                  placeholder="Embedded url src"
+                  type="text"
+                  [(ngModel)]="gmap"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <label> {{'Parent Destination' | translate }}</label>
+                <mat-form-field style="width: 100%;">
+                  <mat-select placeholder="Select if applicable" name="parent_destination" [(ngModel)]="selectedDestination">
+                    <mat-option *ngFor="let destination of destinations" [value]="destination">{{ destination.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <!-- <div class=" form-group"> -->
+                <label for="file">Choose Destination Thumnail Picture</label><br/>
+                <input type="file" placeholder="Choose Destination Thumnail Picture"
+                      id="dstFile"
+                      (change)="handleDestinationFileSelect($event.target.files)">
+              <!-- </div> -->
+            </div>
+          </div>
+
+          <div class=" row">
+            <div class=" col-md-6">
+            </div>
+            <div class=" col-md-6">
+              <button style="width: inherit;" class=" btn btn-fill btn-primary" type="submit" (click)="onDestinationSave()">{{ 'Save' | translate}}</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class=" col-md-6">
+      <div class=" card">
+        <ngx-loading [show]="manageDestinationLoading"></ngx-loading>
+        <div class=" card-header"><h3 class=" title">MANAGE DESTINATION</h3></div>
+        <div class=" card-body">
+
+          <div class=" row">
+            <div class=" col-md-12">
+              <div class=" form-group">
+                <mat-form-field style="width: 100%;">
+                  <mat-select placeholder="Select Destination" name="manage_destination" [(ngModel)]="manageDestination" (selectionChange)="setDestinationDetails(manageDestination)">
+                    <mat-option *ngFor="let destination of destinations" [value]="destination">{{ destination.name }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="manageDestination != null || manageDestination != undefined">
+            <div class=" row">
+              <div class=" col-md-6">
+                <textarea class=" form-control" placeholder="Describe about destination" [(ngModel)]="manageDestination.description" ></textarea>
+              </div>
+              <div class=" col-md-6">
+                <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" >{{ 'Update Description' | translate}}</button>
+              </div>
+            </div>
+
+            <div class=" row">
+              <br/>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <iframe [src]="embeddedDestinationUrl" width="100%" height="100%" style="border:0;" allowfullscreen="" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+              </div>
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <input
+                  class=" form-control"
+                  placeholder="Title"
+                  type="text"
+                  [value]="manageDestination.gmap"/>
+                  <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" >{{ 'Update Map' | translate}}</button>
+                </div>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <img style="width:100%; height: 100%" [src]="manageDestination.picture" />
+                </div>
+              </div>
+              <div class=" col-md-6">
+                <input type="file" placeholder="Choose Destination Thumnail Picture"
+                id="dstFilebulk"
+                (change)="handleDestinationFileSelect($event.target.files)">
+              <button style="width: inherit;" class=" btn btn-fill btn-success" type="submit">{{ 'Upload Destination Picture' | translate}}</button>
+              </div>
+            </div>
+
+            <div class=" row">
+              <br/>
+            </div>
+
+            <!-- <div class=" row">
+              <div class=" col-md-12">
+                <div class="image-swiper">
+                <ngx-image-swiper [config]="swiperConfig" [images]="images">
+                </ngx-image-swiper>
+                </div>
+              </div>
+            </div> -->
+
+            <div class=" row">
+              <div class=" col-md-6">
+                <ng-image-slider [images]="imageObject"
+                [imageSize]="{width: '100%', height: '100%', space: 5}"
+                [manageImageRatio]="true"
+                [autoSlide]="{interval: 5, stopOnHover: true}"
+                [infinite]="true"
+                [animationSpeed]="1"
+                [arrowKeyMove]="false"
+                #nav></ng-image-slider>
+              </div>
+              <div class=" col-md-6">
+                <input type="file" placeholder="Choose Destination Thumnail Picture"
+                id="dstFilebulk" multiple="multiple"
+                (change)="handleDestinationBulkFileSelect($event.target.files)">
+              <button style="width: inherit;" class=" btn btn-fill btn-success" type="submit" (click)="upoadDestinationPictures()">{{ 'Upload Destination Pics' | translate}}</button>
+              <button style="width: inherit;" class=" btn btn-fill btn-danger" type="submit" >{{ 'Delete Current Image' | translate}}</button>
+              <button style="width: inherit;" class=" btn btn-fill btn-danger" type="submit" >{{ 'Delete All' | translate}}</button>
+              </div>
+            </div>
+            <div class=" row">
+              <div class=" col-md-6">
+                <div class=" form-group">
+                  <h5>{{"Update which season is apt for Destination visit? " | translate}}</h5>
+                </div>
+              </div>
+            </div>
+            <div class=" row" *ngFor="let monthScale of destinationMonthScale">
+              <div class=" col-md-4">
+                {{getMonthName(monthScale.month) | translate}}
+              </div>
+              <div class=" col-md-4">
+                    <mat-progress-bar
+                        [color]="scaleColor"
+                        [mode]="scaleMode"
+                        [value]="monthScale.scale"
+                        [bufferValue]="scaleBufferValue">
+                    </mat-progress-bar>
+              </div>
+              <div class=" col-md-4">
+                  <mat-slider [(ngModel)]="monthScale.scale"  min="0" max="100" step="10" showTickMarks class="example-margin">
+                    <input matSliderThumb>
+                  </mat-slider>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-6">
+              </div>
+              <div class=" col-md-6">
+                <button style="width: inherit;" class=" btn btn-fill btn-success" type="submit" (click)="updateDestinationSeasons()">{{ 'Updat Season Details' | translate}}</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6">
+              </div>
+              <div class="col-md-6">
+                rating
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
