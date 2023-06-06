@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
-import com.google.cloud.storage.BlobId;
 import com.platform.messages.StoreType;
 
 /**
@@ -30,6 +29,8 @@ public class StorageService implements AbstractStorage {
 		case NFS:
 			this.storageService = NFSStorageService.getInstance();
 			break;
+		default:
+			throw new UnsupportedOperationException();
 		}
 	}
 
@@ -40,14 +41,15 @@ public class StorageService implements AbstractStorage {
 		return service;
 	}
 
-	public AbstractStorage getStorage(StoreType type) {
+	public static AbstractStorage getStorage(StoreType type) {
 		switch (type) {
 		case GCP:
 			return GoogleStorageService.getInstance();
 		case NFS:
 			return NFSStorageService.getInstance();
+		default:
+			throw new UnsupportedOperationException();
 		}
-		return null;
 	}
 
 	@Override

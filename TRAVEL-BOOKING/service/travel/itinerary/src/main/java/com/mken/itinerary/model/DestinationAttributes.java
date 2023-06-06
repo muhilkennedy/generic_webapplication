@@ -13,6 +13,8 @@ public class DestinationAttributes implements Serializable {
 	private List<String> reasonsForVisit;
 	private List<String> forYou;
 	private List<String> notForYou;
+	private List<String> safety;
+	private List<String> freeAdvice;
 
 	public List<String> getReasonsForVisit() {
 		return reasonsForVisit;
@@ -36,6 +38,22 @@ public class DestinationAttributes implements Serializable {
 
 	public void setNotForYou(List<String> notForYou) {
 		this.notForYou = notForYou;
+	}
+
+	public List<String> getSafety() {
+		return safety;
+	}
+
+	public void setSafety(List<String> safety) {
+		this.safety = safety;
+	}
+
+	public List<String> getFreeAdvice() {
+		return freeAdvice;
+	}
+
+	public void setFreeAdvice(List<String> freeAdvice) {
+		this.freeAdvice = freeAdvice;
 	}
 
 }

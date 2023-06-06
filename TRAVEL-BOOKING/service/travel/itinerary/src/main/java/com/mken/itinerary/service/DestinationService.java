@@ -8,6 +8,7 @@ import java.util.Map;
 import com.mken.itinerary.entity.Destination;
 import com.mken.itinerary.entity.DestinationDetail;
 import com.mken.itinerary.entity.DestinationSeason;
+import com.mken.itinerary.entity.ExplorationType;
 import com.mken.itinerary.exception.DestinationException;
 import com.mken.itinerary.model.DestinationAttributes;
 import com.mken.itinerary.model.DestinationTreeObject;
@@ -50,5 +51,10 @@ public interface DestinationService {
 	List<Long> getAllChildrenIdForDestination(Long parentId);
 
 	List<DestinationTreeObject> getAllDestinationsHierarchyRecursive();
+
+	Destination updateDestinationDetail(Long destinationId, DestinationAttributes attributes)
+			throws DestinationException;
+
+	List<ExplorationType> getAllExploreTypes();
 
 }

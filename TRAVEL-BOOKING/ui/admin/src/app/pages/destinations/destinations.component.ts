@@ -41,7 +41,21 @@ export class DestinationsComponent implements OnInit {
   scaleMode: ProgressBarMode = 'determinate';
   scaleBufferValue = 100;
 
-  constructor(private destinationService: DestinationService, private sanitzer: DomSanitizer) { }
+  imageObject: Array<object> = new Array();
+
+  safetyList: string[] = new Array();
+  forYouList: string[] = new Array();
+  notForYouList: string[] = new Array();
+  visitReasonsList: string[] = new Array();
+  freeAdviceList: string[] = new Array();
+
+  constructor(private destinationService: DestinationService, private sanitzer: DomSanitizer) {
+    // this.visitReasonsList.push("N/A");
+  }
+
+  isNA(value){
+    return (value ==null || value == undefined || value === 'N/A');
+  }
 
   ngOnInit(): void {
     this.loadDestinations();
@@ -224,8 +238,6 @@ export class DestinationsComponent implements OnInit {
     'https://images.pexels.com/photos/2440296/pexels-photo-2440296.jpeg'
   ];*/
 
-  imageObject: Array<object> = new Array();
-
 //   [{
 //     image: 'https://images.pexels.com/photos/2387869/pexels-photo-2387869.jpeg',
 //     thumbImage: 'https://images.pexels.com/photos/2387869/pexels-photo-2387869.jpeg',
@@ -237,19 +249,13 @@ deleteCurrentSliderImage(){
   alert("deleted" + this.slider.visiableImageIndex);
 }
 
-rating ={
-  color: "primary",
-  readonly: false,
-  disabled: false,
-  dense: true,
-  value: 1,
-  max: 5
+addNewEntry(array: any[]){
+  array.push("");
 }
 
-rat = 3;
-max=5;
-col='primary';
-
+removeEntry(array: any[], index: number){
+  array.splice(index, 1);
+}
 
 
 }

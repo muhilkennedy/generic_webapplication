@@ -7,14 +7,13 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.apache.http.util.Asserts;
-import com.platform.util.FileUtil;
 
 public class NFSStorageService implements AbstractStorage {
 
 	private static NFSStorageService instance;
 
 	private NFSStorageService(String nfsMountPath, String serviceName) throws IOException {
-		Files.createDirectories(Paths.get(FileUtil.sanitizeDirPath(nfsMountPath) + serviceName));
+		Files.createDirectories(Paths.get(nfsMountPath.concat(serviceName)));
 	}
 	
 	public static void init(String nfsMountPath, String serviceName) throws IOException {

@@ -121,4 +121,13 @@ public class AdminDestinationController {
 		return new GenericResponse<>().setStatus(Response.Status.OK).build();
 	}
 
+	@PutMapping(value = "/details", produces = MediaType.APPLICATION_JSON)
+	public GenericResponse<Destination> updateDestinationSeason(
+			@RequestParam("destinationId") @NotNull Long destinationId,
+			@RequestBody @Valid DestinationAttributes destinationDetail) throws DestinationException {
+		GenericResponse<Destination> response = new GenericResponse<>();
+		return response.setStatus(Response.Status.OK)
+				.setData(destinationService.updateDestinationDetail(destinationId, destinationDetail)).build();
+	}
+
 }

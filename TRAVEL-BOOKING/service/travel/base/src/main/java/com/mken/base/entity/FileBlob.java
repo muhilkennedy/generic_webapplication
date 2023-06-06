@@ -1,6 +1,9 @@
 package com.mken.base.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Inheritance;
@@ -27,6 +30,9 @@ public class FileBlob extends BaseEntity {
 	@JsonIgnore
 	@Column(name = "BLOBINFO")
 	private String blobinfo;
+	
+	@Column(name = "EXTENSION")
+	private String fileExtention;
 
 	public String getMediaurl() {
 		return mediaurl;
@@ -44,12 +50,26 @@ public class FileBlob extends BaseEntity {
 		this.storetype = storetype;
 	}
 
+	public String getFileExtention() {
+		return fileExtention;
+	}
+
+	public void setFileExtention(String fileExtention) {
+		this.fileExtention = fileExtention;
+	}
+
 	public String getBlobinfo() {
 		return blobinfo;
 	}
 
-	public void setBlobinfo(String blobinfo) {
-		this.blobinfo = blobinfo;
+	public Object getBlobinfo(Class<?> type) {
+		Gson gson = new Gson();
+		return gson.fromJson(this.blobinfo, type);
+	}
+
+	public void setBlobinfo(Object blobinfo) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		this.blobinfo = mapper.writeValueAsString(blobinfo);
 	}
 
 }

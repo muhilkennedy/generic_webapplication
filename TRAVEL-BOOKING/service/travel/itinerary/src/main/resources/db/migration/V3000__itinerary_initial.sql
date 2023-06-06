@@ -11,6 +11,7 @@ create table if not exists attractionfileblob (rootid bigint NOT NULL AUTO_INCRE
 create table if not exists featureddestination (rootid bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, active BOOL DEFAULT TRUE, timecreated bigint, timeupdated bigint, modifiedby bigint, version bigint DEFAULT 0, createdby bigint, destinationid bigint, CONSTRAINT FOREIGN KEY(destinationid) REFERENCES destination(rootid));
 
 create table if not exists travelstyle (rootid bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, active BOOL DEFAULT TRUE, timecreated bigint DEFAULT 0, timeupdated bigint DEFAULT 0, modifiedby bigint DEFAULT 0, version bigint DEFAULT 0, createdby bigint DEFAULT 0, uniquename varchar(64) unique);
+create table if not exists explorationtype (rootid bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, active BOOL DEFAULT TRUE, timecreated bigint DEFAULT 0, timeupdated bigint DEFAULT 0, modifiedby bigint DEFAULT 0, version bigint DEFAULT 0, createdby bigint DEFAULT 0, uniquename varchar(64) unique, filestoreid bigint, CONSTRAINT FOREIGN KEY(filestoreid) REFERENCES filestore(rootid));
 
 /*Initial data load*/
 insert into travelstyle (uniquename) value ("SOLO");
@@ -21,3 +22,21 @@ insert into travelstyle (uniquename) value ("GROUPS");
 insert into travelstyle (uniquename) value ("LUXURY");
 insert into travelstyle (uniquename) value ("ADVENTURE");
 insert into travelstyle (uniquename) value ("CORPORATE");
+
+insert into filestore (rootid, mediaurl, storetype, extension) value (1, "/assets/explore-images/adventure.png", "INTERNAL", "png");
+insert into filestore (rootid, mediaurl, storetype, extension) value (2, "/assets/explore-images/flora.png", "INTERNAL", "png");
+insert into filestore (rootid, mediaurl, storetype, extension) value (3, "/assets/explore-images/mountain.png", "INTERNAL", "png");
+insert into filestore (rootid, mediaurl, storetype, extension) value (4, "/assets/explore-images/cusines.png", "INTERNAL", "png");
+insert into filestore (rootid, mediaurl, storetype, extension) value (5, "/assets/explore-images/islands.png", "INTERNAL", "png");
+insert into filestore (rootid, mediaurl, storetype, extension) value (6, "/assets/explore-images/unesco.png", "INTERNAL", "png");
+insert into filestore (rootid, mediaurl, storetype, extension) value (7, "/assets/explore-images/stars.png", "INTERNAL", "png");
+insert into filestore (rootid, mediaurl, storetype, extension) value (8, "/assets/explore-images/ocean.png", "INTERNAL", "png");
+
+insert into explorationtype (uniquename, filestoreid) value ("ADVENTURE", 1);
+insert into explorationtype (uniquename, filestoreid) value ("FLORA AND FAUNA", 2);
+insert into explorationtype (uniquename, filestoreid) value ("MOUNTAINS", 3);
+insert into explorationtype (uniquename, filestoreid) value ("CUSINES", 4);
+insert into explorationtype (uniquename, filestoreid) value ("ISLANDS", 5);
+insert into explorationtype (uniquename, filestoreid) value ("UNESCO SITE", 6);
+insert into explorationtype (uniquename, filestoreid) value ("STARGAZING", 7);
+insert into explorationtype (uniquename, filestoreid) value ("SEA/OCEAN", 8);
