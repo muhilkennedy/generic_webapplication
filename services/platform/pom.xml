@@ -16,6 +16,7 @@
 		<httpclient.version>4.5.11</httpclient.version>
 		<javax.rs.version>2.0</javax.rs.version>
 		<javax.mail.version>1.6.2</javax.mail.version>
+		<jakarta.mail.version>2.0.1</jakarta.mail.version>
 		<javax.persistence.version>2.2</javax.persistence.version>
 		<commons.lang3.version>3.12.0</commons.lang3.version>
 		<commons.collections4.version>4.1</commons.collections4.version>
@@ -30,8 +31,9 @@
 		<commons.io.version>2.11.0</commons.io.version>
 		<docx4j.version>3.3.6</docx4j.version>
 		<imagescalr.version>4.2</imagescalr.version>
-		<poi.version>3.13</poi.version>
-		<poi.pdf.version>1.0.6</poi.pdf.version>
+		<poi.version>5.2.3</poi.version>
+		<!-- <poi.version>3.13</poi.version>
+		<poi.pdf.version>1.0.6</poi.pdf.version> -->
 		<commons.text.version>1.10.0</commons.text.version>
 	</properties>
 	<dependencies>
@@ -55,10 +57,15 @@
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>${javax.rs.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>${javax.mail.version}</version>
+		</dependency> -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>jakarta.mail</artifactId>
+		    <version>${jakarta.mail.version}</version>
 		</dependency>
 		<!-- <dependency>
 		    <groupId>jakarta.mail</groupId>
@@ -158,11 +165,11 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>${poi.version}</version>
 		</dependency>
-		<dependency>
+		<!-- <dependency>
 			<groupId>fr.opensagres.xdocreport</groupId>
 			<artifactId>org.apache.poi.xwpf.converter.pdf</artifactId>
 			<version>${poi.pdf.version}</version>
-		</dependency>
+		</dependency> -->
 		<!-- GCP config -->
 		<dependency>
 			<groupId>com.google.cloud</groupId>

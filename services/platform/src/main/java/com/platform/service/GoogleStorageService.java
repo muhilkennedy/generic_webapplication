@@ -57,10 +57,10 @@ public class GoogleStorageService implements AbstractStorage {
 	}
 
 	@Override
-	public File readFile(Optional<?> optional) throws IOException {
-		if (optional.isPresent()) {
-			if (optional.get() instanceof BlobId) {
-				BlobId bId = (BlobId) optional.get();
+	public File readFile(Optional<?> blobId) throws IOException {
+		if (blobId.isPresent()) {
+			if (blobId.get() instanceof BlobId) {
+				BlobId bId = (BlobId) blobId.get();
 				Blob blob = storage.get(bId);
 				File file = File.createTempFile(PlatformBaseSession.getTenant().getTenantUniqueName(),
 						"." + FilenameUtils.getExtension(blob.getName()));

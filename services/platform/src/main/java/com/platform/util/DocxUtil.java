@@ -13,9 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.apache.poi.xwpf.converter.core.XWPFConverterException;
-import org.apache.poi.xwpf.converter.pdf.PdfConverter;
-import org.apache.poi.xwpf.converter.pdf.PdfOptions;
 import org.apache.poi.xwpf.usermodel.IBodyElement;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -62,7 +59,7 @@ public class DocxUtil {
 		return pdfFile;
 	}
 	
-	public static File convertDocToPDFUsingPoi(File docFile) throws XWPFConverterException, IOException {
+	/*public static File convertDocToPDFUsingPoi(File docFile) throws XWPFConverterException, IOException {
 		File pdf = File.createTempFile(docFile.getName(), ".pdf");
 		InputStream doc = new FileInputStream(docFile);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -80,7 +77,7 @@ public class DocxUtil {
 		PdfOptions options = PdfOptions.create();
 		PdfConverter.getInstance().convert(document, baos, options);
 		Files.write(pdfFile.toPath(), baos.toByteArray());
-	}
+	}*/
 	
 	public static void split(String FilePath, long splitlen) {
 	    long leninfile = 0, leng = 0;

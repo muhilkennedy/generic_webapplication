@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mken.itinerary.entity.Destination;
+import com.mken.itinerary.entity.ExplorationType;
 import com.mken.itinerary.model.DestinationTreeObject;
 import com.mken.itinerary.service.DestinationService;
 import com.platform.messages.GenericResponse;
@@ -50,5 +51,11 @@ public class DestinationController {
 		GenericResponse<DestinationTreeObject> response = new GenericResponse<>();
 		return response.setStatus(Response.Status.OK)
 				.setDataList(destinationService.getAllDestinationsHierarchyRecursive()).build();
+	}
+	
+	@GetMapping(value = "/exploretypes", produces = MediaType.APPLICATION_JSON)
+	public GenericResponse<ExplorationType> getAllExplorationTypes() {
+		GenericResponse<ExplorationType> response = new GenericResponse<>();
+		return response.setStatus(Response.Status.OK).setDataList(destinationService.getAllExploreTypes()).build();
 	}
 }

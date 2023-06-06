@@ -1,6 +1,6 @@
 <div class="content">
   <div class=" row">
-    <div class=" col-md-6">
+    <div class=" col-md-12">
       <div class=" card">
         <ngx-loading [show]="loading"></ngx-loading>
         <div class=" card-header"><h3 class=" title">CREATE DESTINATION</h3></div>
@@ -79,8 +79,10 @@
         </div>
       </div>
     </div>
+  </div>
 
-    <div class=" col-md-6">
+  <div class=" row">
+    <div class="col-md-6">
       <div class=" card">
         <ngx-loading [show]="manageDestinationLoading"></ngx-loading>
         <div class=" card-header"><h3 class=" title">MANAGE DESTINATION</h3></div>
@@ -148,7 +150,7 @@
               <br/>
             </div>
 
-            <!-- <div class=" row">
+             <!-- <div class=" row">
               <div class=" col-md-12">
                 <div class="image-swiper">
                 <ngx-image-swiper [config]="swiperConfig" [images]="images">
@@ -211,17 +213,79 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-md-6">
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class=" card">
+        <ngx-loading [show]="manageDestinationLoading"></ngx-loading>
+        <div class=" card-header"><h3 class=" title">UPDATE DESTINATION DETAILS</h3></div>
+        <div class=" card-body">
+          <div *ngIf="visitReasonsList.length > 0 else nextReason">
+            <div class=" row"  *ngFor="let reason of visitReasonsList; let i = index" >
+              <div class=" col-md-6">
+                <textarea class=" form-control" placeholder="Reason" [(ngModel)]="visitReasonsList[i]"></textarea>
               </div>
-              <div class="col-md-6">
-                rating
+              <div class=" col-md-3">
+                <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" (click)="addNewEntry(visitReasonsList)">{{ 'Add New' | translate}}</button>
+              </div>
+              <div class=" col-md-3">
+                <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" (click)="removeEntry(visitReasonsList, index)">{{ 'Delete' | translate}}</button>
               </div>
             </div>
+          </div>
+          <ng-template  #nextReason>
+            <div class=" row">
+              <div class=" col-md-6">
+                <textarea class=" form-control" placeholder="Reasons to visit Destination" [(ngModel)]="visitReasonsList[0]"></textarea>
+              </div>
+              <div class=" col-md-3">
+                <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" (click)="addNewEntry(visitReasonsList)">{{ 'Add New' | translate}}</button>
+              </div>
+            </div>
+          </ng-template>
 
+
+          <div class=" row" *ngFor="let reason of forYouList; let i = index">
+            <div class=" col-md-8">
+              <textarea class=" form-control" placeholder="Describe about destination"></textarea>
+            </div>
+            <div class=" col-md-4">
+              <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" >{{ 'Add New' | translate}}</button>
+            </div>
+          </div>
+
+          <div class=" row" *ngFor="let reason of notForYouList; let i = index">
+            <div class=" col-md-8">
+              <textarea class=" form-control" placeholder="Describe about destination"></textarea>
+            </div>
+            <div class=" col-md-4">
+              <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" >{{ 'Add New' | translate}}</button>
+            </div>
+          </div>
+
+          <div class=" row" *ngFor="let reason of safetyList; let i = index">
+            <div class=" col-md-8">
+              <textarea class=" form-control" placeholder="Describe about destination"></textarea>
+            </div>
+            <div class=" col-md-4">
+              <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" >{{ 'Add New' | translate}}</button>
+            </div>
+          </div>
+
+          <div class=" row" *ngFor="let reason of freeAdviceList; let i = index">
+            <div class=" col-md-8">
+              <textarea class=" form-control" placeholder="Describe about destination"></textarea>
+            </div>
+            <div class=" col-md-4">
+              <button style="width: 100%;" class=" btn btn-fill btn-success" type="submit" >{{ 'Add New' | translate}}</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
+
+ </div>

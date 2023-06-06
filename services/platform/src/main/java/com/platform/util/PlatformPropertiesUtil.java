@@ -18,6 +18,7 @@ public class PlatformPropertiesUtil {
 	public static final String KEY_MAIL_PORT = "mail.smtp.port";
 	public static final String KEY_MAIL_AUTH = "mail.smtp.auth";
 	public static final String KEY_MAIL_SOCKET_CLASS = "mail.smtp.socketFactoryClass";
+	public static final String KEY_MAIL_SSL_STATUS = "mail.smtp.starttls.enable";
 	public static final String KEY_DEFAULT_EMAIL = "app.admin.email";
 	public static final String KEY_DEFAULT_PASSWORD = "app.admin.email.password";
 	
@@ -31,7 +32,7 @@ public class PlatformPropertiesUtil {
 
 	public static List<String> getMandatoryEmailProperties() {
 		return Arrays.asList(KEY_DEFAULT_EMAIL, KEY_DEFAULT_PASSWORD,
-				KEY_MAIL_AUTH, KEY_MAIL_HOST, KEY_MAIL_PORT);
+				KEY_MAIL_AUTH, KEY_MAIL_HOST, KEY_MAIL_PORT, KEY_MAIL_SSL_STATUS);
 	}
 	
 	public static List<String> getMandatorySecretsProperties() {

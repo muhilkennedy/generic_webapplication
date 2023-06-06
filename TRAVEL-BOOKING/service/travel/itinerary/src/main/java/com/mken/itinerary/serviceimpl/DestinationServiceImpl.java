@@ -15,6 +15,7 @@ import com.mken.itinerary.entity.Destination;
 import com.mken.itinerary.entity.DestinationDetail;
 import com.mken.itinerary.entity.DestinationFileBlob;
 import com.mken.itinerary.entity.DestinationSeason;
+import com.mken.itinerary.entity.ExplorationType;
 import com.mken.itinerary.exception.DestinationException;
 import com.mken.itinerary.model.DestinationAttributes;
 import com.mken.itinerary.model.DestinationTreeObject;
@@ -205,6 +206,25 @@ public class DestinationServiceImpl implements DestinationService {
 			list.add(obj);
 		}
 		return list;
+	}
+	
+	@Override
+	public Destination updateDestinationDetail(Long destinationId, DestinationAttributes attributes)
+			throws DestinationException {
+		Destination destination = getDestinationById(destinationId);
+		if (destination == null) {
+			throw new DestinationException();
+		}
+		DestinationDetail detail = new DestinationDetail();
+		detail.setAttributes(attributes);
+		detail.setDestination(destination);
+		destination.setDestinationDetail(detail);
+		return (Destination) destinationDao.save(destination);
+	}
+	
+	@Override
+	public List<ExplorationType> getAllExploreTypes() {
+		return destinationDao.findAllExplorationTypes();
 	}
 
 }

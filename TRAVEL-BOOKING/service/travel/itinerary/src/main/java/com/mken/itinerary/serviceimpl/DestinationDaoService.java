@@ -18,10 +18,12 @@ import com.mken.itinerary.entity.Destination;
 import com.mken.itinerary.entity.DestinationDetail;
 import com.mken.itinerary.entity.DestinationFileBlob;
 import com.mken.itinerary.entity.DestinationSeason;
+import com.mken.itinerary.entity.ExplorationType;
 import com.mken.itinerary.jpa.repo.DestinationDetailRepository;
 import com.mken.itinerary.jpa.repo.DestinationFileBlobRepository;
 import com.mken.itinerary.jpa.repo.DestinationRepository;
 import com.mken.itinerary.jpa.repo.DestinationSeasonRespository;
+import com.mken.itinerary.jpa.repo.ExplorationtypeRepository;
 import com.mken.itinerary.r2db.repo.DestinationR2Repository;
 
 import reactor.core.publisher.Flux;
@@ -33,6 +35,8 @@ import reactor.core.publisher.Flux;
 @Service
 @Qualifier("DestinationDao")
 public class DestinationDaoService implements BaseDaoService {
+	
+	public static final String KEY_EXPLORE_TYPES = "explore-types";
 
 	@Autowired
 	private DestinationRepository destinationRepo;
@@ -48,6 +52,9 @@ public class DestinationDaoService implements BaseDaoService {
 	
 	@Autowired
 	private DestinationDetailRepository destinationDetailRepo;
+	
+	@Autowired
+	private ExplorationtypeRepository explorationRepo;
 
 	@Autowired
 	private CacheManager cacheManager;
@@ -194,6 +201,14 @@ public class DestinationDaoService implements BaseDaoService {
 
 	public DestinationDetail findDestDetailById(Long rootId) {
 		return destinationDetailRepo.findById(rootId).get();
+	}
+	
+	/*********************
+	 * Exploration Type
+	 ********************/
+	@Cacheable(value = CacheUtil.DESTINATION_CACHE_NAME, key = "#root.target.KEY_EXPLORE_TYPES")
+	public List<ExplorationType> findAllExplorationTypes() {
+		return explorationRepo.findAll();
 	}
 
 }
