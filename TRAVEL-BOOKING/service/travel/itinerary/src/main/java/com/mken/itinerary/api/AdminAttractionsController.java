@@ -2,6 +2,7 @@ package com.mken.itinerary.api;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.core.MediaType;
 
@@ -76,7 +77,7 @@ public class AdminAttractionsController {
 				}
 			}
 			return null;
-		}).toList());
+		}).collect(Collectors.toList()));
 		return response.setStatus(Response.Status.OK).setData(attractionService.getAttractionById(attractionId))
 				.build();
 	}
