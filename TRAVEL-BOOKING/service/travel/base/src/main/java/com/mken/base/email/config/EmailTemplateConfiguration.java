@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
+import com.google.cloud.GcpLaunchStage.Deprecated;
 import com.platform.email.EmailConnectionProperties;
 import com.platform.email.EmailSystem;
 
@@ -19,6 +20,7 @@ import com.platform.email.EmailSystem;
  * @author Muhil
  * Free marker templates used for email body generation.
  */
+@Deprecated // "gmail config moved to BasePlatformConfig"
 @Configuration
 @PropertySource("classpath:email.properties")
 public class EmailTemplateConfiguration {
