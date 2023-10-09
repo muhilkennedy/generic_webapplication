@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  backendBaseUrl: "http://localhost:6060/tm",
+  backendProxy: "/tmproxy",
+  backendBaseUrl: "gumy",
   tenantId:"devTenant"
 };
 

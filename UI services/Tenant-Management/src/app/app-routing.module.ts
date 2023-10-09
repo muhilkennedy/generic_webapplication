@@ -5,6 +5,8 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { LoginComponent } from "./pages/login/login.component";
+import { ErrorComponent } from "./pages/error/error.component";
+import { NotFound } from "./pages/notfound/notfound.component";
 
 const routes: Routes = [
   {
@@ -15,6 +17,16 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "error",
+    component: ErrorComponent,
+    pathMatch: "full"
+  },
+  {
+    path: "404",
+    component: NotFound,
     pathMatch: "full"
   },
   {

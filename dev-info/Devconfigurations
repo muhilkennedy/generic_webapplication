@@ -1,3 +1,5 @@
+Jdk17
+
 Spring boot - latest
 -----------
 https://start.spring.io/
@@ -38,7 +40,7 @@ redis-cli KEYS '*'
 
 Jenkins setup:
 -------------
-
+<TBD>
 
 Docker setup:
 -------------

@@ -42,8 +42,8 @@ public class UserController {
 		employee.setEmailId(user.getEmail());
 		employee.setPassword(user.getPassword());
 		employee = (Employee) empService.login(employee);
-		httpResponse.addHeader(Constants.TOKEN_HEADER,
-				JWTUtil.generateToken(String.valueOf(employee.getRootId()), JWTUtil.USER_TYPE_EMPLOYEE, false));
+//		httpResponse.addHeader(Constants.TOKEN_HEADER,
+//				JWTUtil.generateToken(String.valueOf(employee.getRootId()), JWTUtil.USER_TYPE_EMPLOYEE, false));
 		return response.setStatus(Response.Status.OK).setData(employee).build();
 	}
 	

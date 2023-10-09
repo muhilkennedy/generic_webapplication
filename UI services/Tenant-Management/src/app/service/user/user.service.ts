@@ -1,57 +1,74 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/model/user.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private _userName: string;
-  private _userEmail: string;
-  private _userId: string;
-  private _userActive: boolean;
+  private user: User;
 
-  private _token: string;
-
-  constructor() { }
-
-  set userName(name: string){
-    this._userName = name;
+  constructor(private http: HttpClient) {
+    this.user = new User();
   }
 
-  set userId(id: string){
-    this._userId = id;
+  getCurrentUser(): User {
+    return this.user;
   }
 
-  set userEmail(email: string){
-    this._userEmail = email;
+  login(body): Observable<any>  {
+    return this.http.post<any>(`${environment.backendProxy}/user/employee/login`, body, { observe: 'response' })
   }
 
-  set userActive(active: boolean){
-    this._userActive = active;
+  pingUser(): Observable<any> {
+    return this.http.get(`${environment.backendProxy}/employee/ping`);
   }
 
-  set token(token: string){
-    this._token = token;
+  fetchSuperUsers(tenantRootId): Observable<any> {
+    return this.http.get(`${environment.backendProxy}/employee/fetch/csa`, {
+      params: {
+        tenantId : tenantRootId
+      }
+    });
   }
 
-  get token(){
-    return this._token;
+  registerUser(body, tenantRootId): Observable<any>{
+    return this.http.post<any>(`${environment.backendProxy}/employee/admin/create`, body, {
+      params: {
+        tenantId : tenantRootId
+      }
+    })
   }
 
-  get userName(){
-    return this._userName;
+  getAllRoles(tenantRootId): Observable<any> {
+    return this.http.get(`${environment.backendProxy}/role/fetch`, {
+      params: {
+        tenantId : tenantRootId
+      }
+    });
   }
 
-  get userEmail(){
-    return this._userEmail;
+  toggleUserState(tenantRootId): Observable<any>  {
+    return this.http.put<any>(`${environment.backendProxy}/employee/togglestate`, {
+      params: {
+        tenantId : tenantRootId
+      }
+    })
   }
 
-  get isActive(){
-    return this._userActive;
+  getAllPermissions(): Observable<any> {
+    return this.http.get(`${environment.backendProxy}/role/fetch/permissions`);
   }
 
-  get userId(){
-    return this._userId;
+  createRole(body, tenantRootId): Observable<any>{
+    return this.http.post<any>(`${environment.backendProxy}/role/create`, body, {
+      params: {
+        tenantId : tenantRootId
+      }
+    })
   }
-
+  
 }

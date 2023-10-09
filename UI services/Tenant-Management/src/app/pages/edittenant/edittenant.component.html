@@ -9,8 +9,8 @@
                 <div class=" form-group">
                   <label>Select Realm</label>
                   <mat-select [(ngModel)]="selectedRealm" name="realm" (selectionChange)="getRealmData($event.value)">
-                    <mat-option *ngFor="let realm of realms" [value]="realm.tenant">
-                      {{realm.tenant.tenantUniqueName}}
+                    <mat-option *ngFor="let realm of realms" [value]="realm.rootId">
+                      {{realm.name}}
                     </mat-option>
                   </mat-select>
                 </div>
@@ -44,9 +44,9 @@
                   <th> - </th>
                   <th>End Date</th>
                   <tr [ngClass]="{'validsub' : sub.active}" *ngFor="let sub of subscriptions">
-                    <td>{{ sub.renewedOn }}</td>
+                    <td>{{ sub.startdate | date }}</td>
                     <td> - </td>
-                    <td>{{ sub.expiry }}</td>
+                    <td>{{ sub.enddate | date}}</td>
                   </tr>
                 </table>
               </div>
