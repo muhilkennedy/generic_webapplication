@@ -31,15 +31,15 @@ public class EmployeeEmailService {
 		contentMap.put("password", String.valueOf(user.getRootId()));
 		contentMap.put("mobile", user.getMobile());
 		contentMap.put("email", user.getEmailId());
-		try {
-			emailService.sendMail(user.getEmailId(), String.format("Welcome %s", user.getfName()),
-					emailService.constructEmailBody(DEFAULT_REGISTRATION_FTL, contentMap), null);
-		} catch (IOException | TemplateException e) {
-			Log.user.error("Exception sending mail to user {0} :: error :: {1}", user.getEmailId(), e.getMessage());
-			if(Log.base.isDebugEnabled()) {
-				e.printStackTrace();
-			}
-		}
+//		try {
+//			emailService.sendMail(user.getEmailId(), String.format("Welcome %s", user.getfName()),
+//					emailService.constructEmailBody(DEFAULT_REGISTRATION_FTL, contentMap), null);
+//		} catch (IOException | TemplateException e) {
+//			Log.user.error("Exception sending mail to user {0} :: error :: {1}", user.getEmailId(), e.getMessage());
+//			if(Log.base.isDebugEnabled()) {
+//				e.printStackTrace();
+//			}
+//		}
 	}
 
 }

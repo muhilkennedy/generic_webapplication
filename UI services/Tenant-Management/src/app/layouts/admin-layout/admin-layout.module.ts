@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
@@ -13,6 +13,7 @@ import { EdittenantComponent } from "src/app/pages/edittenant/edittenant.compone
 import { MaterialModule } from "../../material.module";
 import { ManageuserComponent } from "src/app/pages/manageuser/manageuser.component";
 import { TranslateModule } from "@ngx-translate/core";
+import { HttpInterceptorService } from "src/app/service/HttpInterceptor/http-interceptor.service";
 
 @NgModule({
   imports: [
@@ -32,7 +33,11 @@ import { TranslateModule } from "@ngx-translate/core";
     ManageuserComponent
   ],
   providers:[
-
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
   ]
 })
 export class AdminLayoutModule {}

@@ -76,44 +76,44 @@ public class EmailService {
 		}
 	}
 
-	public void sendMail(String recipientEmail, String subject, String body, Map<String, File> inlineImages) {
-		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), Arrays.asList(recipientEmail), subject, body,
-				inlineImages);
-		this.postEmailTask(task);
-	}
-
-	public void sendMail(List<String> recipientEmail, String subject, String body, Map<String, File> inlineImages) {
-		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), recipientEmail, subject, body, inlineImages);
-		this.postEmailTask(task);
-	}
-
-	public void sendMail(String recipientEmail, String subject, String body, Map<String, File> inlineImages,
-			List<File> attachments) {
-		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), Arrays.asList(recipientEmail), subject, body,
-				inlineImages, attachments);
-		this.postEmailTask(task);
-	}
-	
-	public void sendMail(String recipientEmail, String cc, String subject, String body, Map<String, File> inlineImages,
-			List<File> attachments) {
-		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), Arrays.asList(recipientEmail), Arrays.asList(cc), subject, body,
-				inlineImages, attachments);
-		this.postEmailTask(task);
-	}
-
-	public void sendMail(List<String> recipientEmail, String subject, String body, Map<String, File> inlineImages,
-			List<File> attachments) {
-		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), recipientEmail, subject, body, inlineImages,
-				attachments);
-		this.postEmailTask(task);
-	}
-
-	public void sendMail(List<String> recipientEmail, List<String> cc, String subject, String body,
-			Map<String, File> inlineImages, List<File> attachments) {
-		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), recipientEmail, cc, subject, body, inlineImages,
-				attachments);
-		this.postEmailTask(task);
-	}
+//	public void sendMail(String recipientEmail, String subject, String body, Map<String, File> inlineImages) {
+//		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), Arrays.asList(recipientEmail), subject, body,
+//				inlineImages);
+//		this.postEmailTask(task);
+//	}
+//
+//	public void sendMail(List<String> recipientEmail, String subject, String body, Map<String, File> inlineImages) {
+//		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), recipientEmail, subject, body, inlineImages);
+//		this.postEmailTask(task);
+//	}
+//
+//	public void sendMail(String recipientEmail, String subject, String body, Map<String, File> inlineImages,
+//			List<File> attachments) {
+//		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), Arrays.asList(recipientEmail), subject, body,
+//				inlineImages, attachments);
+//		this.postEmailTask(task);
+//	}
+//	
+//	public void sendMail(String recipientEmail, String cc, String subject, String body, Map<String, File> inlineImages,
+//			List<File> attachments) {
+//		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), Arrays.asList(recipientEmail), Arrays.asList(cc), subject, body,
+//				inlineImages, attachments);
+//		this.postEmailTask(task);
+//	}
+//
+//	public void sendMail(List<String> recipientEmail, String subject, String body, Map<String, File> inlineImages,
+//			List<File> attachments) {
+//		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), recipientEmail, subject, body, inlineImages,
+//				attachments);
+//		this.postEmailTask(task);
+//	}
+//
+//	public void sendMail(List<String> recipientEmail, List<String> cc, String subject, String body,
+//			Map<String, File> inlineImages, List<File> attachments) {
+//		EmailTask task = new EmailTask(PlatformBaseSession.getTenantId(), recipientEmail, cc, subject, body, inlineImages,
+//				attachments);
+//		this.postEmailTask(task);
+//	}
 
 	// setup task with tenant business auth
 	public void sendMail(EmailTask task) {

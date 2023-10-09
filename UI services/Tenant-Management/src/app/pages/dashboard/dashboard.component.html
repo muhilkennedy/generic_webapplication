@@ -19,22 +19,22 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let tenantResponse of tenantsResponse">
-                  <td>{{tenantResponse.tenant.tenantName}}</td>
-                  <td>{{tenantResponse.tenant.tenantUniqueName}}</td>
+                <tr *ngFor="let tr of tenantsResponse">
+                  <td>{{tr.name}}</td>
+                  <td>{{tr.tenantUniqueName}}</td>
                   <td class=" text-center">
                     <mat-slide-toggle
                       [color]="accent"
-                      [checked]="tenantResponse.tenant.active"
-                      (change)="toggleActive($event, tenantResponse.tenant.tenantUniqueName)"
-                      [disabled]="shouldDisable(tenantResponse.tenant)">
+                      [checked]="tr.active"
+                      (change)="toggleActive($event, tr.tenantUniqueName)"
+                      [disabled]="shouldDisable(tr)">
                     </mat-slide-toggle>
                   </td>
                   <td>
-                    {{tenantResponse.tenant.timeZone}}
+                    {{tr.timezone}}
                   </td>
                   <td>
-                    {{getValidTenantExpiry(tenantResponse.subscriptions)}}
+
                   </td>
                 </tr>
               </tbody>

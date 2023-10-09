@@ -3,6 +3,7 @@ import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { UserService } from "src/app/service/user/user.service";
+import { CommonUtil } from "src/app/service/util/common-util.service";
 import { environment } from "src/environments/environment";
 
 @Component({
@@ -13,52 +14,51 @@ import { environment } from "src/environments/environment";
 export class AdminLayoutComponent implements OnInit, AfterViewInit {
   public sidebarColor: string = "red";
 
-  constructor(private route: Router, private userService: UserService, private cookieService: CookieService,
-              private http: HttpClient) {
-    if(cookieService.get("X-Token") == undefined || cookieService.get("X-Token") == null || cookieService.get("X-Token") == '' ){
+  constructor(private route: Router, private userService: UserService, private cookieService: CookieService) {
+    if (CommonUtil.isNullOrEmptyOrUndefined(cookieService.get("X-Token"))) {
       this.route.navigate(['/login']);
     }
-    else{
-      this.http.get('/user/ping')
-      .subscribe(
-        (resp:any) => {
-          this.userService.userEmail = resp.data.emailId;
-          this.userService.userId = resp.data.rootId;
-          this.userService.userName = resp.data.fName + resp.data.lname;
-        },
-        (error:any) => {
-          this.cookieService.deleteAll();
-          this.route.navigate(['/login']);
-        }
-      );
+    else {
+      this.userService.pingUser()
+        .subscribe({
+          next: (resp: any) => {
+            this.userService.getCurrentUser().userEmail = resp.data.emailid;
+            this.userService.getCurrentUser().userId = resp.data.rootId;
+            this.userService.getCurrentUser().userName = resp.data.fname + resp.data.lname;
+          },
+          error: (err) => {
+            this.cookieService.deleteAll();
+            this.route.navigate(['/login']);
+          }
+        });
     }
   }
 
-  changeSidebarColor(color){
+  changeSidebarColor(color) {
     var sidebar = document.getElementsByClassName('sidebar')[0];
     var mainPanel = document.getElementsByClassName('main-panel')[0];
 
     this.sidebarColor = color;
 
-    if(sidebar != undefined){
-        sidebar.setAttribute('data',color);
+    if (sidebar != undefined) {
+      sidebar.setAttribute('data', color);
     }
-    if(mainPanel != undefined){
-        mainPanel.setAttribute('data',color);
+    if (mainPanel != undefined) {
+      mainPanel.setAttribute('data', color);
     }
   }
-  changeDashboardColor(color){
+  changeDashboardColor(color) {
     var body = document.getElementsByTagName('body')[0];
     if (body && color === 'white-content') {
-        body.classList.add(color);
+      body.classList.add(color);
     }
-    else if(body.classList.contains('white-content')) {
+    else if (body.classList.contains('white-content')) {
       body.classList.remove('white-content');
     }
   }
-  ngOnInit() {}
 
 
+  ngOnInit() { }
 
   ngAfterViewInit() {
     this.registerDragElement();

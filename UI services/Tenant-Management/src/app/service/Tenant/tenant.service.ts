@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Tenant } from 'src/app/model/tenant.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -6,36 +9,70 @@ import { environment } from 'src/environments/environment';
 })
 export class TenantService {
 
-  private _tenantId: string;
-  private _tenantName: string;
-  private _tenantActive: boolean;
-  //tenant details
+  private tenant: Tenant;
 
-  constructor() {
-    this._tenantId = environment.tenantId;
+  constructor(private http: HttpClient) {
+    this.tenant = new Tenant();
   }
 
-  set tenantId(id:string){
-    this._tenantId = id;
+  getCurrentTenant(): Tenant {
+    return this.tenant;
   }
 
-  get tenantId():string{
-    return this._tenantId;
+  getAllTenants(): Observable<any> {
+    return this.http.get<any>(`${environment.backendProxy}/admin/tenant/alltenants`);
   }
 
-  set tenantName(name:string){
-    this._tenantName = name;
+  onboardTenant(body): Observable<any> {
+    return this.http.post<any>(`${environment.backendProxy}/admin/tenant/create`, body);
   }
 
-  get tenantName():string{
-    return this._tenantName;
+  toggleTenant(uniqueName): Observable<any> {
+    return this.http.patch<any>(`${environment.backendProxy}/admin/tenant/toggle`, {}, {
+      params: {
+        tenantUniqueName: uniqueName
+      }
+    });
   }
 
-  set tenantActive(active:boolean){
-    this._tenantActive = active;
+  getSubscriptions(id): Observable<any> {
+    return this.http.get(`${environment.backendProxy}/admin/tenant/subscriptions`, {
+      params: {
+        tenantId: id
+      }});
   }
 
-  get tenantActive():boolean{
-    return this._tenantActive;
+  renewSubscription(body, tenant): Observable<any> {
+    return this.http.put<any>(`${environment.backendProxy}/admin/tenant/addsubscription`, body, {
+      params: {
+        tenantId: tenant
+      }
+    })
   }
+
 }
+
+
+// getAllDestinationsHierarchy(): Observable<any>{
+//   return this.http.get<any>('/destination/tree');
+// }
+
+// createDestination(body): Observable<any>{
+//   return this.http.post<any>('/admin/destination/create', body);
+// }
+
+// uploadDestinationPicture(file, destinationId): Observable<any>{
+//   const uploadData = new FormData();
+//   uploadData.append("picture", file);
+//   uploadData.append("id", destinationId);
+//   return this.http.post<any>('/admin/destination/picture', uploadData);
+// }
+
+// uploadDestinationPictures(files: any[], destinationId): Observable<any>{
+//   const uploadData = new FormData();
+//   files.forEach(file => {
+//     uploadData.append("pictures", file);
+//   })
+//   uploadData.append("id", destinationId);
+//   return this.http.post<any>('/admin/destination/pictures', uploadData);
+// }

@@ -93,13 +93,15 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "Tenant-Management:build:production"
+              "browserTarget": "Tenant-Management:build:production",
+              "proxyConfig": "prod-proxy.config.json"
             },
             "development":{
-              "browserTarget": "Tenant-Management:build:development"
+              "browserTarget": "Tenant-Management:build:development",
+              "proxyConfig": "dev-proxy.config.json"
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
