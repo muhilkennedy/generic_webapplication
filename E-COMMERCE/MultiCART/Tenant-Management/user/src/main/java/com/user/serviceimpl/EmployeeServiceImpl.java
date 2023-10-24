@@ -104,5 +104,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<Employee> findAllCSAUsers() {
 		return empDaoService.findEmployeesWithPermission(Permissions.ADMIN);
 	}
+	
+	@Override
+	public boolean doesEmployeeHavePermission(Permissions permission, Long employeeId) {
+		Employee emp = empDaoService.findEmployeeWithPermission(permission, employeeId);
+		return (emp != null);
+	}
 
 }

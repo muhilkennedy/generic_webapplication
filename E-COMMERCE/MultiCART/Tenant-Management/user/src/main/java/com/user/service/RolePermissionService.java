@@ -2,6 +2,7 @@ package com.user.service;
 
 import java.util.List;
 
+import com.user.entity.Employee;
 import com.user.entity.Permission;
 import com.user.entity.Role;
 import com.user.messages.RoleRequest;
@@ -19,6 +20,10 @@ public interface RolePermissionService {
 
 	default Role createRole(RoleRequest roleRequest) {
 		return null;
-	};
+	}
+
+	default Employee addRolesToEmployee(Employee employee, List<Long> roleIds) {
+		return null;
+	}
 
 }

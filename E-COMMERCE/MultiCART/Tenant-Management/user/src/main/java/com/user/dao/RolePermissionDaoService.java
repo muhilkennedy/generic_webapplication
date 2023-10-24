@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.user.entity.EmployeeRole;
 import com.user.entity.Permission;
 import com.user.entity.Role;
 import com.user.entity.RolePermission;
+import com.user.jpa.repository.EmployeeRoleRepository;
 import com.user.jpa.repository.PermissionRepository;
 import com.user.jpa.repository.RolePermissionRepository;
 import com.user.jpa.repository.RolesRepository;
@@ -29,6 +31,9 @@ public class RolePermissionDaoService implements RolePermissionService {
 	
 	@Autowired
 	private RolePermissionRepository rpRepository;
+	
+	@Autowired
+	private EmployeeRoleRepository erRepository;
 
 	@Override
 	public List<Role> findAllRoles() {
@@ -51,6 +56,10 @@ public class RolePermissionDaoService implements RolePermissionService {
 	
 	public RolePermission saveRolePermissionMap(RolePermission rp) {
 		return rpRepository.save(rp);
+	}
+	
+	public EmployeeRole saveEmployeeRoleMap(EmployeeRole er) {
+		return erRepository.save(er);
 	}
 
 }

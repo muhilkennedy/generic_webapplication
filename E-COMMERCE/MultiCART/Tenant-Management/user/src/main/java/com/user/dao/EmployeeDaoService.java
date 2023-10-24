@@ -105,5 +105,9 @@ public class EmployeeDaoService implements UserDaoService {
 	public List<Employee> findEmployeesWithPermission(Permissions perm){
 		return employeeRepository.findEmployeesWithPermission(perm.getPermissionUniqueName());
 	}
+	
+	public Employee findEmployeeWithPermission(Permissions perm, Long employeeId){
+		return employeeRepository.findEmployeeWithPermission(perm.getPermissionUniqueName(), employeeId);
+	}
 
 }
