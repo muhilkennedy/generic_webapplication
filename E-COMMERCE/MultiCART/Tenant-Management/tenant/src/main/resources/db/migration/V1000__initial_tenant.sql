@@ -5,8 +5,8 @@ create table if not exists tenantsubscription (rootid bigint NOT NULL AUTO_INCRE
 create table if not exists tenantconfig (rootid bigint NOT NULL AUTO_INCREMENT PRIMARY KEY, tenantid bigint NOT NULL, active BOOL DEFAULT TRUE, timecreated bigint DEFAULT 0, timeupdated bigint DEFAULT 0, modifiedby bigint DEFAULT 0, createdby bigint DEFAULT 0, version bigint DEFAULT 0, pname varchar(128), pvalue varchar(1024), ptype tinyint, CONSTRAINT FOREIGN KEY(tenantid) REFERENCES tenant(rootid));
 
 /*Initial data load*/
-insert into tenant (rootid, name, uniquename ) values (1, "Dev Tenant", "devTenant");
-insert into tenant (rootid, name, uniquename ) values (2, "Prod Tenant", "prodTenant");
+insert into tenant (rootid, name, uniquename ) values (-1, "Dev Tenant", "devTenant");
+insert into tenant (rootid, name, uniquename ) values (-2, "Prod Tenant", "prodTenant");
 
 /*dev email - noreplyeventemail@gmail.com*/
-insert into tenantdetails (rootid, tenantid, contact, emailid, street, city, pincode, tagline, businessemail ) values (1, 1, "1234567890", "noreplyeventemail@gmail.com", "street", "mpm", "603104", "Vazhka oru vattam da!", "");
+insert into tenantdetails (rootid, tenantid, contact, emailid, street, city, pincode, tagline, businessemail ) values (-1, -1, "1234567890", "noreplyeventemail@gmail.com", "street", "mpm", "603104", "Vazhka oru vattam da!", "");

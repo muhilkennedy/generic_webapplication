@@ -24,6 +24,7 @@ import com.user.entity.EmployeeInfo;
 import com.user.entity.User;
 import com.user.messages.EmployeeRequest;
 import com.user.service.EmployeeService;
+import com.user.service.RolePermissionService;
 
 import reactor.core.publisher.Flux;
 
@@ -38,6 +39,9 @@ public class EmployeeController {
 
 	@Autowired
 	private EmployeeService empService;
+	
+	@Autowired
+	private RolePermissionService rpService;
 
 	@GetMapping(value = "/ping", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GenericResponse<User> pingUser() {
@@ -61,6 +65,9 @@ public class EmployeeController {
 		empInfo.setDob(empRequest.getDob());
 		empInfo.setGender(empRequest.getGender());
 		empService.createEmployeeInfo(employee, empInfo);
+		if (empRequest.getRoleIds() != null && !empRequest.getRoleIds().isEmpty()) {
+			rpService.addRolesToEmployee(employee, empRequest.getRoleIds());
+		}
 		return response.setStatus(Response.Status.OK).setData(employee).build();
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
@@ -22,17 +23,17 @@ import com.base.util.Log;
  * @author Muhil Kennedy
  *
  */
-@Profile(value = { "prod", "dev" })
+//@Profile(value = { "prod", "dev" })
 @Configuration
 @EnableCaching
 @ConditionalOnProperty(prefix = "spring.cache", value = "enabled", havingValue = "true")
 public class RedisConfiguration {
 	
-	@Value("${spring.redis.port}")
+	@Value("${spring.data.redis.port}")
 	private int port;
 
 	// Creating Connection with Redis
-	@Bean
+	/*@Bean
 	public RedisConnectionFactory redisConnectionFactory() {
 		return new LettuceConnectionFactory();
 	}
@@ -46,6 +47,14 @@ public class RedisConfiguration {
 		redisTemplate.setDefaultSerializer(serializer);
 		redisTemplate.setEnableDefaultSerializer(true);
 		return redisTemplate;
+	}*/
+	
+	// default redis config picked up by spring
+	@Bean
+	public RedisTemplate<Long, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+	    RedisTemplate<Long, Object> template = new RedisTemplate<>();
+	    template.setConnectionFactory(redisConnectionFactory);
+	    return template;
 	}
     
 	@Bean
@@ -56,6 +65,7 @@ public class RedisConfiguration {
 				.prefixCacheNameWith(this.getClass().getSimpleName() + ".")
 				.entryTtl(Duration.ofHours(1))
 				.disableCachingNullValues();
+		Log.base.info("----- Listening for REDIS server at port {} -----" , port);
 		return RedisCacheManager.builder(connectionFactory).cacheDefaults(config).build();
 	}
 	

@@ -32,11 +32,21 @@ Redis setup:(enable redis in app property)
 ------------
 https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/
 brew install redis
-to start cmd -> redis-server
+to start sever cmd -> redis-server
 (or) use embedded redis for easy usage
 
+Redis-cli ping
 redis-cli KEYS '*' 
 
+Redis-cli -> login to redis terminal
+redis-cli config set requirepass devpassword (for default user)
+acl setuser devuser on >devpassword ~* &* +@all
+ACL list
+ACL save
+
+bind 127.0.0.1 ::1 (accessible only on local machine)
+
+https://redis.io/docs/management/config/
 
 Jenkins setup:
 -------------
@@ -46,6 +56,13 @@ Docker setup:
 -------------
 https://www.docker.com/
 docker ps
+
+docker build --tag=asc1:latest .
+docker run -p 8080:8080 -it --entrypoint /bin/bash asc1
+
+Inside cont.
+export SPRING_PROFILES_ACTIVE=local
+java ${JAVA_OPTS} -jar app.jar --install.root=/target/ --flyway.enabled=false
 
 
 Hashi vault setup:(optional)

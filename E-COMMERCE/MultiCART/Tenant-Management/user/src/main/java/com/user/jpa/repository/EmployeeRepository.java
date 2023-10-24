@@ -11,7 +11,6 @@ import com.user.entity.Employee;
 
 /**
  * @author Muhil
- *
  */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
@@ -37,5 +36,11 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 	@Query(findEmployeesWithPermissionQuery)
 	List<Employee> findEmployeesWithPermission(@Param("permission") String permission);
+
+	String findEmployeeWithPermissionQuery = "select e from Employee e join EmployeeRole er on e.rootid=er.employeeid inner join Role r on er.roleid=r.rootid "
+			+ "inner join RolePermission rp on r.rootid=rp.roleid inner join Permission p on p.rootid=rp.permissionid where p.permission= :permission and e.rootid= :rootId";
+
+	@Query(findEmployeeWithPermissionQuery)
+	Employee findEmployeeWithPermission(@Param("permission") String permission, @Param("rootId") Long rootId);
 
 }

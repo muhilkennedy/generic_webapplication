@@ -61,7 +61,7 @@ public class TenantFilter extends OncePerRequestFilter{
 		String tenantUniqueName = request.getHeader(PlatformUtil.TENANT_HEADER);
 		if(StringUtils.isBlank(tenantUniqueName)) {
 			Log.tenant.error("Tenant Header is Empty");
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+			response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
 					"Tenant Header is Empty");
 			return;
 		}

@@ -36,6 +36,19 @@ public class EmployeeRole extends MultiTenantEntity {
 	@JoinColumn(name = "ROLEID", nullable = false, insertable = false, updatable = false)
 	private Role role;
 
+	public EmployeeRole()
+	{
+		super();
+	}
+	
+	public EmployeeRole(Employee employee, Role role) {
+		super();
+		this.employee = employee;
+		this.role = role;
+		this.employeeid = employee.getRootId();
+		this.roleid = role.getRootId();
+	}
+
 	public Employee getEmployee() {
 		return employee;
 	}
