@@ -50,11 +50,11 @@ public class SecurityConfiguration { //implements WebMvcConfigurer {
 				// Disable "JSESSIONID" cookies
 				.sessionManagement(config -> {
 					config.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-				})
-				// OAuth2 (social logins)
-				.oauth2Login(config -> {
-					// incase of server side oauth verification
 				}).build();
+				
+				/*.oauth2Login(config -> {
+					// incase of server side oauth verification
+				}).build();*/
 	}
 
 	/*

@@ -125,11 +125,11 @@
 			<groupId>jakarta.ws.rs</groupId>
 			<artifactId>jakarta.ws.rs-api</artifactId>
 		</dependency>
-		<!-- social oauth login -->
+		<!-- social oauth login 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-client</artifactId>
-		</dependency>
+		</dependency>-->
 		<!-- 3rd party dependencies -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
