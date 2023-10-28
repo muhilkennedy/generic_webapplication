@@ -5,6 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.platform.messages.GenericResponse;
@@ -17,6 +18,7 @@ import com.user.exception.UserException;
 import com.user.messages.UserLoginRequest;
 import com.user.service.EmployeeService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
@@ -32,7 +34,8 @@ public class UserController {
 
 	@PostMapping(value = "/employee/login", produces = MediaType.APPLICATION_JSON_VALUE)
 	public GenericResponse<User> getUserDetails(@RequestBody UserLoginRequest requestbody,
-			HttpServletResponse httpResponse) throws UserException {
+			HttpServletRequest httpRequest, HttpServletResponse httpResponse,
+			@RequestParam(value = "rememberMe", required = false) boolean rememberMe) throws UserException {
 		GenericResponse<User> response = new GenericResponse<>();
 		User employee = new User();
 		employee.setEmailid(requestbody.getEmailId());
@@ -41,7 +44,8 @@ public class UserController {
 		employee.setUniquename(requestbody.getUniqueName());
 		employee = (Employee) empService.login(employee);
 		httpResponse.addHeader(PlatformUtil.TOKEN_HEADER,
-				JWTUtil.generateToken(String.valueOf(employee.getObjectId()), JWTUtil.USER_TYPE_EMPLOYEE, false));
+				JWTUtil.generateToken(employee.getUniquename(), String.valueOf(employee.getObjectId()),
+						JWTUtil.USER_TYPE_EMPLOYEE, httpRequest.getRemoteAddr(), rememberMe));
 		return response.setStatus(Response.Status.OK).setData(employee).build();
 	}
 

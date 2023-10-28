@@ -44,7 +44,7 @@ public class BaseSession {
 	}
 
 	public static void setUser(BaseEntity usr) {
-		PlatformBaseSession.setTenant(usr);
+		PlatformBaseSession.setUser(usr);
 		user.set(usr);
 	}
 

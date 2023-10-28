@@ -18,7 +18,7 @@
         </a>
       </c-nav-item> -->
       <!-- <c-container [fluid]="true"> -->
-        <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
+      <c-breadcrumb-router class="ms-2"></c-breadcrumb-router>
       <!-- </c-container> -->
     </c-header-nav>
 
@@ -130,7 +130,7 @@
         </a>
       </li>
       <li>
-        <a routerLink="./" cDropdownItem>
+        <a routerLink="./" cDropdownItem (click)="logoutAction()">
           <svg cIcon class="me-2" name="cilAccountLogout"></svg>
           {{"LOGOUT" | translate}}
         </a>

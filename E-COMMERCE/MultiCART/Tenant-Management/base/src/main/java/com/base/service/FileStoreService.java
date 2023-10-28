@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.base.entity.FileStore;
 import com.base.jpa.repository.FileStoreRepository;
-import com.google.cloud.storage.BlobId;
 import com.platform.messages.StoreType;
 import com.platform.service.StorageService;
 import com.platform.util.FileUtil;
@@ -37,7 +36,7 @@ public class FileStoreService {
 			}
 			else if (fs.get().getStoretype().equals(StoreType.GCP.name())) {
 				return StorageService.getStorage(StoreType.GCP)
-						.readFile(Optional.of(fs.get().getBlobinfo(BlobId.class)));
+						.readFile(Optional.of(fs.get().getBlobInfo()));
 			}
 		}
 		throw new UnsupportedOperationException();
@@ -47,7 +46,7 @@ public class FileStoreService {
 		FileStore fs = new FileStore();
 		switch (type) {
 		case GCP:
-			fs.setBlobinfo(StorageService.getStorage(type).saveFile(file, aclRestricted));
+			fs.setBlobInfo(StorageService.getStorage(type).saveFile(file, aclRestricted));
 			break;
 		case NFS:
 			fs.setMediaurl(StorageService.getStorage(type).saveFile(file));

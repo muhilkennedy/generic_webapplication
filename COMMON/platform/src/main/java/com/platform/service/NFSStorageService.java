@@ -55,4 +55,16 @@ public class NFSStorageService implements AbstractStorage {
 		return null;
 	}
 
+	@Override
+	public String getConfigKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getDefaultBucketKey() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

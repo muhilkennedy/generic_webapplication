@@ -50,8 +50,11 @@ public class UserTokenSecurityFilter implements Filter {
 						String userRootId = JWTUtil.getUserIdFromToken(jwtToken);
 						if (StringUtils.isNotBlank(userRootId)) {
 							User user = (User) empService.findById(Long.valueOf(userRootId));
-							if (user == null) {
-								httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid User");
+							String tokenUserUniqueName = JWTUtil.getUserUniqueNameFromToken(jwtToken);
+							String tokenIpAddress = JWTUtil.getIpAddressFromToken(jwtToken);
+							if (user == null || !user.getUniquename().equals(tokenUserUniqueName)
+									|| !httpRequest.getRemoteAddr().equals(tokenIpAddress)) {
+								httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid User Access");
 								return;
 							} else if (!user.isActive()) {
 								httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "User is Inactive");
@@ -61,17 +64,17 @@ public class UserTokenSecurityFilter implements Filter {
 							BaseSession.setLocale(user.getLocale());
 							chain.doFilter(request, response);
 						} else {
-							httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN,
+							httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
 									"Token Validation failed! Token Might be tampered!");
 							return;
 						}
 					} else {
-						httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Token Validation failed");
+						httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token Validation Failed");
 						return;
 					}
 				}
 				catch(ExpiredJwtException ex) {
-					httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN, "Token Expired");
+					httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Token Expired");
 					return;
 				}
 			} else {

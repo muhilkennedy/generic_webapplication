@@ -34,5 +34,7 @@ public interface TenantService extends BaseService {
 	TenantSubscription addTenantSubscription(TenantRequestBody tenantModel);
 
 	void checkAndRenewTenant();
+
+	void createStorageConfig(String config, String defaultBucket, String type) throws IOException;
 	
 }

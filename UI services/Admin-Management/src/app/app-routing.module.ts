@@ -4,11 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultLayoutComponent } from './containers';
 import { ErrorComponent } from 'src/common-components/error/error.component';
 import { NotFoundComponent } from 'src/common-components/notfound/notfound.component';
+import { LoginComponent } from './views/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    component: LoginComponent,
     pathMatch: 'full'
   },
   {
@@ -24,9 +25,9 @@ const routes: Routes = [
           import('./views/dashboard/dashboard.module').then((m) => m.DashboardModule)
       },
       {
-        path: 'base',
+        path: 'employee',
         loadChildren: () =>
-          import('./views/base/base.module').then((m) => m.BaseModule)
+          import('./views/employee/employee.module').then((m) => m.EmployeeModule)
       }
     ]
   },
@@ -42,7 +43,7 @@ const routes: Routes = [
   },
   {
     path: '**', 
-    redirectTo: 'dashboard'
+    redirectTo: 'login'
   }
 ];
 

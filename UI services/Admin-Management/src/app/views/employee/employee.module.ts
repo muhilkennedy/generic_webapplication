@@ -1,6 +1,9 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { OnboardEmployeeComponent } from './onboard-employee/onboard-employee.component';
+import { EditEmployeeComponent } from './edit-employee/edit-employee.component';
+import { ListEmployeeComponent } from './list-employee/list-employee.component';
+import { EmployeeRoutingModule } from './employee-routing.module';
 
 // CoreUI Modules
 import {
@@ -27,19 +30,16 @@ import {
   TooltipModule,
   UtilitiesModule
 } from '@coreui/angular';
-
 import { IconModule } from '@coreui/icons-angular';
+import { ReactiveFormsModule } from '@angular/forms';
+import { I18nModule } from 'src/app/i18n/i18n.module';
+import { TranslateModule } from '@ngx-translate/core';
 
-// views
-import { AccordionsComponent } from './accordion/accordions.component';
-
-// Components Routing
-import { BaseRoutingModule } from './base-routing.module';
 
 @NgModule({
   imports: [
+    EmployeeRoutingModule,
     CommonModule,
-    BaseRoutingModule,
     AccordionModule,
     BadgeModule,
     BreadcrumbModule,
@@ -64,10 +64,14 @@ import { BaseRoutingModule } from './base-routing.module';
     DropdownModule,
     PaginationModule,
     PopoverModule,
-    TableModule
+    TableModule,
+    I18nModule,
+    TranslateModule
   ],
   declarations: [
-    AccordionsComponent
+    OnboardEmployeeComponent,
+    EditEmployeeComponent,
+    ListEmployeeComponent
   ],
 })
-export class BaseModule {}
+export class EmployeeModule { }

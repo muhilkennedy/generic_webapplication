@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { TenantService } from '../Tenant/tenant.service';
 import { CommonUtil } from '../util/common-util.service';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../util/sipnner.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     // Append tenant-Id and token to all outgoing requests.
     if (environment.tenantId) {
       newHeaders = newHeaders.append('X-Tenant', environment.tenantId);
-      newHeaders = newHeaders.append('Accept-Language', CommonUtil.isNullOrEmptyOrUndefined(this.tenantService.getCurrentTenant().locale) ? 'en_US' : this.tenantService.getCurrentTenant().locale);
+      newHeaders = newHeaders.append('Accept-Language', CommonUtil.isNullOrEmptyOrUndefined(this.cookieService.get("lang")) ? this.cookieService.get("lang") : "en");
       newHeaders = newHeaders.append('Authorization', 'Bearer ' + this.cookieService.get("X-Token"));
     }
     const authReq = req.clone({ headers: newHeaders });
@@ -31,6 +32,8 @@ export class HttpInterceptorService implements HttpInterceptor {
         }
         this.router.navigate(['/login', { message : 'Unauthorized Access! Please Login Again!'}]);
       }
+    }, () => {
+       //complete action
     }));
   }
 }

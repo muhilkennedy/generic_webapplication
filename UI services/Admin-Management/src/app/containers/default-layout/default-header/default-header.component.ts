@@ -6,6 +6,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { SupportedLanguages } from 'src/app/i18n/i18n.module';
 import { SubscriberService } from '../../../service/Subscriber/subscriber.service';
 import { CookieService } from 'ngx-cookie-service';
+import { CommonUtil } from 'src/app/service/util/common-util.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-default-header',
@@ -22,7 +24,8 @@ export class DefaultHeaderComponent extends HeaderComponent {
   public newTasks = new Array(5)
   public newNotifications = new Array(5)
 
-  constructor(private classToggler: ClassToggleService, public translate: TranslateService, private subscriberService : SubscriberService, private cookieService: CookieService) {
+  constructor(public translate: TranslateService, private router: Router,
+              private cookieService: CookieService) {
     super();
     this.languages = SupportedLanguages.languages;
   }
@@ -32,4 +35,10 @@ export class DefaultHeaderComponent extends HeaderComponent {
     this.cookieService.set("lang", langCode);
     window.location.reload();
   }
+
+  logoutAction(){
+    this.cookieService.delete(CommonUtil.TOKEN_KEY);
+    this.router.navigate(['']);
+  }
+
 }

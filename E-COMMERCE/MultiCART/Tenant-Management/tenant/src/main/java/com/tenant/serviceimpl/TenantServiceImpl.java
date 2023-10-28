@@ -13,7 +13,10 @@ import org.springframework.util.Assert;
 
 import com.base.entity.BaseEntity;
 import com.base.server.BaseSession;
+import com.base.service.ConfigurationService;
 import com.base.util.Log;
+import com.platform.messages.ConfigurationType;
+import com.platform.messages.StoreType;
 import com.platform.service.StorageService;
 import com.platform.util.ImageUtil;
 import com.platform.util.PlatformUtil;
@@ -40,6 +43,9 @@ public class TenantServiceImpl implements TenantService {
 	
 	@Autowired
 	private TenantEmailService emailService;
+	
+	@Autowired
+	private ConfigurationService configService;
 
 	@Override
 	public BaseEntity findById(Long rootId) {
@@ -146,6 +152,20 @@ public class TenantServiceImpl implements TenantService {
 		if ((activeSubscription != null && !BaseSession.getTenant().isActive())
 				|| (activeSubscription == null && BaseSession.getTenant().isActive())) {
 			toggleTenantState(BaseSession.getTenantUniqueName());
+		}
+	}
+	
+	@Override
+	public void createStorageConfig(String config, String defaultBucket, String type) throws IOException {
+		if (StoreType.GCP.name().equalsIgnoreCase(type)) {
+			configService.createConfig(StoreType.constants.GCPCONFIG.name(), config, ConfigurationType.STORAGE);
+			configService.createConfig(StoreType.constants.GCPBUCKET.name(), defaultBucket, ConfigurationType.STORAGE);
+			// Reload storage config
+			StorageService.getStorage(StoreType.GCP).updateTenantConfig(BaseSession.getTenantId(),
+					configService.getConfigValueIfPresent(StoreType.constants.GCPCONFIG.name(), ConfigurationType.STORAGE),
+					configService.getConfigValueIfPresent(StoreType.constants.GCPBUCKET.name(), ConfigurationType.STORAGE));
+		} else {
+			throw new UnsupportedOperationException("Unsupported Storage Type");
 		}
 	}
 	
