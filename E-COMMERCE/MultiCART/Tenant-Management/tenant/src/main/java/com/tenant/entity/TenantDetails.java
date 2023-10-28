@@ -13,6 +13,7 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -59,7 +60,7 @@ public class TenantDetails extends BaseEntity implements Serializable {
 	@Column(name = "TAGLINE")
 	private String tagline;
 
-	@Column(name = "DETAILS")
+	@Column(name = "DETAILS", length = 5000)
 	@Convert(converter = TenantInfoConvertor.class)
 	private TenantInfo details;
 	

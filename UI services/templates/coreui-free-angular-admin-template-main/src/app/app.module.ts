@@ -37,6 +37,7 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
+import { TestComponent } from './test/test.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -45,7 +46,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, TestComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

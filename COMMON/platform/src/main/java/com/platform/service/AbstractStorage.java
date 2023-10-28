@@ -20,4 +20,12 @@ public interface AbstractStorage {
 
 	Object saveFile(File file, String dir, boolean isInternalOnly) throws IOException;
 	
+	String getConfigKey();
+	
+	String getDefaultBucketKey();
+	
+	default void updateTenantConfig(Long tenantId, String gcpConfig, String gcpBucket) throws IOException{
+		//NO-OP
+	}
+	
 }

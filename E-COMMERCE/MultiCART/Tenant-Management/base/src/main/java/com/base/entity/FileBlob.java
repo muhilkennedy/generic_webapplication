@@ -1,15 +1,15 @@
 package com.base.entity;
 
+import org.springframework.util.SerializationUtils;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Lob;
 import jakarta.persistence.MappedSuperclass;
-
 
 /**
  * @author Muhil
@@ -18,7 +18,7 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class FileBlob extends MultiTenantEntity {
-	
+
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "MEDIAURL")
@@ -26,11 +26,12 @@ public class FileBlob extends MultiTenantEntity {
 
 	@Column(name = "STORETYPE")
 	private String storetype;
-	
+
 	@JsonIgnore
+	@Lob
 	@Column(name = "BLOBINFO")
-	private String blobinfo;
-	
+	private byte[] blobinfo;
+
 	@Column(name = "EXTENSION")
 	private String fileExtention;
 
@@ -58,18 +59,20 @@ public class FileBlob extends MultiTenantEntity {
 		this.fileExtention = fileExtention;
 	}
 
-	public String getBlobinfo() {
+	public byte[] getBlobinfo() {
 		return blobinfo;
 	}
 
-	public Object getBlobinfo(Class<?> type) {
-		Gson gson = new Gson();
-		return gson.fromJson(this.blobinfo, type);
+	public void setBlobinfo(byte[] blobinfo) {
+		this.blobinfo = blobinfo;
 	}
 
-	public void setBlobinfo(Object blobinfo) throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		this.blobinfo = mapper.writeValueAsString(blobinfo);
+	public Object getBlobInfo() {
+		return SerializationUtils.deserialize(this.blobinfo);
+	}
+
+	public void setBlobInfo(Object blobinfo) throws JsonProcessingException {
+		this.blobinfo = SerializationUtils.serialize(blobinfo);
 	}
 
 }

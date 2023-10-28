@@ -5,5 +5,11 @@ package com.platform.messages;
  *
  */
 public enum StoreType {
-	NFS, GCP, INTERNAL
+	
+	NFS, GCP, INTERNAL;
+	
+	public static enum constants {
+		GCPCONFIG, GCPBUCKET
+	}
 }
+

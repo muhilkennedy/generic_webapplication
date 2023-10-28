@@ -10,7 +10,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
-  imports: [CommonModule, RouterModule, NgbModule, FormsModule, ReactiveFormsModule, TranslateModule],
+  imports: [
+    CommonModule, RouterModule, NgbModule, FormsModule, ReactiveFormsModule, TranslateModule
+  ],
   declarations: [FooterComponent, NavbarComponent, SidebarComponent],
   exports: [FooterComponent, NavbarComponent, SidebarComponent]
 })

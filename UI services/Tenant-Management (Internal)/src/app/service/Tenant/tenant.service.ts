@@ -50,6 +50,24 @@ export class TenantService {
     })
   }
 
+  uploadLogo(file, tenant): Observable<any> {
+    const formData = new FormData(); 
+    formData.append("picture", file, file.name); 
+    return this.http.post<any>(`${environment.backendProxy}/admin/tenant/logo`, formData, {
+      params: {
+        tenantId: tenant
+      }
+    })
+  }
+
+  createStorageConfig(body, tenant): Observable<any> {
+    return this.http.post<any>(`${environment.backendProxy}/admin/tenant/storage/addconfig`, body, {
+      params: {
+        tenantId: tenant
+      }
+    });
+  }
+
 }
 
 

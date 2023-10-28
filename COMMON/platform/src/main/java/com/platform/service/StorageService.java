@@ -77,4 +77,14 @@ public class StorageService implements AbstractStorage {
 		return storageService.saveFile(file, isInternalOnly);
 	}
 
+	@Override
+	public String getConfigKey() {
+		return storageService.getConfigKey();
+	}
+
+	@Override
+	public String getDefaultBucketKey() {
+		return storageService.getDefaultBucketKey();
+	}
+
 }

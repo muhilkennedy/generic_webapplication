@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { TenantService } from 'src/app/service/Tenant/tenant.service';
 import { EventSourcePolyfill } from 'ng-event-source';
 import { environment } from 'src/environments/environment';
+import { DomSanitizer } from "@angular/platform-browser";
+import { CommonUtil } from 'src/app/service/util/common-util.service';
 
 @Component({
   selector: 'app-edittenant',
@@ -16,6 +18,7 @@ import { environment } from 'src/environments/environment';
 export class EdittenantComponent implements OnInit {
 
   selectedRealm: any;
+  selectedTenant: any;
   realms: any[];
 
   isRealmSelected = false;
@@ -24,8 +27,14 @@ export class EdittenantComponent implements OnInit {
   public expiryDate;
   public datePipe: DatePipe;
 
+  storage: string;
+  bucket: string;
+  storageConfig: string;
+
   subscriptions: any[] = new Array();
   currentValidity: string;
+
+  file: File = null;
 
   range: FormGroup = new FormGroup({
     start: new FormControl(new Date()),
@@ -42,7 +51,8 @@ export class EdittenantComponent implements OnInit {
   constructor(private http: HttpClient,
     private toastr: ToastrService,
     private cookieService: CookieService,
-    private  tenantService: TenantService) {
+    private  tenantService: TenantService,
+    private sanitizer: DomSanitizer) {
     this.datePipe = new DatePipe('en-GB');
   }
 
@@ -66,6 +76,7 @@ export class EdittenantComponent implements OnInit {
 
   getRealmData(tenantId) {
     this.isRealmSelected = true;
+    this.selectedTenant = this.getSelectedRealm();
     this.subscriptions.splice(0,this.subscriptions.length)
     //we need to call event stream api with header config separately.
     let eventSource = new EventSourcePolyfill(`${environment.backendProxy}/admin/tenant/subscriptions?tenantId=${tenantId}`, 
@@ -115,6 +126,81 @@ export class EdittenantComponent implements OnInit {
         }
       }
       );
+  }
+
+  selectFile(event){
+    this.file = event.target.files[0]; 
+  }
+
+  onUpload(){
+    this.tenantService.uploadLogo(this.file, this.selectedRealm)
+        .subscribe(
+          {
+            next: (resp: any) => {
+              this.selectedTenant = resp.data;
+              this.toastr.success('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> <b>Tenant Logo Updated</b>.', '', {
+                disableTimeOut: false,
+                closeButton: true,
+                enableHtml: true,
+                toastClass: "alert alert-success alert-with-icon",
+                positionClass: 'toast-' + 'bottom' + '-' + 'center'
+              });
+            },
+            error: (err: any) => {
+              this.toastr.error('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> <b>Error Uploading tenant logo : ' + err.error.message + '</b>.', '', {
+                disableTimeOut: false,
+                closeButton: true,
+                enableHtml: true,
+                toastClass: "alert alert-error alert-with-icon",
+                positionClass: 'toast-' + 'bottom' + '-' + 'center'
+              });
+            }
+          }
+        )
+  }
+
+  getLogo(){
+    if(this.selectedTenant.tenantDetail.details.logoUrl == undefined || this.selectedTenant.tenantDetail.details.logoUrl == null){
+      return "";
+    }
+    else{
+      return this.sanitizer.bypassSecurityTrustResourceUrl(this.selectedTenant.tenantDetail.details.logoUrl);
+    }
+  }
+
+  getSelectedRealm(){
+    return this.realms.filter(realm => realm.rootId == this.selectedRealm).pop();
+  }
+
+  onConfigUpdate(){
+    let body = {
+      type : this.storage,
+      config: this.storageConfig,
+      bucket: this.bucket
+    }
+    this.tenantService.createStorageConfig(body, this.selectedRealm)
+        .subscribe(
+          {
+            next: (resp: any) => {
+              this.toastr.success('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> <b>Tenant Storage updated</b>.', '', {
+                disableTimeOut: false,
+                closeButton: true,
+                enableHtml: true,
+                toastClass: "alert alert-success alert-with-icon",
+                positionClass: 'toast-' + 'bottom' + '-' + 'center'
+              });
+            },
+            error: (err: any) => {
+              this.toastr.error('<span class="tim-icons icon-bell-55" [data-notify]="icon"></span> <b>Error updating tenant : ' + err.error.message + '</b>.', '', {
+                disableTimeOut: false,
+                closeButton: true,
+                enableHtml: true,
+                toastClass: "alert alert-error alert-with-icon",
+                positionClass: 'toast-' + 'bottom' + '-' + 'center'
+              });
+            }
+          }
+    )
   }
 
 }

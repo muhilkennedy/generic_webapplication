@@ -38,14 +38,13 @@
 	font-size: 146px;
 	font-weight: 700;
 	margin: 0px;
-	color: whitesmoke;
   }
   
   .notfound .notfound-404 h1>span {
 	display: inline-block;
 	width: 120px;
 	height: 120px;
-	background-image: url('../../assets/img/emoji.png');
+	background-image: url('../../assets/img/avatars/emoji.png');
 	background-size: cover;
 	-webkit-transform: scale(1.4);
 		-ms-transform: scale(1.4);
@@ -59,7 +58,6 @@
 	font-weight: 700;
 	margin: 0;
 	text-transform: uppercase;
-	color: whitesmoke;
   }
   
   .notfound p {
@@ -91,7 +89,6 @@
 	}
 	.notfound .notfound-404 h1 {
 	  font-size: 90px;
-	  color: whitesmoke;
 	}
 	.notfound .notfound-404 h1>span {
 	  width: 90px;

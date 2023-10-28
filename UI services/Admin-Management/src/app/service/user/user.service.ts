@@ -27,38 +27,6 @@ export class UserService {
     return this.http.get(`${environment.backendProxy}/employee/ping`);
   }
 
-  fetchSuperUsers(tenantRootId: any): Observable<any> {
-    return this.http.get(`${environment.backendProxy}/employee/fetch/csa`, {
-      params: {
-        tenantId : tenantRootId
-      }
-    });
-  }
-
-  registerUser(body: any, tenantRootId: any): Observable<any>{
-    return this.http.post<any>(`${environment.backendProxy}/employee/admin/create`, body, {
-      params: {
-        tenantId : tenantRootId
-      }
-    })
-  }
-
-  getAllRoles(tenantRootId: any): Observable<any> {
-    return this.http.get(`${environment.backendProxy}/role/fetch`, {
-      params: {
-        tenantId : tenantRootId
-      }
-    });
-  }
-
-  toggleUserState(tenantRootId: any): Observable<any>  {
-    return this.http.put<any>(`${environment.backendProxy}/employee/togglestate`, {
-      params: {
-        tenantId : tenantRootId
-      }
-    })
-  }
-
   getAllPermissions(): Observable<any> {
     return this.http.get(`${environment.backendProxy}/role/fetch/permissions`);
   }

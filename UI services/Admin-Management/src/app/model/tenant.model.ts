@@ -7,6 +7,7 @@ export class Tenant extends BaseEntity {
     private _tenantName!: string;
     private _tenantActive!: boolean;
     private _locale!: string;
+    private _details!: string;
     //tenant details
   
     constructor() {
@@ -45,5 +46,12 @@ export class Tenant extends BaseEntity {
     get locale():string{
       return this._locale;
     }
+
+    set details(detail: any) {
+      this._details = detail;
+    }
     
+    get  details(): any{
+      return this._details;
+    }
 }

@@ -1,8 +1,8 @@
-import { APP_INITIALIZER, Injectable, LOCALE_ID, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, Injectable, LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule, HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { HttpInterceptorService } from "./service/HttpInterceptor/http-interceptor.service";
 
@@ -34,6 +34,7 @@ import {
   ProgressModule,
   SharedModule,
   SidebarModule,
+  SpinnerModule,
   TabsModule,
   UtilitiesModule
 } from '@coreui/angular';
@@ -47,6 +48,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TenantService } from './service/Tenant/tenant.service';
 import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
 import { MaterialModule } from './material.module';
+import { LoginComponent } from './views/login/login.component';
 
 const APP_CONTAINERS = [
   DefaultFooterComponent,
@@ -70,6 +72,7 @@ export class TenantInitializer {
                   this.tenantService.getCurrentTenant().tenantActive = resp.data.active;
                   this.tenantService.getCurrentTenant().tenantName = resp.data.tenantName;
                   this.tenantService.getCurrentTenant().locale = resp.data.locale;
+                  this.tenantService.getCurrentTenant().details = resp.data.tenantDetail;
                   //load app only if tenant is active.
                   if(this.tenantService.getCurrentTenant().tenantActive){
                      resolve(true);
@@ -97,7 +100,7 @@ export function init_tenant(initializer: TenantInitializer) {
 }
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, LoginComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -132,7 +135,10 @@ export function init_tenant(initializer: TenantInitializer) {
     ComponentsModule,
     I18nModule,
     MaterialModule,
-    TranslateModule
+    TranslateModule,
+    SpinnerModule,
+    UtilitiesModule,
+    FormsModule
   ],
   exports: [
     
