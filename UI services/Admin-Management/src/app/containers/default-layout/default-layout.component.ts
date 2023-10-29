@@ -5,6 +5,9 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { INavData } from '@coreui/angular';
 import { SubscriberService } from 'src/app/service/Subscriber/subscriber.service';
 import { CommonUtil } from 'src/app/service/util/common-util.service';
+import { UserService } from 'src/app/service/user/user.service';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,12 +18,32 @@ export class DefaultLayoutComponent implements OnInit {
 
   public navItems: INavData[] = navItems;
 
-  constructor(private translate: TranslatePipe, private subscriberService: SubscriberService) {
+  constructor(private translate: TranslatePipe, private subscriberService: SubscriberService, 
+              private userService: UserService, private router: Router, private cookie: CookieService) {
     this.updateLocale();
   }
 
   ngOnInit(){
-
+    if(CommonUtil.isNullOrEmptyOrUndefined(this.cookie.get(CommonUtil.TOKEN_KEY))){
+      this.router.navigate(['/login']);
+    }
+    this.userService.pingUser()
+    .subscribe(
+      {
+        next: (resp: any) => {
+          this.userService.getCurrentUser().userEmail = resp.data.emailid;
+          this.userService.getCurrentUser().userId = resp.data.rootId;
+          this.userService.getCurrentUser().userName = resp.data.fname + resp.data.lname;
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error: any) => {
+          this.router.navigate(['/login']);
+        },
+        complete: () => {
+          //done
+        }
+      }
+    )
   }
 
   updateLocale() {

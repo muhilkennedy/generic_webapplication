@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { UserService } from 'src/app/service/user/user.service';
 
 interface IUser {
   name: string;
@@ -21,11 +23,11 @@ interface IUser {
   styleUrls: ['dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  constructor(public translate: TranslateService) {
+  constructor(public translate: TranslateService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }
