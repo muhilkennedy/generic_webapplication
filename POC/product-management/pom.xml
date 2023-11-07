@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.8</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.productmanagement</groupId>
+	<artifactId>productmanagement</artifactId>
+	<version>v1.0.0</version>
+	<name>productmanagement</name>
+	<description>Products management microservice</description>
+	<packaging>pom</packaging>
+	<properties>
+		<java.version>1.8</java.version>
+		<platform.version>V1.0.0</platform.version>
+		<jsonorg.version>20220320</jsonorg.version>
+		<mysql.version>8.0.30</mysql.version>
+		<r2dbc.mysql.version>0.8.2.RELEASE</r2dbc.mysql.version>
+		<javax.rs.version>2.1.1</javax.rs.version>
+		<jobrunr.version>5.3.1</jobrunr.version>
+	</properties>
+	<dependencies>
+		<!-- default spring-boot web dependencies -->
+		<dependency>
+			<groupId>com.platform</groupId>
+			<artifactId>platform</artifactId>
+			<version>${platform.version}</version>
+		</dependency>
+		<!-- Dependency to use reactive netty server -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.junit.platform</groupId>
+		    <artifactId>junit-platform-suite-engine</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<!-- additional dependencies for complete maven build -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- Reactive relational database connectivity r2dbc dependencies -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-r2dbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/dev.miku/r2dbc-mysql -->
+ 		<dependency>
+		    <groupId>dev.miku</groupId>
+		    <artifactId>r2dbc-mysql</artifactId>
+		    <version>${r2dbc.mysql.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
+		<!-- Flyway DB migration -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.flywaydb</groupId>
+		    <artifactId>flyway-mysql</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>${javax.rs.version}</version>
+		</dependency>
+		<!-- job scheduling -->
+		<!-- <dependency>
+		   <groupId>org.jobrunr</groupId>
+		   <artifactId>jobrunr</artifactId>
+		   <version>${jobrunr.version}</version>
+		</dependency> -->
+		<!-- <dependency>
+		  <groupId>org.jobrunr</groupId>
+		  <artifactId>jobrunr-spring-boot-starter</artifactId>
+		  <version>${jobrunr.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${jsonorg.version}</version>
+		</dependency>
+		<!-- redis -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			
+		</plugins>
+	</build>
+	<modules>
+		<module>i18n</module>
+		<module>base</module>
+		<module>service</module>
+		<module>core</module>
+	</modules>
+</project>

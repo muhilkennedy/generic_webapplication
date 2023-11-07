@@ -1,0 +1,24 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.tenantmanagement</groupId>
+		<artifactId>tenantmanagement</artifactId>
+		<version>tenantmanagement-v1.0.0</version>
+	</parent>
+	<artifactId>tenant</artifactId>
+	<name>tenant</name>
+	<description>Platform Tenant Management Module</description>
+	<version>tenant-v1.0.0</version>
+	<dependencies>
+		<dependency>
+			<groupId>com.i18n</groupId>
+			<artifactId>i18n</artifactId>
+			<version>i18n-v1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.tenantmanagement</groupId>
+			<artifactId>base</artifactId>
+			<version>base-v1.0.0</version>
+		</dependency>
+	</dependencies>
+</project>

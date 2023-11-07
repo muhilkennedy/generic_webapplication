@@ -1,0 +1,93 @@
+2023-04-07 21:39:12,744 INFO com.base.util.Log [main] <<<<<<<<<<<<< Starting Core Application >>>>>>>>>>>>>
+2023-04-07 21:39:13,049 INFO com.base.util.Log [restartedMain] <<<<<<<<<<<<< Starting Core Application >>>>>>>>>>>>>
+2023-04-07 21:39:13,524 INFO com.core.application.CoreApplication [restartedMain] Starting CoreApplication using Java 1.8.0_202 on C02C80YNMD6M with PID 56356 (/Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core/target/classes started by i339628 in /Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core)
+2023-04-07 21:39:13,525 DEBUG com.core.application.CoreApplication [restartedMain] Running with Spring Boot v2.7.8, Spring v5.3.25
+2023-04-07 21:39:13,525 INFO com.core.application.CoreApplication [restartedMain] The following 1 profile is active: "dev"
+2023-04-07 21:39:13,599 INFO org.springframework.boot.devtools.restart.ChangeableUrls [restartedMain] The Class-Path manifest attribute in /Users/i339628/.m2/repository/xalan/xalan/2.7.2/xalan-2.7.2.jar referenced one or more files that do not exist: file:/Users/i339628/.m2/repository/xalan/xalan/2.7.2/xercesImpl.jar,file:/Users/i339628/.m2/repository/xalan/xalan/2.7.2/xml-apis.jar,file:/Users/i339628/.m2/repository/xalan/xalan/2.7.2/serializer.jar
+2023-04-07 21:39:13,599 INFO org.springframework.boot.devtools.restart.ChangeableUrls [restartedMain] The Class-Path manifest attribute in /Users/i339628/.m2/repository/xalan/serializer/2.7.2/serializer-2.7.2.jar referenced one or more files that do not exist: file:/Users/i339628/.m2/repository/xalan/serializer/2.7.2/xml-apis.jar
+2023-04-07 21:39:13,599 INFO org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-04-07 21:39:13,599 INFO org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-04-07 21:39:14,551 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Multiple Spring Data modules found, entering strict repository configuration mode
+2023-04-07 21:39:14,552 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data R2DBC repositories in DEFAULT mode.
+2023-04-07 21:39:14,595 INFO org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport [restartedMain] Spring Data R2DBC - Could not safely identify store assignment for repository candidate interface com.core.jpa.ProdRepo; If you want this repository to be a R2DBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table (preferred), or consider extending one of the following types with your repository: org.springframework.data.r2dbc.repository.R2dbcRepository
+2023-04-07 21:39:14,775 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 215 ms. Found 1 R2DBC repository interfaces.
+2023-04-07 21:39:14,777 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Multiple Spring Data modules found, entering strict repository configuration mode
+2023-04-07 21:39:14,777 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-04-07 21:39:14,789 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 7 ms. Found 1 JPA repository interfaces.
+2023-04-07 21:39:15,180 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Multiple Spring Data modules found, entering strict repository configuration mode
+2023-04-07 21:39:15,182 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2023-04-07 21:39:15,194 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 1 ms. Found 0 Redis repository interfaces.
+2023-04-07 21:39:16,056 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 9090 (http)
+2023-04-07 21:39:16,152 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 2552 ms
+2023-04-07 21:39:16,412 DEBUG com.base.filter.TenantFilter [restartedMain] Filter 'tenantFilter' configured for use
+2023-04-07 21:39:16,619 INFO org.flywaydb.core.internal.license.VersionPrinter [restartedMain] Flyway Community Edition 8.5.13 by Redgate
+2023-04-07 21:39:16,619 INFO org.flywaydb.core.internal.license.VersionPrinter [restartedMain] Flyway Community Edition 8.5.13 by Redgate
+2023-04-07 21:39:16,619 INFO org.flywaydb.core.internal.license.VersionPrinter [restartedMain] See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.13
+2023-04-07 21:39:16,619 INFO org.flywaydb.core.internal.license.VersionPrinter [restartedMain] See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#8.5.13
+2023-04-07 21:39:16,620 INFO org.flywaydb.core.internal.license.VersionPrinter [restartedMain] 
+2023-04-07 21:39:16,620 INFO org.flywaydb.core.internal.license.VersionPrinter [restartedMain] 
+2023-04-07 21:39:16,622 DEBUG org.flywaydb.core.internal.util.FeatureDetector [restartedMain] AWS SDK available: false
+2023-04-07 21:39:16,622 DEBUG org.flywaydb.core.internal.util.FeatureDetector [restartedMain] AWS SDK available: false
+2023-04-07 21:39:16,624 DEBUG org.flywaydb.core.internal.util.FeatureDetector [restartedMain] Google Cloud Storage available: true
+2023-04-07 21:39:16,624 DEBUG org.flywaydb.core.internal.util.FeatureDetector [restartedMain] Google Cloud Storage available: true
+2023-04-07 21:39:16,624 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning for classpath resources at 'classpath:db/callback' ...
+2023-04-07 21:39:16,624 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning for classpath resources at 'classpath:db/callback' ...
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Determining location urls for classpath:db/callback using ClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7d840b6f ...
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Determining location urls for classpath:db/callback using ClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7d840b6f ...
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Unable to resolve location classpath:db/callback.
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Unable to resolve location classpath:db/callback.
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning for classpath resources at 'classpath:db/migration' ...
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning for classpath resources at 'classpath:db/migration' ...
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Determining location urls for classpath:db/migration using ClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7d840b6f ...
+2023-04-07 21:39:16,625 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Determining location urls for classpath:db/migration using ClassLoader org.springframework.boot.devtools.restart.classloader.RestartClassLoader@7d840b6f ...
+2023-04-07 21:39:16,626 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning URL: file:/Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core/target/classes/db/migration
+2023-04-07 21:39:16,626 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning URL: file:/Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core/target/classes/db/migration
+2023-04-07 21:39:16,626 DEBUG org.flywaydb.core.internal.util.FeatureDetector [restartedMain] JBoss VFS v2 available: false
+2023-04-07 21:39:16,626 DEBUG org.flywaydb.core.internal.util.FeatureDetector [restartedMain] JBoss VFS v2 available: false
+2023-04-07 21:39:16,628 DEBUG org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner [restartedMain] Scanning starting at classpath root in filesystem: /Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core/target/classes/
+2023-04-07 21:39:16,628 DEBUG org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner [restartedMain] Scanning starting at classpath root in filesystem: /Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core/target/classes/
+2023-04-07 21:39:16,628 DEBUG org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner [restartedMain] Scanning for resources in path: /Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core/target/classes/db/migration (db/migration)
+2023-04-07 21:39:16,628 DEBUG org.flywaydb.core.internal.scanner.classpath.FileSystemClassPathLocationScanner [restartedMain] Scanning for resources in path: /Users/i339628/muhil-dev/january/generic_webapplication/services/product-management/core/target/classes/db/migration (db/migration)
+2023-04-07 21:39:16,630 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Found resource: db/migration/V1__initial.sql
+2023-04-07 21:39:16,630 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Found resource: db/migration/V1__initial.sql
+2023-04-07 21:39:16,631 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning for classes at classpath:db/migration
+2023-04-07 21:39:16,631 DEBUG org.flywaydb.core.internal.scanner.classpath.ClassPathScanner [restartedMain] Scanning for classes at classpath:db/migration
+2023-04-07 21:39:16,634 DEBUG org.flywaydb.core.internal.resource.ResourceNameValidator [restartedMain] Validating V1__initial.sql
+2023-04-07 21:39:16,634 DEBUG org.flywaydb.core.internal.resource.ResourceNameValidator [restartedMain] Validating V1__initial.sql
+2023-04-07 21:39:16,906 INFO org.flywaydb.core.internal.database.base.BaseDatabaseType [restartedMain] Database: jdbc:mysql://localhost:3306/productmanagement (MySQL 8.0)
+2023-04-07 21:39:16,906 INFO org.flywaydb.core.internal.database.base.BaseDatabaseType [restartedMain] Database: jdbc:mysql://localhost:3306/productmanagement (MySQL 8.0)
+2023-04-07 21:39:16,906 DEBUG org.flywaydb.core.internal.database.base.BaseDatabaseType [restartedMain] Driver  : MySQL Connector/J mysql-connector-java-8.0.30 (Revision: 1de2fe873fe26189564c030a343885011412976a)
+2023-04-07 21:39:16,906 DEBUG org.flywaydb.core.internal.database.base.BaseDatabaseType [restartedMain] Driver  : MySQL Connector/J mysql-connector-java-8.0.30 (Revision: 1de2fe873fe26189564c030a343885011412976a)
+2023-04-07 21:39:16,912 DEBUG org.flywaydb.core.FlywayExecutor [restartedMain] DDL Transactions Supported: false
+2023-04-07 21:39:16,912 DEBUG org.flywaydb.core.FlywayExecutor [restartedMain] DDL Transactions Supported: false
+2023-04-07 21:39:16,913 DEBUG org.flywaydb.core.internal.schemahistory.SchemaHistoryFactory [restartedMain] Schemas: 
+2023-04-07 21:39:16,913 DEBUG org.flywaydb.core.internal.schemahistory.SchemaHistoryFactory [restartedMain] Schemas: 
+2023-04-07 21:39:16,914 DEBUG org.flywaydb.core.internal.schemahistory.SchemaHistoryFactory [restartedMain] Default schema: null
+2023-04-07 21:39:16,914 DEBUG org.flywaydb.core.internal.schemahistory.SchemaHistoryFactory [restartedMain] Default schema: null
+2023-04-07 21:39:16,921 DEBUG org.flywaydb.core.internal.callback.SqlScriptCallbackFactory [restartedMain] Scanning for SQL callbacks ...
+2023-04-07 21:39:16,921 DEBUG org.flywaydb.core.internal.callback.SqlScriptCallbackFactory [restartedMain] Scanning for SQL callbacks ...
+2023-04-07 21:39:16,926 DEBUG org.flywaydb.core.internal.command.DbValidate [restartedMain] Validating migrations ...
+2023-04-07 21:39:16,926 DEBUG org.flywaydb.core.internal.command.DbValidate [restartedMain] Validating migrations ...
+2023-04-07 21:39:16,938 DEBUG org.flywaydb.core.internal.scanner.Scanner [restartedMain] Filtering out resource: db/migration/V1__initial.sql (filename: V1__initial.sql)
+2023-04-07 21:39:16,938 DEBUG org.flywaydb.core.internal.scanner.Scanner [restartedMain] Filtering out resource: db/migration/V1__initial.sql (filename: V1__initial.sql)
+2023-04-07 21:39:16,953 INFO org.flywaydb.core.internal.command.DbValidate [restartedMain] Successfully validated 1 migration (execution time 00:00.026s)
+2023-04-07 21:39:16,953 INFO org.flywaydb.core.internal.command.DbValidate [restartedMain] Successfully validated 1 migration (execution time 00:00.026s)
+2023-04-07 21:39:16,963 INFO org.flywaydb.core.internal.command.DbMigrate [restartedMain] Current version of schema `productmanagement`: 1
+2023-04-07 21:39:16,963 INFO org.flywaydb.core.internal.command.DbMigrate [restartedMain] Current version of schema `productmanagement`: 1
+2023-04-07 21:39:16,963 WARN org.flywaydb.core.internal.command.DbMigrate [restartedMain] outOfOrder mode is active. Migration of schema `productmanagement` may not be reproducible.
+2023-04-07 21:39:16,963 WARN org.flywaydb.core.internal.command.DbMigrate [restartedMain] outOfOrder mode is active. Migration of schema `productmanagement` may not be reproducible.
+2023-04-07 21:39:16,964 INFO org.flywaydb.core.internal.command.DbMigrate [restartedMain] Schema `productmanagement` is up to date. No migration necessary.
+2023-04-07 21:39:16,964 INFO org.flywaydb.core.internal.command.DbMigrate [restartedMain] Schema `productmanagement` is up to date. No migration necessary.
+2023-04-07 21:39:16,970 DEBUG org.flywaydb.core.FlywayExecutor [restartedMain] Memory usage: 288 of 516M
+2023-04-07 21:39:16,970 DEBUG org.flywaydb.core.FlywayExecutor [restartedMain] Memory usage: 288 of 516M
+2023-04-07 21:39:18,472 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-04-07 21:39:18,987 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2023-04-07 21:39:20,192 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-04-07 21:39:20,998 WARN org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration [restartedMain] Cannot find template location(s): [classpath:/templates/] (please add some templates, check your FreeMarker configuration, or set spring.freemarker.check-template-location=false)
+2023-04-07 21:39:21,085 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [restartedMain] Exposing 14 endpoint(s) beneath base path '/actuator'
+2023-04-07 21:39:21,171 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 9090 (http) with context path '/pm'
+2023-04-07 21:39:21,190 INFO com.core.application.CoreApplication [restartedMain] Started CoreApplication in 8.135 seconds (JVM running for 9.031)
+2023-04-07 21:39:21,244 INFO com.base.util.Log [restartedMain] Heap Size = 0.735576064 GB
+2023-04-07 21:39:21,244 INFO com.base.util.Log [restartedMain] Max Memory Size = 3.817865216 GB
+2023-04-07 21:39:21,245 INFO com.base.util.Log [restartedMain] Total Memory Size = 0.659960408 GB
+2023-04-07 21:39:26,816 INFO org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
