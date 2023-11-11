@@ -8,8 +8,9 @@ pipeline {
         }
         stage('Maven Build'){
             steps{
-                dir('/var/lib/jenkins/workspace/Docker-Image/services/tenant-management') 
-                sh 'mvn clean install'
+                dir('/var/lib/jenkins/workspace/Docker-Image/services/tenant-management') {
+                      sh 'mvn clean install'
+              }
             }
         }
     }
