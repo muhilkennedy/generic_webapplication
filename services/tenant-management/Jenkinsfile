@@ -13,5 +13,12 @@ pipeline {
               }
             }
         }
+        stage('Docker Image Build'){
+            steps{
+                dir('/var/lib/jenkins/workspace/Docker-Image/services/tenant-management') {
+                      sh 'docker build -t tenent .'
+              }
+            }
+        }        
     }
 }
