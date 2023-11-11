@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build image') {
             steps { 
-                git branch: 'DevOps', url: 'https://github.com/muhilkennedy/generic_webapplication.git'
+                checkout scmGit(branches: [[name: '*/DevOps']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/muhilkennedy/generic_webapplication.git']])
             }
         }
     }
