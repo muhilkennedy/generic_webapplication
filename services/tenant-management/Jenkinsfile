@@ -1,0 +1,10 @@
+pipeline {
+    agent any
+    stages {
+        stage('Build image') {
+            steps { 
+                git branch: 'DevOps', url: 'https://github.com/muhilkennedy/generic_webapplication.git'
+            }
+        }
+    }
+}
