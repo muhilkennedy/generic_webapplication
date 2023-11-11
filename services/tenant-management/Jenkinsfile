@@ -1,9 +1,15 @@
 pipeline {
     agent any
     stages {
-        stage('Build image') {
+        stage('Checkout SCM') {
             steps { 
                 checkout scmGit(branches: [[name: '*/DevOps']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/muhilkennedy/generic_webapplication.git']])
+            }
+        }
+        stage('Maven Build'){
+            steps{
+                dir('/var/lib/jenkins/workspace/Docker-Image/services/tenant-management') 
+                sh 'mvn clean install'
             }
         }
     }
