@@ -13,6 +13,13 @@ pipeline {
               }
             }
         }
+        stage('Remove Old version Docker Image'){
+            steps{
+                dir('/var/lib/jenkins/workspace/Docker-Image/services/tenant-management') {
+                      sh 'docker rmi $(docker images -a -q)'
+              }
+            }
+        }         
         stage('Docker Image Build'){
             steps{
                 dir('/var/lib/jenkins/workspace/Docker-Image/services/tenant-management') {
