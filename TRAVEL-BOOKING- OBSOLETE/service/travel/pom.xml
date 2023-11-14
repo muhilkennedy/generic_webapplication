@@ -20,7 +20,7 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
     	<maven.compiler.target>${java.version}</maven.compiler.target>
     	<platform.version>1.0.0</platform.version>
-		<jsonorg.version>20220320</jsonorg.version>
+		<jsonorg.version>20231013</jsonorg.version>
 		<mysql.version>8.0.30</mysql.version>
 		<r2dbc.mysql.version>0.8.2.RELEASE</r2dbc.mysql.version>
 		<javax.rs.version>2.1.1</javax.rs.version>
